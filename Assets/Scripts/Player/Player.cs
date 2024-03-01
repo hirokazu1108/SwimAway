@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -25,6 +25,12 @@ public class Player : MonoBehaviour
     [SerializeField, Header("Headのトリガー判定間隔")] private float _triggerInterval;
     private float _triggerTimer = 99f;
 
+    //不要
+    [Header("確認用")]
+    [SerializeField] private GameObject _infoCanvas;
+    [SerializeField] private Text _infoText;
+    [SerializeField] private bool _needsInfo;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -36,6 +42,8 @@ public class Player : MonoBehaviour
         userInput();
 
         _triggerTimer += Time.deltaTime;
+
+        showInfoCanvas();
     }
 
     private void FixedUpdate()
@@ -160,7 +168,15 @@ public class Player : MonoBehaviour
         StartCoroutine(turnTo(dir));
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void showInfoCanvas()
+    {
+        _infoCanvas.SetActive(_needsInfo);
+        if (!_needsInfo) return;
+
+        _infoText.text = $"Time : {(int)_elapsedTime}秒\nSpeed : {_rb.velocity.magnitude}\nMode : {_moveState}\nDirection : ({_potentialDirection.X},{_potentialDirection.Y})";
+    }
+
+    private void OnTriggerStay(Collider other)
     {
         //トリガーの間隔を適応
         if (_triggerTimer < _triggerInterval) return;
