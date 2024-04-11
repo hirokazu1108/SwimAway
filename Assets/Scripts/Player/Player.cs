@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] private MoveState _moveState = MoveState.Stop;    //現在の状態
     private Directions2 _potentialDirection = new Directions2(1,1);     //潜在的な方向
 
+    [SerializeField] private GameObject _head;
+
     private Rigidbody _rb = null;
     private float _elapsedTime = 0f;    //経過時間
 
@@ -108,6 +110,7 @@ public class Player : MonoBehaviour
         Quaternion targetRot = transform.rotation;
         MoveState targetMoveState = _moveState;
         _moveState = MoveState.Turn;    //状態を回転状態に
+        _head.SetActive(false);
 
         switch (direction)
         {
@@ -131,7 +134,7 @@ public class Player : MonoBehaviour
 
         //回転処理
         var frameCount = 0;
-        const float rotateFrame = 18f; //回転にかけるフレーム数
+        const float rotateFrame = 9f; //回転にかけるフレーム数
         while (frameCount < 180f/rotateFrame)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotateFrame);
@@ -141,6 +144,7 @@ public class Player : MonoBehaviour
 
         transform.rotation = targetRot;
         _moveState = targetMoveState;
+        _head.SetActive(true);
 
         yield break;
     }
@@ -178,7 +182,7 @@ public class Player : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //トリガーの間隔を適応
-        if (_triggerTimer < _triggerInterval) return;
+        //if (_triggerTimer < _triggerInterval) return;
 
         reflect();  //進行方向の反転処理
         _triggerTimer = 0f;
