@@ -388,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveState: 0
+  _head: {fileID: 5726102978368090240}
   _inputInterval: 0.2
   _triggerInterval: 0.1
   _infoCanvas: {fileID: 814343692}
