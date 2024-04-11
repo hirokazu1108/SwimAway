@@ -50,12 +50,12 @@ Shader "SeaCellular"
                 return -1.0 + 2.0 * frac(sin(st) * 43758.5453123);
             }
 
-            fixed4 frag(v2f i) : SV_Target {
-                float2 uv = i.uv * _MainTex_ST.xy + _MainTex_ST.zw;
-                float2 uvCellular = uv * 16;
 
-                float2 ist = floor(uvCellular);
-                float2 fst = frac(uvCellular);
+            float cellularnoise(float2 st, float n) {
+                st *= n;
+
+                float2 ist = floor(st);
+                float2 fst = frac(st);
 
                 float distance = 5;
 
@@ -69,8 +69,14 @@ Shader "SeaCellular"
                     }
 
                 float color = distance * 0.2;
-                fixed4 finalColor = color * float4(1, 2, -2, 1) + float4(0.1, 0.5, 1.5, 1);
-                return finalColor;
+
+                return color;
+            }
+
+
+            fixed4 frag(v2f i) :  SV_Target{
+
+                return cellularnoise(i.uv, 16) * float4(1, 2, -2, 1) + float4(0.1,0.5,1.5,1);
             }
             ENDCG
         }
