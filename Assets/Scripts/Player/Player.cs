@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+
+        _moveState = MoveState.MoveHorizontal;
+        _potentialDirection.setHorizontal(1);   //’âŽ~Žž
     }
 
     private void Update()
@@ -58,26 +61,22 @@ public class Player : MonoBehaviour
         _inputTimer += Time.deltaTime;
         if (_inputTimer < _inputInterval) return;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && _moveState != MoveState.MoveVertical)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (_moveState == MoveState.Stop) _potentialDirection.setVertical(1);   //’âŽ~Žž
-
-            _moveState = MoveState.MoveVertical;
-            if (_moveState != MoveState.Turn) StartCoroutine(turnTo(_potentialDirection.Y));
-            _rb.velocity = Vector3.zero;
-
-            _inputTimer = 0;
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow) && _moveState != MoveState.MoveHorizontal)   
-        {
-            if (_moveState == MoveState.Stop) _potentialDirection.setHorizontal(1); //’âŽ~Žž
-
-            _moveState = MoveState.MoveHorizontal;
-            if (_moveState != MoveState.Turn) StartCoroutine(turnTo(_potentialDirection.X));
-            _rb.velocity = Vector3.zero;
-
-            _inputTimer = 0;
+            if (_moveState == MoveState.MoveHorizontal)
+            {
+                _moveState = MoveState.MoveVertical;
+                if (_moveState != MoveState.Turn) StartCoroutine(turnTo(_potentialDirection.Y));
+                _rb.velocity = Vector3.zero;
+                _inputTimer = 0;
+            }
+            else if(_moveState == MoveState.MoveVertical)
+            {
+                _moveState = MoveState.MoveHorizontal;
+                if (_moveState != MoveState.Turn) StartCoroutine(turnTo(_potentialDirection.X));
+                _rb.velocity = Vector3.zero;
+                _inputTimer = 0;
+            }
         }
     }
 
