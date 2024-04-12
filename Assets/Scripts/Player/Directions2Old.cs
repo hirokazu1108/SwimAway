@@ -7,7 +7,7 @@ public enum Direction
     Down,
 }
 
-public class Directions2
+public class Directions2Old
 {
     private Direction _x;
     private Direction _y;
@@ -16,7 +16,7 @@ public class Directions2
     public Direction Y { get => _y; }
 
 
-    public Directions2(int x, int y)
+    public Directions2Old(int x, int y)
     {
         setHorizontal(x);
         setVertical(y);
