@@ -2,18 +2,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class PlayerOld : MonoBehaviour
 {
     public enum MoveState
     {
         Stop,
         MoveHorizontal,
         MoveVertical,
+        Turn,
     }
 
     private float _targetSpeed;  //目標の速さ（adjustSpeed()で管理）
-    [SerializeField] private MoveState _moveState = MoveState.MoveHorizontal;    //現在の状態
-    private Vector2 _potentialDirection = new Vector2(1,1);     //潜在的な方向
+    [SerializeField] private MoveState _moveState = MoveState.Stop;    //現在の状態
+    private Directions2Old _potentialDirection = new Directions2Old(1, 1);     //潜在的な方向
 
     [SerializeField] private GameObject _head;
 
@@ -23,7 +24,8 @@ public class Player : MonoBehaviour
     [SerializeField, Header("キー入力の受付間隔")] private float _inputInterval;
     private float _inputTimer = 99f;
 
-    private bool _isTurning = false;
+    [SerializeField, Header("Headのトリガー判定間隔")] private float _triggerInterval;
+    private float _triggerTimer = 99f;
 
     //不要
     [Header("確認用")]
@@ -34,12 +36,18 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+
+        _moveState = MoveState.MoveHorizontal;
+        _potentialDirection.setHorizontal(1);   //停止時
     }
 
     private void Update()
     {
         adjustSpeed();
         userInput();
+
+        _triggerTimer += Time.deltaTime;
+
         showInfoCanvas();
     }
 
@@ -60,20 +68,17 @@ public class Player : MonoBehaviour
             if (_moveState == MoveState.MoveHorizontal)
             {
                 _moveState = MoveState.MoveVertical;
-                if (!_isTurning) StartCoroutine(turnTo(_potentialDirection));
+                if (_moveState != MoveState.Turn) StartCoroutine(turnTo(_potentialDirection.Y));
+                _rb.velocity = Vector3.zero;
                 _inputTimer = 0;
             }
             else if (_moveState == MoveState.MoveVertical)
             {
                 _moveState = MoveState.MoveHorizontal;
-                if (!_isTurning) StartCoroutine(turnTo(_potentialDirection));
+                if (_moveState != MoveState.Turn) StartCoroutine(turnTo(_potentialDirection.X));
+                _rb.velocity = Vector3.zero;
                 _inputTimer = 0;
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            addForce(new Vector2(1,0));
         }
     }
 
@@ -87,7 +92,7 @@ public class Player : MonoBehaviour
     //進行処理
     private void move()
     {
-        //if (_isTurning) return;
+        if (_moveState == MoveState.Turn) return;
 
         // dirの向きに目標速度を維持して移動
         var power = 0f;
@@ -99,38 +104,32 @@ public class Player : MonoBehaviour
 
     //指定した方向を向く
     //TODO:もう少し動きこだわろう、OnTriggerEnterを複数回拾う挙動がありそう
-    private IEnumerator turnTo(Vector2 direction)
+    private IEnumerator turnTo(Direction direction)
     {
-        _head.SetActive(false);
-        _isTurning = true;
-        
-
         //指定方向に向くための変数のセット
         Quaternion targetRot = transform.rotation;
+        MoveState targetMoveState = _moveState;
+        _moveState = MoveState.Turn;    //状態を回転状態に
 
-        if(_moveState == MoveState.MoveHorizontal)
+
+        switch (direction)
         {
-            if (direction.x > 0)
-            {
+            case Direction.Forward:
                 targetRot = Quaternion.Euler(0, 90, 0);  //Forward
-            }
-            else if (direction.x < 0)
-            {
+                targetMoveState = MoveState.MoveHorizontal;
+                break;
+            case Direction.Back:
                 targetRot = Quaternion.Euler(0, 270, 0); //Back
-            }
-            _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;    //x軸方向にしか移動できないようにする
-        }
-        else if(_moveState == MoveState.MoveVertical)
-        {
-            if (direction.y > 0)
-            {
+                targetMoveState = MoveState.MoveHorizontal;
+                break;
+            case Direction.Up:
                 targetRot = Quaternion.Euler(-90, 0, 0);  //Up
-            }
-            else if (direction.y < 0)
-            {
+                targetMoveState = MoveState.MoveVertical;
+                break;
+            case Direction.Down:
                 targetRot = Quaternion.Euler(90, 0, 0);  //Down
-            }
-            _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;     //y軸方向にしか移動できないようにする
+                targetMoveState = MoveState.MoveVertical;
+                break;
         }
 
         //回転処理
@@ -144,9 +143,8 @@ public class Player : MonoBehaviour
         }
 
         transform.rotation = targetRot;
-
+        _moveState = targetMoveState;
         _head.SetActive(true);
-        _isTurning = false;
 
         yield break;
     }
@@ -154,59 +152,41 @@ public class Player : MonoBehaviour
     //反射の処理
     private void reflect()
     {
+        if (_moveState == MoveState.Turn) return;
+
+        _head.SetActive(false);
+
+        var dir = Direction.None;
         //潜在方向の反転
         if (_moveState == MoveState.MoveHorizontal)
         {
-            _potentialDirection = new Vector2(-_potentialDirection.x, _potentialDirection.y);
+            _potentialDirection.inverseX();
+            dir = _potentialDirection.X;
         }
         else if (_moveState == MoveState.MoveVertical)
         {
-            _potentialDirection = new Vector2(_potentialDirection.x, -_potentialDirection.y);
+            _potentialDirection.inverseY();
+            dir = _potentialDirection.Y;
         }
 
         //キャラクターの向きを変える処理
-        StartCoroutine(turnTo(_potentialDirection));
-    }
-
-    private void addForce(Vector2 dir)
-    {
-        if(dir.x != 0 && dir.y != 0)
-        {
-            Debug.Log("WARNING:不適切な値が入力されました。");
-            return;
-        }
-
-        if (dir.x != 0)
-        {
-            _moveState = MoveState.MoveHorizontal;
-            _potentialDirection.x = dir.x / Mathf.Abs(dir.x);
-            
-        } 
-
-        if (dir.y != 0)
-        {
-            _moveState = MoveState.MoveVertical;
-            _potentialDirection.y = dir.y / Mathf.Abs(dir.y);
-        }
-
-        StartCoroutine(turnTo(_potentialDirection));
+        StartCoroutine(turnTo(dir));
     }
 
     private void showInfoCanvas()
     {
         _infoCanvas.SetActive(_needsInfo);
-
         if (!_needsInfo) return;
 
-        _infoText.text = $"Time : {(int)_elapsedTime}秒\nSpeed : {_rb.velocity.magnitude}\nMode : {_moveState}\nDirection : ({_potentialDirection.x},{_potentialDirection.y})";
+        _infoText.text = $"Time : {(int)_elapsedTime}秒\nSpeed : {_rb.velocity.magnitude}\nMode : {_moveState}\nDirection : ({_potentialDirection.X},{_potentialDirection.Y})";
     }
 
     private void OnTriggerStay(Collider other)
     {
         //トリガーの間隔を適応
         //if (_triggerTimer < _triggerInterval) return;
-        if (_isTurning) return;
 
         reflect();  //進行方向の反転処理
+        _triggerTimer = 0f;
     }
 }

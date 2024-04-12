@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &814343693
 RectTransform:
   m_ObjectHideFlags: 0
@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 5726102978222426878}
   - component: {fileID: 5726102978222426879}
   - component: {fileID: 5726102978222426872}
-  - component: {fileID: 5726102978222426873}
+  - component: {fileID: 1514161080589523845}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -286,7 +286,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5726102978222426874}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
@@ -295,7 +295,7 @@ Transform:
   - {fileID: 814343693}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &5726102978222426877
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 114
   m_CollisionDetection: 2
---- !u!114 &5726102978222426873
+--- !u!114 &1514161080589523845
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -384,16 +384,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5726102978222426874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 583bb8129595a8a4f91b7e6719f7b977, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f7008cd9def09244bf43602bb2e3930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveState: 0
+  _moveState: 1
   _head: {fileID: 5726102978368090240}
   _inputInterval: 0.2
-  _triggerInterval: 0.1
   _infoCanvas: {fileID: 814343692}
   _infoText: {fileID: 1967367025}
-  _needsInfo: 1
+  _needsInfo: 0
 --- !u!1 &5726102978368090240
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,8 +420,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5726102978368090240}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.504}
-  m_LocalScale: {x: 0.55, y: 0.55, z: 0.02}
+  m_LocalPosition: {x: -0, y: 0, z: 0.5621}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 0.1453444}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5726102978222426876}
