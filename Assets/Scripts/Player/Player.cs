@@ -11,22 +11,25 @@ public class Player : MonoBehaviour
         MoveVertical,
     }
 
-    private float _targetSpeed;  //目標の速さ（adjustSpeed()で管理）
-    [SerializeField] private MoveState _moveState = MoveState.MoveHorizontal;    //現在の状態
-    private Vector2 _potentialDirection = new Vector2(1,1);     //潜在的な方向
-
+    [Space(10), Header("[Attachment]")]
     [SerializeField] private GameObject _head;
 
-    private Rigidbody _rb = null;
-    private float _elapsedTime = 0f;    //経過時間
-
+    [Space(10),Header("[Parameter]")]
     [SerializeField, Header("キー入力の受付間隔")] private float _inputInterval;
+
+    [Space(10), Header("[State]")]
+    [SerializeField] private MoveState _moveState = MoveState.MoveHorizontal;    //現在の状態
+    [SerializeField] private Vector2 _potentialDirection = new Vector2(1,1);     //潜在的な方向
+    [SerializeField] private float _elapsedTime = 0f;    //経過時間
+
+
+    private Rigidbody _rb = null;
+    private float _targetSpeed;  //目標の速さ（adjustSpeed()で管理）
+    private bool _isTurning = false;
     private float _inputTimer = 99f;
 
-    private bool _isTurning = false;
-
     //不要
-    [Header("確認用")]
+    [Space(10), Header("[確認用]")]
     [SerializeField] private GameObject _infoCanvas;
     [SerializeField] private Text _infoText;
     [SerializeField] private bool _needsInfo;
@@ -73,7 +76,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            addForce(new Vector2(1,0));
+            addForce(new Vector2(1,0),10f);
         }
     }
 
@@ -168,7 +171,7 @@ public class Player : MonoBehaviour
         StartCoroutine(turnTo(_potentialDirection));
     }
 
-    private void addForce(Vector2 dir)
+    private void addForce(Vector2 dir, float power = 0f)
     {
         if(dir.x != 0 && dir.y != 0)
         {
@@ -180,7 +183,6 @@ public class Player : MonoBehaviour
         {
             _moveState = MoveState.MoveHorizontal;
             _potentialDirection.x = dir.x / Mathf.Abs(dir.x);
-            
         } 
 
         if (dir.y != 0)
@@ -190,6 +192,7 @@ public class Player : MonoBehaviour
         }
 
         StartCoroutine(turnTo(_potentialDirection));
+        _rb.AddForce(power * dir, ForceMode.Impulse);
     }
 
     private void showInfoCanvas()
