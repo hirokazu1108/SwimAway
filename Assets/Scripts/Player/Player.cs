@@ -57,19 +57,20 @@ public class Player : MonoBehaviour
         //キー入力間隔を適応
         _inputTimer += Time.deltaTime;
         if (_inputTimer < _inputInterval) return;
+        if (_isTurning) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (_moveState == MoveState.MoveHorizontal)
             {
                 _moveState = MoveState.MoveVertical;
-                if (!_isTurning) StartCoroutine(turnTo(_potentialDirection));
+                StartCoroutine(turnTo(_potentialDirection));
                 _inputTimer = 0;
             }
             else if (_moveState == MoveState.MoveVertical)
             {
                 _moveState = MoveState.MoveHorizontal;
-                if (!_isTurning) StartCoroutine(turnTo(_potentialDirection));
+                StartCoroutine(turnTo(_potentialDirection));
                 _inputTimer = 0;
             }
         }
@@ -94,7 +95,7 @@ public class Player : MonoBehaviour
 
         // dirの向きに目標速度を維持して移動
         var power = 0f;
-        if (_moveState != MoveState.Stop) power = 15f;  // 加える力目標速度に到達するまでの時間を変化させられる
+        if (_moveState != MoveState.Stop) power = _rb.velocity.magnitude+1;  // 加える力目標速度に到達するまでの時間を変化させられる
 
         var vectorAddForce = transform.forward * (_targetSpeed - _rb.velocity.magnitude) * power;
         _rb.AddForce(vectorAddForce, ForceMode.Acceleration);
@@ -206,8 +207,6 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        //トリガーの間隔を適応
-        //if (_triggerTimer < _triggerInterval) return;
         if (_isTurning) return;
 
         reflect();  //進行方向の反転処理
