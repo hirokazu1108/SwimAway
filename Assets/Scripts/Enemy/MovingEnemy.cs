@@ -11,27 +11,30 @@ public class MovingEnemy : Enemy
         YAxis,
     }
 
-
-    [SerializeField] private float _roundTripWidth;   //往復の幅
+    [Space(10), Header("[Parameter]")]
     [SerializeField] private MoveMode _moveMode;    //動き方
-    [SerializeField] private float boundPower;  //バウンドの強さ
+    [SerializeField] private float _roundTripWidth;   //往復の幅
+    [SerializeField] private float _boundPower;  //バウンドの強さ
+    [SerializeField, Header("バウンド後のクールタイム")] private float _boundInterval;
 
     private Rigidbody _rb = null;
-    private Vector3 startPos;
-
+    private Vector3 _startPos = Vector3.zero;   //反復移動の基準位置
+    private float _boundTimer = 99f;    //バウンド時間の測定
+    private bool _dirTogle = false; //進行方向のトグル
+    private Vector3 _velocity = Vector3.zero;
     private Action moveFunc = null;
-    private bool _isBound = false;    //跳ね返り中かどうか
+    
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        startPos = transform.position;
+        _startPos = transform.position;
         moveFuncSet();
 
         Init();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Move();
     }
@@ -55,15 +58,25 @@ public class MovingEnemy : Enemy
         {
             case MoveMode.XAxis:
                 moveFunc = () => {
-                    var targetPos = new Vector3((Mathf.Sin((Time.time) * speed) * _roundTripWidth + startPos.x), startPos.y, startPos.z);
-                    _rb.MovePosition(targetPos);
+                    var targetPos = Vector3.zero;
+                    if (_dirTogle) targetPos = new Vector3(_startPos.x + _roundTripWidth, _startPos.y, _startPos.z);
+                    else targetPos = new Vector3(_startPos.x - _roundTripWidth, _startPos.y, _startPos.z);
+
+                    if((targetPos-transform.position).magnitude < 1f) _dirTogle = !_dirTogle;
+
+                    transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref _velocity, _roundTripWidth /speed);
                 };
                 break;
             case MoveMode.YAxis:
                 moveFunc = () =>
                 {
-                    var targetPos = new Vector3(startPos.x, (Mathf.Sin((Time.time) * speed) * _roundTripWidth + startPos.y), startPos.z);
-                    _rb.MovePosition(targetPos);
+                    var targetPos = Vector3.zero;
+                    if (_dirTogle) targetPos = new Vector3(_startPos.x, _startPos.y + _roundTripWidth, _startPos.z);
+                    else targetPos = new Vector3(_startPos.x, _startPos.y - _roundTripWidth, _startPos.z);
+
+                    if ((targetPos - transform.position).magnitude < 1f) _dirTogle = !_dirTogle;
+
+                    transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref _velocity, _roundTripWidth / speed);
                 };
                 break;
         }
@@ -71,12 +84,8 @@ public class MovingEnemy : Enemy
 
     public override void Move()
     {
-        if (!_isBound) moveFunc();
-        else
-        {
-            startPos = transform.position;
-            if(_rb.velocity.magnitude < 1f) _isBound = false;
-        } 
+        if (_boundTimer > _boundInterval) moveFunc();
+        else _boundTimer += Time.deltaTime;
     }
 
     public override void Hit()
@@ -118,8 +127,8 @@ public class MovingEnemy : Enemy
         }
 
 
-        _isBound = true;
-        player.addForce(forceDirection, boundPower);
-        _rb.AddForce(-forceDirection*boundPower, ForceMode.Impulse);
+        _boundTimer = 0;
+        player.addForce(forceDirection, _boundPower);
+        _rb.AddForce(-forceDirection*_boundPower, ForceMode.Impulse);
     }
 }

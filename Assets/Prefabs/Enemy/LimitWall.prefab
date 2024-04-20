@@ -106,8 +106,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6112160086167693406}
-  - component: {fileID: 6112160086167693407}
   - component: {fileID: 6112160086167693392}
+  - component: {fileID: 3276169326935828874}
   m_Layer: 0
   m_Name: LimitWall
   m_TagString: LimitWall
@@ -132,19 +132,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &6112160086167693407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6112160086167693405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf883955b5054f4981addee67bcd20a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
 --- !u!54 &6112160086167693392
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,6 +148,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3276169326935828874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6112160086167693405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf883955b5054f4981addee67bcd20a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
 --- !u!1 &6112160086173078073
 GameObject:
   m_ObjectHideFlags: 0
