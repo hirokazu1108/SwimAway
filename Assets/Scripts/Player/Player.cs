@@ -57,7 +57,6 @@ public class Player : MonoBehaviour
         //キー入力間隔を適応
         _inputTimer += Time.deltaTime;
         if (_inputTimer < _inputInterval) return;
-        if (_isTurning) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -107,7 +106,6 @@ public class Player : MonoBehaviour
     {
         _head.SetActive(false);
         _isTurning = true;
-        
 
         //指定方向に向くための変数のセット
         Quaternion targetRot = transform.rotation;
@@ -139,7 +137,7 @@ public class Player : MonoBehaviour
 
         //回転処理
         var frameCount = 0;
-        const float rotateFrame = 3f; //回転にかけるフレーム数
+        const float rotateFrame = 18f; //回転にかけるフレーム数
         while (frameCount < 180f / rotateFrame)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotateFrame);
@@ -172,7 +170,7 @@ public class Player : MonoBehaviour
         StartCoroutine(turnTo(_potentialDirection));
     }
 
-    private void addForce(Vector2 dir, float power = 0f)
+    public void addForce(Vector2 dir, float power = 0f)
     {
         if(dir.x != 0 && dir.y != 0)
         {
@@ -205,10 +203,11 @@ public class Player : MonoBehaviour
         _infoText.text = $"Time : {(int)_elapsedTime}秒\nSpeed : {_rb.velocity.magnitude}\nMode : {_moveState}\nDirection : ({_potentialDirection.x},{_potentialDirection.y})";
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
         if (_isTurning) return;
 
         reflect();  //進行方向の反転処理
     }
+
 }

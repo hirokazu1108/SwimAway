@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     public int speed;
-    // Start is called before the first frame update
+
+    protected abstract void Init();
+
     public abstract void Move();
 
     public abstract void Hit();
+
+    
 
 }
