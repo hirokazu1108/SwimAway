@@ -15,17 +15,19 @@ public class MovingEnemy : Enemy
     [SerializeField] private float _roundTripWidth;   //往復の幅
     [SerializeField] private MoveMode _moveMode;    //動き方
     [SerializeField] private float boundPower;  //バウンドの強さ
+    [SerializeField, Header("バウンド後のクールタイム")] private float _boundInterval;
 
     private Rigidbody _rb = null;
-    private Vector3 startPos;
+    private Vector3 _startPos;
+    private float _boundTimer = 99f;
 
     private Action moveFunc = null;
-    private bool _isBound = false;    //跳ね返り中かどうか
+    
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        startPos = transform.position;
+        _startPos = transform.position;
         moveFuncSet();
 
         Init();
@@ -55,14 +57,14 @@ public class MovingEnemy : Enemy
         {
             case MoveMode.XAxis:
                 moveFunc = () => {
-                    var targetPos = new Vector3((Mathf.Sin((Time.time) * speed) * _roundTripWidth + startPos.x), startPos.y, startPos.z);
+                    var targetPos = new Vector3((Mathf.Sin((Time.time) * speed) * _roundTripWidth + _startPos.x), _startPos.y, _startPos.z);
                     _rb.MovePosition(targetPos);
                 };
                 break;
             case MoveMode.YAxis:
                 moveFunc = () =>
                 {
-                    var targetPos = new Vector3(startPos.x, (Mathf.Sin((Time.time) * speed) * _roundTripWidth + startPos.y), startPos.z);
+                    var targetPos = new Vector3(_startPos.x, (Mathf.Sin((Time.time) * speed) * _roundTripWidth + _startPos.y), _startPos.z);
                     _rb.MovePosition(targetPos);
                 };
                 break;
@@ -71,12 +73,8 @@ public class MovingEnemy : Enemy
 
     public override void Move()
     {
-        if (!_isBound) moveFunc();
-        else
-        {
-            startPos = transform.position;
-            if(_rb.velocity.magnitude < 1f) _isBound = false;
-        } 
+        if (_boundTimer > _boundInterval) moveFunc();
+        else _boundTimer += Time.deltaTime;
     }
 
     public override void Hit()
@@ -118,7 +116,7 @@ public class MovingEnemy : Enemy
         }
 
 
-        _isBound = true;
+        _boundTimer = 0;
         player.addForce(forceDirection, boundPower);
         _rb.AddForce(-forceDirection*boundPower, ForceMode.Impulse);
     }

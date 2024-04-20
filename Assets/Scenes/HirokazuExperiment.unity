@@ -1069,6 +1069,8 @@ MonoBehaviour:
   speed: 2
   _roundTripWidth: 3
   _moveMode: 1
+  boundPower: 6
+  _boundInterval: 1
 --- !u!65 &538094166
 BoxCollider:
   m_ObjectHideFlags: 0
