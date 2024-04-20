@@ -2,25 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class limitWall : Enemy
+public class LimitWall : Enemy
 {
-    // Start is called before the first frame update
-    Vector3 position;
+    private Rigidbody _rb = null;
+
     void Start()
+    {
+        _rb = GetComponent<Rigidbody>();
+        Init();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    protected override void Init()
     {
         
     }
 
-    // Update is called once per frame
-    public override void Move(){
-        transform.position += new Vector3(0, 0, 1) * Time.deltaTime;
+    public override void Move()
+    {
+        float power = _rb.velocity.magnitude + 1;  // 加える力目標速度に到達するまでの時間を変化させられる
+
+        var vectorAddForce = transform.forward * (speed - _rb.velocity.magnitude) * power;
+        _rb.AddForce(vectorAddForce, ForceMode.Acceleration);
     }
 
-    public override void Hit(){
-        Debug.Log("縺励ｅ繝ｼ繧翫ｇ繝ｼ");
-    }
-    void OnCollisionEnter(Collision collision)
+    public override void Hit()
     {
-        Hit();
+        Debug.Log("しゅーりょー");
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))   Hit();
     }
 }
