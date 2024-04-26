@@ -558,12 +558,22 @@ PrefabInstance:
     - target: {fileID: 1560959357819847430, guid: 87f6bfcf87da980489eb320ca302e67e,
         type: 3}
       propertyPath: speed
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1560959357819847430, guid: 87f6bfcf87da980489eb320ca302e67e,
         type: 3}
       propertyPath: _roundTripWidth
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560959357819847430, guid: 87f6bfcf87da980489eb320ca302e67e,
+        type: 3}
+      propertyPath: _roundTripWidthX
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560959357819847430, guid: 87f6bfcf87da980489eb320ca302e67e,
+        type: 3}
+      propertyPath: _roundTripWidthY
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1560959357819847431, guid: 87f6bfcf87da980489eb320ca302e67e,
         type: 3}
@@ -2921,6 +2931,16 @@ PrefabInstance:
       propertyPath: speed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1560959357819847430, guid: cae3ba1adb4b8d7469cfeed6d88c93dc,
+        type: 3}
+      propertyPath: _roundTripWidthX
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560959357819847430, guid: cae3ba1adb4b8d7469cfeed6d88c93dc,
+        type: 3}
+      propertyPath: _roundTripWidthY
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1560959357819847431, guid: cae3ba1adb4b8d7469cfeed6d88c93dc,
         type: 3}
       propertyPath: m_Name
@@ -4907,6 +4927,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LimitWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6112160086167693405, guid: e3c3462544df2da4fbf7e18b17abb0ac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112160086167693406, guid: e3c3462544df2da4fbf7e18b17abb0ac,
         type: 3}

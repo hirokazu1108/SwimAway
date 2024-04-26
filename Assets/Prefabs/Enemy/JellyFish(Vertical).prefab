@@ -111,11 +111,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35e719dd64a13854ea120427594de780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 5
   _moveMode: 1
-  _roundTripWidth: 2
+  _roundTripWidthX: 0
+  _roundTripWidthY: 3
   _boundPower: 3
   _boundInterval: 1
+  isSwitchingDirection: 0
 --- !u!54 &1560959357819847433
 Rigidbody:
   m_ObjectHideFlags: 0

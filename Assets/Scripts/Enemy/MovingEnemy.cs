@@ -12,10 +12,12 @@ public class MovingEnemy : Enemy
     }
 
     [Space(10), Header("[Parameter]")]
-    [SerializeField] private MoveMode _moveMode;    //動き方
-    [SerializeField] private float _roundTripWidth;   //往復の幅
-    [SerializeField] private float _boundPower;  //バウンドの強さ
-    [SerializeField, Header("バウンド後のクールタイム")] private float _boundInterval;
+    [SerializeField, Header("移動軸")] private MoveMode _moveMode;
+    [SerializeField, Header("X軸方向の往復幅")] private float _roundTripWidthX;
+    [SerializeField, Header("Y軸方向の往復幅")] private float _roundTripWidthY;
+    [SerializeField, Header("跳ね返りの強さ")] private float _boundPower;
+    [SerializeField, Header("跳ね返り後のクールタイム")] private float _boundInterval;
+    [SerializeField, Header("衝突のあと進行方向が変化するかどうか[不安定]")] private bool isSwitchingDirection;
 
     private Rigidbody _rb = null;
     private Vector3 _startPos = Vector3.zero;   //反復移動の基準位置
@@ -59,27 +61,37 @@ public class MovingEnemy : Enemy
             case MoveMode.XAxis:
                 moveFunc = () => {
                     var targetPos = Vector3.zero;
-                    if (_dirTogle) targetPos = new Vector3(_startPos.x + _roundTripWidth, _startPos.y, _startPos.z);
-                    else targetPos = new Vector3(_startPos.x - _roundTripWidth, _startPos.y, _startPos.z);
+                    if (_dirTogle) targetPos = new Vector3(_startPos.x + _roundTripWidthX, _startPos.y, _startPos.z);
+                    else targetPos = new Vector3(_startPos.x - _roundTripWidthX, _startPos.y, _startPos.z);
 
-                    if((targetPos-transform.position).magnitude < 1f) _dirTogle = !_dirTogle;
-
-                    transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref _velocity, _roundTripWidth /speed);
+                    Debug.Log((targetPos - transform.position).magnitude);
+                    if((targetPos-transform.position).magnitude < 1f)
+                    {
+                        _dirTogle = !_dirTogle;
+                        Debug.Log($"{_dirTogle}:{transform.position.x}");
+                    }
+                    transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
                 };
                 break;
             case MoveMode.YAxis:
                 moveFunc = () =>
                 {
                     var targetPos = Vector3.zero;
-                    if (_dirTogle) targetPos = new Vector3(_startPos.x, _startPos.y + _roundTripWidth, _startPos.z);
-                    else targetPos = new Vector3(_startPos.x, _startPos.y - _roundTripWidth, _startPos.z);
+                    if (_dirTogle) targetPos = new Vector3(_startPos.x, _startPos.y + _roundTripWidthY, _startPos.z);
+                    else targetPos = new Vector3(_startPos.x, _startPos.y - _roundTripWidthY, _startPos.z);
 
                     if ((targetPos - transform.position).magnitude < 1f) _dirTogle = !_dirTogle;
 
-                    transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref _velocity, _roundTripWidth / speed);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
                 };
                 break;
         }
+    }
+
+    private void switchMoveMode()
+    {
+        _moveMode = _moveMode == MoveMode.XAxis ? MoveMode.YAxis : MoveMode.XAxis;
+        moveFuncSet();
     }
 
     public override void Move()
@@ -109,26 +121,28 @@ public class MovingEnemy : Enemy
 
         var forceDirection = Vector2.zero;
 
-        if (angle < 135 && angle < -135)
+        //敵の位置で条件分け
+        if (angle < 135 && angle < -135)    //後方
         {
             forceDirection = new Vector2(-1, 0);
         }
-        else if (angle < -45)
+        else if (angle < -45)   //下方
         {
-            forceDirection = new Vector2(0, -1);
+            forceDirection = new Vector2(0, -1);   
         }
-        else if (angle < 45)
+        else if (angle < 45)    //前方
         {
             forceDirection = new Vector2(1, 0);
         }
-        else
+        else //上方
         {
             forceDirection = new Vector2(0, 1);
         }
 
-
         _boundTimer = 0;
         player.addForce(forceDirection, _boundPower);
         _rb.AddForce(-forceDirection*_boundPower, ForceMode.Impulse);
+
+        if (isSwitchingDirection) switchMoveMode(); //方向切り替え
     }
 }
