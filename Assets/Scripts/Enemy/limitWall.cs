@@ -9,17 +9,11 @@ public class LimitWall : Enemy
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        Init();
     }
 
     private void FixedUpdate()
     {
         Move();
-    }
-
-    protected override void Init()
-    {
-        
     }
 
     public override void Move()
@@ -32,7 +26,7 @@ public class LimitWall : Enemy
 
     public override void Hit()
     {
-        Debug.Log("ÇµÇ„Å[ÇËÇÂÅ[");
+        GameManager.GameOver();
     }
     private void OnTriggerEnter(Collider other)
     {

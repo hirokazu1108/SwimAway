@@ -6,7 +6,6 @@ public abstract class Enemy : MonoBehaviour
 {
     public float speed;
 
-    protected abstract void Init();
 
     public abstract void Move();
 
