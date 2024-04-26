@@ -23,7 +23,6 @@ public class MovingEnemy : Enemy
     private Vector3 _startPos = Vector3.zero;   //反復移動の基準位置
     private float _boundTimer = 99f;    //バウンド時間の測定
     private bool _dirTogle = false; //進行方向のトグル
-    private Vector3 _velocity = Vector3.zero;
     private Action moveFunc = null;
     
 
@@ -32,8 +31,6 @@ public class MovingEnemy : Enemy
         _rb = GetComponent<Rigidbody>();
         _startPos = transform.position;
         moveFuncSet();
-
-        Init();
     }
 
     private void Update()
@@ -48,12 +45,6 @@ public class MovingEnemy : Enemy
         hitPlayer(collision);
     }
 
-
-    protected override void Init()
-    {
-        
-    }
-
     private void moveFuncSet()
     {
         switch (_moveMode)
@@ -64,12 +55,8 @@ public class MovingEnemy : Enemy
                     if (_dirTogle) targetPos = new Vector3(_startPos.x + _roundTripWidthX, _startPos.y, _startPos.z);
                     else targetPos = new Vector3(_startPos.x - _roundTripWidthX, _startPos.y, _startPos.z);
 
-                    Debug.Log((targetPos - transform.position).magnitude);
-                    if((targetPos-transform.position).magnitude < 1f)
-                    {
-                        _dirTogle = !_dirTogle;
-                        Debug.Log($"{_dirTogle}:{transform.position.x}");
-                    }
+                    if((targetPos-transform.position).magnitude < 1f)   _dirTogle = !_dirTogle;
+
                     transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
                 };
                 break;
@@ -80,7 +67,7 @@ public class MovingEnemy : Enemy
                     if (_dirTogle) targetPos = new Vector3(_startPos.x, _startPos.y + _roundTripWidthY, _startPos.z);
                     else targetPos = new Vector3(_startPos.x, _startPos.y - _roundTripWidthY, _startPos.z);
 
-                    if ((targetPos - transform.position).magnitude < 1f) _dirTogle = !_dirTogle;
+                    if ((targetPos - transform.position).magnitude < 1f)    _dirTogle = !_dirTogle;
 
                     transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
                 };
