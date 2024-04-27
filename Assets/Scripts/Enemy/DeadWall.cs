@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LimitWall : Enemy
+public class DeadWall : Enemy
 {
     private Rigidbody _rb = null;
 
@@ -30,6 +30,6 @@ public class LimitWall : Enemy
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))   Hit();
+        if (other.CompareTag("Player")) Hit();
     }
 }

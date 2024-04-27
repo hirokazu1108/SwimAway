@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingEnemy : Enemy
+public class JellyFish : Enemy
 {
     private enum MoveMode
     {
@@ -24,28 +24,33 @@ public class MovingEnemy : Enemy
     private float _boundTimer = 99f;    //バウンド時間の測定
     private bool _dirTogle = false; //進行方向のトグル
     private Action moveFunc = null;
-    
+
+
+    private GameObject _targetPointObj = null;
+
 
     private void Start()
     {
+        _targetPointObj = transform.GetChild(0).gameObject;
+
         _rb = GetComponent<Rigidbody>();
         _startPos = transform.position;
         moveFuncSet();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        hitPlayer(collision);
+        Hit(collision);
     }
 
     private void moveFuncSet()
     {
+
         switch (_moveMode)
         {
             case MoveMode.XAxis:
@@ -53,10 +58,12 @@ public class MovingEnemy : Enemy
                     var targetPos = Vector3.zero;
                     if (_dirTogle) targetPos = new Vector3(_startPos.x + _roundTripWidthX, _startPos.y, _startPos.z);
                     else targetPos = new Vector3(_startPos.x - _roundTripWidthX, _startPos.y, _startPos.z);
+                    _targetPointObj.transform.position = targetPos;
 
-                    if((targetPos-transform.position).magnitude < 1f)   _dirTogle = !_dirTogle;
+                    if ((targetPos - transform.position).magnitude < .5f) _dirTogle = !_dirTogle;
 
-                    transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+                    var dir = (targetPos - _rb.position).normalized;
+                    _rb.MovePosition(transform.position + dir*speed*Time.fixedDeltaTime);
                 };
                 break;
             case MoveMode.YAxis:
@@ -65,10 +72,12 @@ public class MovingEnemy : Enemy
                     var targetPos = Vector3.zero;
                     if (_dirTogle) targetPos = new Vector3(_startPos.x, _startPos.y + _roundTripWidthY, _startPos.z);
                     else targetPos = new Vector3(_startPos.x, _startPos.y - _roundTripWidthY, _startPos.z);
+                    _targetPointObj.transform.position = targetPos;
 
-                    if ((targetPos - transform.position).magnitude < 1f)    _dirTogle = !_dirTogle;
+                    if ((targetPos - transform.position).magnitude < .5f) _dirTogle = !_dirTogle;
 
-                    transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+                    var dir = (targetPos - transform.position).normalized;
+                    _rb.MovePosition(transform.position + dir * speed * Time.fixedDeltaTime);
                 };
                 break;
         }
@@ -80,18 +89,23 @@ public class MovingEnemy : Enemy
         moveFuncSet();
     }
 
+    private void switchTargetPos()
+    {
+
+    }
+
     public override void Move()
     {
         if (_boundTimer > _boundInterval) moveFunc();
-        else _boundTimer += Time.deltaTime;
+        else _boundTimer += Time.fixedDeltaTime;
     }
 
     public override void Hit()
     {
-        
+
     }
 
-    private void hitPlayer(Collision collision)
+    private void Hit(Collision collision)
     {
         _rb.velocity = Vector3.zero;
 
@@ -114,7 +128,7 @@ public class MovingEnemy : Enemy
         }
         else if (angle < -45)   //下方
         {
-            forceDirection = new Vector2(0, -1);   
+            forceDirection = new Vector2(0, -1);
         }
         else if (angle < 45)    //前方
         {
@@ -128,7 +142,7 @@ public class MovingEnemy : Enemy
         _boundTimer = 0;
         _dirTogle = !_dirTogle; //目標地点の変更
         if (collision.gameObject.CompareTag("Player")) player.addForce(forceDirection, _boundPower);
-        _rb.AddForce(-forceDirection*_boundPower, ForceMode.Impulse);
+        _rb.AddForce(-forceDirection * _boundPower, ForceMode.Impulse);
 
         if (isSwitchingDirection) switchMoveMode(); //方向切り替え
     }

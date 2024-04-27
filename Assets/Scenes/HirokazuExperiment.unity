@@ -562,6 +562,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1560959357819847430, guid: 87f6bfcf87da980489eb320ca302e67e,
         type: 3}
+      propertyPath: _boundPower
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560959357819847430, guid: 87f6bfcf87da980489eb320ca302e67e,
+        type: 3}
+      propertyPath: _boundInterval
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560959357819847430, guid: 87f6bfcf87da980489eb320ca302e67e,
+        type: 3}
       propertyPath: _roundTripWidth
       value: 20
       objectReference: {fileID: 0}
@@ -580,10 +590,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: JellyFish(Holizontal)
       objectReference: {fileID: 0}
+    - target: {fileID: 1560959357819847433, guid: 87f6bfcf87da980489eb320ca302e67e,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1560959357819847434, guid: 87f6bfcf87da980489eb320ca302e67e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1560959357819847434, guid: 87f6bfcf87da980489eb320ca302e67e,
         type: 3}
@@ -829,7 +844,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 596903562}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &381206139
 GameObject:
@@ -1320,13 +1335,13 @@ Transform:
   - {fileID: 2002648451}
   - {fileID: 1955811802}
   - {fileID: 1723487439}
+  - {fileID: 903473221}
   - {fileID: 1791548260}
   - {fileID: 764550468}
   - {fileID: 297628008}
   - {fileID: 1570449051}
   - {fileID: 744241693}
   - {fileID: 765044145}
-  - {fileID: 903473221}
   - {fileID: 1927154191}
   - {fileID: 401790658}
   - {fileID: 1719084043}
@@ -1486,7 +1501,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 596903562}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &744241694
 BoxCollider:
@@ -1646,7 +1661,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 596903562}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &765044144
 GameObject:
@@ -1680,7 +1695,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 596903562}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &765044146
 BoxCollider:
@@ -2977,6 +2992,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1560959357819847430, guid: cae3ba1adb4b8d7469cfeed6d88c93dc,
         type: 3}
+      propertyPath: _boundPower
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560959357819847430, guid: cae3ba1adb4b8d7469cfeed6d88c93dc,
+        type: 3}
+      propertyPath: _boundInterval
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560959357819847430, guid: cae3ba1adb4b8d7469cfeed6d88c93dc,
+        type: 3}
       propertyPath: _roundTripWidthX
       value: 2
       objectReference: {fileID: 0}
@@ -2990,10 +3015,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: JellyFish(Vertical)
       objectReference: {fileID: 0}
+    - target: {fileID: 1560959357819847433, guid: cae3ba1adb4b8d7469cfeed6d88c93dc,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1560959357819847434, guid: cae3ba1adb4b8d7469cfeed6d88c93dc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1560959357819847434, guid: cae3ba1adb4b8d7469cfeed6d88c93dc,
         type: 3}
@@ -3433,7 +3463,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 596903562}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1693460262
 GameObject:
@@ -4884,6 +4914,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7010323780244410240, guid: cffa3345d10f9fc41982110b5d27c061,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7010323780244410245, guid: cffa3345d10f9fc41982110b5d27c061,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: b65b2201779e2a0438c8dd6180a0253f,
+        type: 2}
     - target: {fileID: 7010323780244410246, guid: cffa3345d10f9fc41982110b5d27c061,
         type: 3}
       propertyPath: m_RootOrder
@@ -4975,7 +5016,7 @@ PrefabInstance:
     - target: {fileID: 6112160086167693405, guid: e3c3462544df2da4fbf7e18b17abb0ac,
         type: 3}
       propertyPath: m_Name
-      value: LimitWall
+      value: DeadWall
       objectReference: {fileID: 0}
     - target: {fileID: 6112160086167693405, guid: e3c3462544df2da4fbf7e18b17abb0ac,
         type: 3}
@@ -5037,5 +5078,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7991856293199299323, guid: e3c3462544df2da4fbf7e18b17abb0ac,
+        type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3276169326935828874, guid: e3c3462544df2da4fbf7e18b17abb0ac, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e3c3462544df2da4fbf7e18b17abb0ac, type: 3}

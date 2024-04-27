@@ -107,9 +107,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6112160086167693406}
   - component: {fileID: 6112160086167693392}
-  - component: {fileID: 3276169326935828874}
+  - component: {fileID: 7991856293199299323}
   m_Layer: 0
-  m_Name: LimitWall
+  m_Name: DeadWall
   m_TagString: LimitWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,7 +148,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3276169326935828874
+--- !u!114 &7991856293199299323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,10 +157,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6112160086167693405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf883955b5054f4981addee67bcd20a, type: 3}
+  m_Script: {fileID: 11500000, guid: 13d6dbf3ed2d64c4f83dd26aa203681a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
 --- !u!1 &6112160086173078073
 GameObject:
   m_ObjectHideFlags: 0
