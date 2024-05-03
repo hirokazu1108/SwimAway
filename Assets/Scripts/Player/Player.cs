@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
         var power = 0f;
         if (_moveState != MoveState.Stop) power = _rb.velocity.magnitude+1;  // ‰Á‚¦‚é—Í–Ú•W‘¬“x‚É“ž’B‚·‚é‚Ü‚Å‚ÌŽžŠÔ‚ð•Ï‰»‚³‚¹‚ç‚ê‚é
 
-        var vectorAddForce = transform.forward * (_targetSpeed - _rb.velocity.magnitude) * power;
+        var vectorAddForce = transform.right * (_targetSpeed - _rb.velocity.magnitude) * power;
         _rb.AddForce(vectorAddForce, ForceMode.Acceleration);
     }
 
@@ -114,11 +114,11 @@ public class Player : MonoBehaviour
         {
             if (direction.x > 0)
             {
-                targetRot = Quaternion.Euler(0, 90, 0);  //Forward
+                targetRot = Quaternion.Euler(-90, 0, 0);  //Forward
             }
             else if (direction.x < 0)
             {
-                targetRot = Quaternion.Euler(0, 270, 0); //Back
+                targetRot = Quaternion.Euler(-90, 0, -180); //Back
             }
             _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;    //xŽ²•ûŒü‚É‚µ‚©ˆÚ“®‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
         }
@@ -126,11 +126,11 @@ public class Player : MonoBehaviour
         {
             if (direction.y > 0)
             {
-                targetRot = Quaternion.Euler(-90, 0, 0);  //Up
+                targetRot = Quaternion.Euler(0, -90, 90);  //Up
             }
             else if (direction.y < 0)
             {
-                targetRot = Quaternion.Euler(90, 0, 0);  //Down
+                targetRot = Quaternion.Euler(0, 90, -90);  //Down
             }
             _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;     //yŽ²•ûŒü‚É‚µ‚©ˆÚ“®‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
         }
