@@ -9,6 +9,7 @@ public class JellyFish : Enemy
     {
         XAxis,
         YAxis,
+        Pinned, //位置固定
     }
 
     [Space(10), Header("[Parameter]")]
@@ -85,12 +86,29 @@ public class JellyFish : Enemy
                     transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
                 };
                 break;
+            case MoveMode.Pinned:
+                moveFunc = () =>
+                {
+
+                    if((_startPos-transform.position).magnitude > .1f)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, _startPos, speed * Time.deltaTime);
+                    }
+                    else
+                    {
+                       
+                    }
+
+                    
+                };
+                break;
         }
     }
 
     private void switchMoveMode()
     {
-        _moveMode = _moveMode == MoveMode.XAxis ? MoveMode.YAxis : MoveMode.XAxis;
+        if (_moveMode == MoveMode.XAxis) _moveMode = MoveMode.YAxis;
+        else if (_moveMode == MoveMode.YAxis) _moveMode = MoveMode.XAxis;
         moveFuncSet();
     }
 
@@ -109,6 +127,7 @@ public class JellyFish : Enemy
     private void waitBoundInterval()
     {
         _isBound = true;
+        _rb.isKinematic = false;
         Invoke("exitBoundState", _boundInterval);
     }
 
@@ -117,6 +136,7 @@ public class JellyFish : Enemy
     {
         _rb.velocity = Vector3.zero;
         _isBound = false;
+        _rb.isKinematic = true;
     }
 
     //進行方向にプレイヤーがいたら押す
@@ -132,17 +152,27 @@ public class JellyFish : Enemy
         {
             if (hit.collider.CompareTag("Player"))
             {
+                waitBoundInterval();    //クールタイム処理
+
                 var player = hit.collider.gameObject.GetComponent<Player>();
 
                 player.addForce(transform.forward, _boundPower);
                 _rb.AddForce(-transform.forward * _boundPower, ForceMode.Impulse);
 
-                waitBoundInterval();    //クールタイム処理
+                
                 _dirTogle = !_dirTogle; //目標地点の変更
 
                 if (isSwitchingDirection) switchMoveMode(); //方向切り替え
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        waitBoundInterval();
+
+        var dir = -(collision.contacts[0].point - transform.position).normalized;
+        _rb.AddForce(dir* _boundPower, ForceMode.Impulse);
     }
 
 }

@@ -73,11 +73,6 @@ public class Player : MonoBehaviour
                 _inputTimer = 0;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            addForce(new Vector2(1,0),10f);
-        }
     }
 
     //ŽžŠÔŒo‰ß‚É‚æ‚é‘¬“x•Ï‰»
