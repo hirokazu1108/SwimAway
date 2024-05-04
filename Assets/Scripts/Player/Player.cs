@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
         var power = 0f;
         if (_moveState != MoveState.Stop) power = _rb.velocity.magnitude+1;  // ‰Á‚¦‚é—Í–Ú•W‘¬“x‚É“ž’B‚·‚é‚Ü‚Å‚ÌŽžŠÔ‚ð•Ï‰»‚³‚¹‚ç‚ê‚é
 
-        var vectorAddForce = transform.right * (_targetSpeed - _rb.velocity.magnitude) * power;
+        var vectorAddForce = transform.right * (_targetSpeed - _rb.velocity.magnitude) * 10;
         _rb.AddForce(vectorAddForce, ForceMode.Acceleration);
     }
 
