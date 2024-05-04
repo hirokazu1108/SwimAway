@@ -94,11 +94,6 @@ public class JellyFish : Enemy
                     {
                         transform.position = Vector3.MoveTowards(transform.position, _startPos, speed * Time.deltaTime);
                     }
-                    else
-                    {
-                       
-                    }
-
                     
                 };
                 break;
@@ -144,8 +139,10 @@ public class JellyFish : Enemy
     {
         if (_isBound) return;
 
+        if (_moveMode == MoveMode.Pinned) return;
+
         Ray ray = new Ray(transform.position, transform.forward);
-        //Debug.DrawRay(transform.position, transform.forward * _rayDistance, Color.red);
+        Debug.DrawRay(transform.position, transform.forward * _rayDistance, Color.red);
 
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, _rayDistance))
@@ -171,8 +168,16 @@ public class JellyFish : Enemy
     {
         waitBoundInterval();
 
-        var dir = -(collision.contacts[0].point - transform.position).normalized;
-        _rb.AddForce(dir* _boundPower, ForceMode.Impulse);
+        var dir = (collision.contacts[0].point - transform.position).normalized;
+
+        //ÉoÉEÉìÉhèàóù
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            var player = collision.gameObject.GetComponent<Player>();
+            player.addForce(dir * _boundPower, _boundPower);
+        }
+        
+        _rb.AddForce(-dir* _boundPower, ForceMode.Impulse);
     }
 
 }

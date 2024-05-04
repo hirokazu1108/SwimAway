@@ -167,7 +167,25 @@ public class Player : MonoBehaviour
 
     public void addForce(Vector2 dir, float power = 0f)
     {
-        if(dir.x != 0 && dir.y != 0)
+        if(Mathf.Abs(dir.x) <= Mathf.Abs(dir.y))    //x成分の方が小さい
+        {
+            _moveState = MoveState.MoveVertical;
+            _potentialDirection.y = dir.y / Mathf.Abs(dir.y);
+        }
+        else
+        {
+            _moveState = MoveState.MoveHorizontal;
+            _potentialDirection.x = dir.x / Mathf.Abs(dir.x);
+        }
+
+        StartCoroutine(turnTo(_potentialDirection));
+        _rb.AddForce(power * dir, ForceMode.Impulse);
+    }
+
+    /* 　旧式（消さないで！検討中）
+    public void addForce(Vector2 dir, float power = 0f)
+    {
+        if (dir.x != 0 && dir.y != 0)
         {
             Debug.Log("WARNING:不適切な値が入力されました。");
             return;
@@ -177,7 +195,7 @@ public class Player : MonoBehaviour
         {
             _moveState = MoveState.MoveHorizontal;
             _potentialDirection.x = dir.x / Mathf.Abs(dir.x);
-        } 
+        }
 
         if (dir.y != 0)
         {
@@ -188,6 +206,8 @@ public class Player : MonoBehaviour
         StartCoroutine(turnTo(_potentialDirection));
         _rb.AddForce(power * dir, ForceMode.Impulse);
     }
+    */
+
 
     private void showInfoCanvas()
     {
