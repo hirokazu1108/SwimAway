@@ -167,38 +167,16 @@ public class Player : MonoBehaviour
 
     public void addForce(Vector2 dir, float power = 0f)
     {
-        if(Mathf.Abs(dir.x) <= Mathf.Abs(dir.y))    //x成分の方が小さい
+        var cosIdentityDirAngle = Mathf.Cos(75 * Mathf.Deg2Rad);    //縦か横かを判断する角度の閾値
+        var cosVec = Vector2.Dot(Vector2.right, dir) / dir.magnitude;   // (1,0)とdirのなす角のcos値を求める  =（内積）/ (各ベクトルの大きさの積)
+        //Debug.Log(Mathf.Acos(cosVec)*Mathf.Rad2Deg);
+        if(cosIdentityDirAngle < Mathf.Abs(cosVec))
         {
-            _moveState = MoveState.MoveVertical;
-            _potentialDirection.y = dir.y / Mathf.Abs(dir.y);
+            _moveState = MoveState.MoveHorizontal;
+            _potentialDirection.x = dir.x / Mathf.Abs(dir.x);
         }
         else
         {
-            _moveState = MoveState.MoveHorizontal;
-            _potentialDirection.x = dir.x / Mathf.Abs(dir.x);
-        }
-
-        StartCoroutine(turnTo(_potentialDirection));
-        _rb.AddForce(power * dir, ForceMode.Impulse);
-    }
-
-    /* 　旧式（消さないで！検討中）
-    public void addForce(Vector2 dir, float power = 0f)
-    {
-        if (dir.x != 0 && dir.y != 0)
-        {
-            Debug.Log("WARNING:不適切な値が入力されました。");
-            return;
-        }
-
-        if (dir.x != 0)
-        {
-            _moveState = MoveState.MoveHorizontal;
-            _potentialDirection.x = dir.x / Mathf.Abs(dir.x);
-        }
-
-        if (dir.y != 0)
-        {
             _moveState = MoveState.MoveVertical;
             _potentialDirection.y = dir.y / Mathf.Abs(dir.y);
         }
@@ -206,7 +184,6 @@ public class Player : MonoBehaviour
         StartCoroutine(turnTo(_potentialDirection));
         _rb.AddForce(power * dir, ForceMode.Impulse);
     }
-    */
 
 
     private void showInfoCanvas()
