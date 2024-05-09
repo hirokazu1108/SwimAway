@@ -14,31 +14,34 @@ public class JellyFish : Enemy
 
     [Space(10), Header("[Parameter]")]
     [SerializeField, Header("移動軸")] private MoveMode _moveMode;
+    [SerializeField, Header("反復移動の基準位置")] private Vector3 _basePoint = Vector3.zero;
     [SerializeField, Header("X軸方向の往復幅")] private float _roundTripWidthX;
     [SerializeField, Header("Y軸方向の往復幅")] private float _roundTripWidthY;
     [SerializeField, Header("跳ね返りの強さ")] private float _boundPower;
     [SerializeField, Header("跳ね返り後のクールタイム")] private float _boundInterval;
     [SerializeField, Header("衝突のあと進行方向が変化するかどうか[不安定]")] private bool isSwitchingDirection;
 
+
     private Rigidbody _rb = null;
-    private Vector3 _startPos = Vector3.zero;   //反復移動の基準位置
+
     private bool _isBound = false;    //バウンド中かのフラグ
     private bool _dirTogle = false; //進行方向のトグル
     private Action moveFunc = null;
-    private float _rayDistance = .75f;
+    private Transform _boneTransform = null;
 
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _startPos = transform.position;
+        if (MoveMode.Pinned == _moveMode) _basePoint = transform.position;
+        _boneTransform = transform.GetChild(0).GetChild(0);
         moveFuncSet();
     }
 
     private void Update()
     {
         Move();
-        emitDetectRay();
+        //emitDetectRay();
     }
 
 
@@ -51,12 +54,12 @@ public class JellyFish : Enemy
                     var targetPos = Vector3.zero;
                     if (_dirTogle)
                     {
-                        targetPos = new Vector3(_startPos.x + _roundTripWidthX, _startPos.y, _startPos.z);
+                        targetPos = new Vector3(_basePoint.x + _roundTripWidthX, _basePoint.y, _basePoint.z);
                         transform.rotation = Quaternion.Euler(0,90,0);
                     }
                     else
                     {
-                        targetPos = new Vector3(_startPos.x - _roundTripWidthX, _startPos.y, _startPos.z);
+                        targetPos = new Vector3(_basePoint.x - _roundTripWidthX, _basePoint.y, _basePoint.z);
                         transform.rotation = Quaternion.Euler(0, -90, 0);
                     }
 
@@ -72,13 +75,11 @@ public class JellyFish : Enemy
                     var targetPos = Vector3.zero;
                     if (_dirTogle)
                     {
-                        targetPos = new Vector3(_startPos.x, _startPos.y + _roundTripWidthY, _startPos.z);
-                        transform.rotation = Quaternion.Euler(-90, 0, 0);
+                        targetPos = new Vector3(_basePoint.x, _basePoint.y + _roundTripWidthY, _basePoint.z);
                     }
                     else
                     {
-                        targetPos = new Vector3(_startPos.x, _startPos.y - _roundTripWidthY, _startPos.z);
-                        transform.rotation = Quaternion.Euler(90, 0, 0);
+                        targetPos = new Vector3(_basePoint.x, _basePoint.y - _roundTripWidthY, _basePoint.z);
                     }
 
                     if ((targetPos - transform.position).magnitude < 1f) _dirTogle = !_dirTogle;
@@ -90,9 +91,9 @@ public class JellyFish : Enemy
                 moveFunc = () =>
                 {
 
-                    if((_startPos-transform.position).magnitude > .1f)
+                    if((_basePoint-transform.position).magnitude > .1f)
                     {
-                        transform.position = Vector3.MoveTowards(transform.position, _startPos, speed * Time.deltaTime);
+                        transform.position = Vector3.MoveTowards(transform.position, _basePoint, speed * Time.deltaTime);
                     }
                     
                 };
@@ -138,11 +139,15 @@ public class JellyFish : Enemy
     private void emitDetectRay()
     {
         if (_isBound) return;
+        if (!_boneTransform) return;
+        Debug.Log(_boneTransform.name);
 
         if (_moveMode == MoveMode.Pinned) return;
 
-        Ray ray = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, transform.forward * _rayDistance, Color.red);
+        var startP = _boneTransform.position + new Vector3(0, -2, 0);
+        var _rayDistance = 1.5f;
+        Ray ray = new Ray(startP, transform.forward);
+        Debug.DrawRay(startP, transform.forward * _rayDistance, Color.red);
 
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, _rayDistance))
