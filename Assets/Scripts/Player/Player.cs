@@ -211,6 +211,8 @@ public class Player : MonoBehaviour
 
     private void showInfoCanvas()
     {
+        if (_infoCanvas == null) return;
+
         _infoCanvas.SetActive(_needsInfo);
 
         if (!_needsInfo) return;
