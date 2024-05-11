@@ -55,12 +55,11 @@ public class JellyFish : Enemy
                     if (_dirTogle)
                     {
                         targetPos = new Vector3(_basePoint.x + _roundTripWidthX, _basePoint.y, _basePoint.z);
-                        transform.rotation = Quaternion.Euler(0,90,0);
                     }
                     else
                     {
                         targetPos = new Vector3(_basePoint.x - _roundTripWidthX, _basePoint.y, _basePoint.z);
-                        transform.rotation = Quaternion.Euler(0, -90, 0);
+                        
                     }
 
 

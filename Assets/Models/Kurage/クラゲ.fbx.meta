@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2.001|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2.001Action.001"
-      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2.001|\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2.001Action.001"
-      internalID: 3329225953809382013
+      name: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2.001|move"
+      takeName: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2.001|move"
+      internalID: 3638351879661019935
       firstFrame: 0
-      lastFrame: 91
+      lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
