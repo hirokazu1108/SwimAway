@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
     private void adjustSpeed()
     {
         _elapsedTime += Time.deltaTime;
-        _targetSpeed = Mathf.Sqrt(_elapsedTime);
+        _targetSpeed = Mathf.Sqrt(_elapsedTime)+3;
     }
 
     //isˆ—
