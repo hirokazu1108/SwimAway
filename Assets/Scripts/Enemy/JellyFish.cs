@@ -14,7 +14,7 @@ public class JellyFish : Enemy
 
     [Space(10), Header("[Parameter]")]
     [SerializeField, Header("移動軸")] private MoveMode _moveMode;
-    [SerializeField, Header("反復移動の基準位置")] private Vector3 _basePoint = Vector3.zero;
+    [SerializeField, Header("初期位置の反復移動の基準位置とのずれ")] private Vector3 _diffBasePoint = Vector3.zero;
     [SerializeField, Header("X軸方向の往復幅")] private float _roundTripWidthX;
     [SerializeField, Header("Y軸方向の往復幅")] private float _roundTripWidthY;
     [SerializeField, Header("跳ね返りの強さ")] private float _boundPower;
@@ -28,11 +28,13 @@ public class JellyFish : Enemy
     private bool _dirTogle = false; //進行方向のトグル
     private Action moveFunc = null;
     private Transform _boneTransform = null;
+    private Vector3 _basePoint = Vector3.zero;
 
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _basePoint = transform.position - _diffBasePoint;
         if (MoveMode.Pinned == _moveMode) _basePoint = transform.position;
         _boneTransform = transform.GetChild(0).GetChild(0);
         moveFuncSet();
