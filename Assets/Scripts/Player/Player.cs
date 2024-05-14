@@ -79,14 +79,12 @@ public class Player : MonoBehaviour
     private void adjustSpeed()
     {
         _elapsedTime += Time.deltaTime;
-        _targetSpeed = Mathf.Sqrt(_elapsedTime)+3;
+        _targetSpeed = Mathf.Sqrt(_elapsedTime)+1;
     }
 
     //進行処理
     private void move()
     {
-        //if (_isTurning) return;
-
         // dirの向きに目標速度を維持して移動
         var power = 0f;
         if (_moveState != MoveState.Stop) power = _rb.velocity.magnitude+1;  // 加える力目標速度に到達するまでの時間を変化させられる

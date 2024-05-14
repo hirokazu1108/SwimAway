@@ -5,6 +5,13 @@ using UnityEngine;
 public class DeadWall : Enemy
 {
     [SerializeField] private float _elapsedTime = 0f;    //経過時間
+    [SerializeField] private Transform _playerTransform;
+
+    // 目標値に到達するまでのおおよその時間[s]
+    [SerializeField] private float _smoothTime = 0.3f;
+
+    private float _maxSpeed = float.PositiveInfinity;
+    private float _currentVelocity = 0;
 
     private Rigidbody _rb = null;
     private float _targetSpeed;  //目標の速さ（adjustSpeed()で管理）
@@ -17,6 +24,7 @@ public class DeadWall : Enemy
     private void Update()
     {
         adjustSpeed();
+        adjustHeight();
     }
 
     private void FixedUpdate()
@@ -46,5 +54,23 @@ public class DeadWall : Enemy
     {
         _elapsedTime += Time.deltaTime;
         _targetSpeed = Mathf.Sqrt(_elapsedTime);
+    }
+
+    private void adjustHeight()
+    {
+        // 現在位置取得
+        var currentPos = transform.position;
+
+        // 次フレームの位置を計算
+        currentPos.y = Mathf.SmoothDamp(
+            currentPos.y,
+            _playerTransform.position.y,
+            ref _currentVelocity,
+            _smoothTime,
+            _maxSpeed
+        );
+
+        // 現在位置のx座標を更新
+        transform.position = currentPos;
     }
 }
