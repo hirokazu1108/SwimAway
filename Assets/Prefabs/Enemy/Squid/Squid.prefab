@@ -45,8 +45,9 @@ GameObject:
   - component: {fileID: 7814092577001903812}
   - component: {fileID: 7814092577001903815}
   - component: {fileID: 7814092577001903867}
-  - component: {fileID: 7814092577001903865}
   - component: {fileID: 7814092577001903864}
+  - component: {fileID: 4667490284930828822}
+  - component: {fileID: -8859726584837837177}
   m_Layer: 0
   m_Name: Squid
   m_TagString: Untagged
@@ -149,26 +150,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &7814092577001903865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7814092577001903814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2ed9ee06694cf49a4ca07f18bba8e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  _moveMode: 2
-  _basePoint: {x: 5, y: 0, z: 0}
-  _roundTripWidthX: 0
-  _roundTripWidthY: 0
-  _boundPower: 3
-  _boundInterval: 1
-  isSwitchingDirection: 0
 --- !u!114 &7814092577001903864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +162,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91d111131b87c24b94b7298c2caeddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particleObject_SquidInk: {fileID: 0}
+  _particleObject_SquidInk: {fileID: 719423388007996910, guid: 869cb783f86d3544b965a151a9c38c45,
+    type: 3}
+--- !u!114 &4667490284930828822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7814092577001903814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe9c54c13d3d344a9ab6f43c803af06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _boundInterval: 1
+  _boundPower: 2
+--- !u!114 &-8859726584837837177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7814092577001903814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f8446f89fb19d443b19c4ebb1cdba0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
 --- !u!1 &7814092577122852723
 GameObject:
   m_ObjectHideFlags: 0

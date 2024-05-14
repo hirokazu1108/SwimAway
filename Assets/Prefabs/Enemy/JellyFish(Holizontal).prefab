@@ -4010,6 +4010,7 @@ GameObject:
   - component: {fileID: 8458520902957478901}
   - component: {fileID: 986691244318853505}
   - component: {fileID: 986691244318853504}
+  - component: {fileID: -1746116721259413596}
   m_Layer: 0
   m_Name: JellyFish(Holizontal)
   m_TagString: Untagged
@@ -4090,12 +4091,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   _moveMode: 0
-  _basePoint: {x: 0, y: 0, z: 0}
+  _diffBasePoint: {x: 0, y: 0, z: 0}
   _roundTripWidthX: 5
   _roundTripWidthY: 5
-  _boundPower: 1
-  _boundInterval: 1
   isSwitchingDirection: 0
+--- !u!114 &-1746116721259413596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765089146767516460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe9c54c13d3d344a9ab6f43c803af06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _boundInterval: 1
+  _boundPower: 2
 --- !u!1 &8858349524116913382
 GameObject:
   m_ObjectHideFlags: 0
