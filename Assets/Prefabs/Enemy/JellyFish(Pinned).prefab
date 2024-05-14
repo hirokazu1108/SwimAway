@@ -3722,7 +3722,8 @@ GameObject:
   - component: {fileID: 8708371497560399170}
   - component: {fileID: 9174079564358588193}
   - component: {fileID: 541343752541810005}
-  - component: {fileID: 541343752541810004}
+  - component: {fileID: -1736149810671523992}
+  - component: {fileID: -4608488155082153020}
   m_Layer: 0
   m_Name: JellyFish(Pinned)
   m_TagString: Untagged
@@ -3789,7 +3790,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &541343752541810004
+--- !u!114 &-1736149810671523992
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3798,17 +3799,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 8327587889651714040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2ed9ee06694cf49a4ca07f18bba8e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fe9c54c13d3d344a9ab6f43c803af06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _boundInterval: 1
+  _boundPower: 2
+--- !u!114 &-4608488155082153020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8327587889651714040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f8446f89fb19d443b19c4ebb1cdba0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  _moveMode: 2
-  _basePoint: {x: 0, y: 0, z: 0}
-  _roundTripWidthX: 0
-  _roundTripWidthY: 0
-  _boundPower: 1
-  _boundInterval: 1
-  isSwitchingDirection: 0
 --- !u!1 &8333838920705704919
 GameObject:
   m_ObjectHideFlags: 0
