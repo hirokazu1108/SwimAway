@@ -110,8 +110,12 @@ GameObject:
   - component: {fileID: 7140428377054517187}
   - component: {fileID: 8419040141310550466}
   - component: {fileID: 8419040141310550464}
+<<<<<<< Updated upstream
   - component: {fileID: 8419040141310550465}
   - component: {fileID: 8419040141310550467}
+=======
+  - component: {fileID: 2766210062368849209}
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: PlayerFish
   m_TagString: Player
@@ -213,6 +217,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
+<<<<<<< Updated upstream
   m_Size: {x: 0.06302744, y: 0.030638244, z: 0.025392458}
   m_Center: {x: -0.0031927587, y: 0.0004234687, z: 0.002916448}
 --- !u!65 &8419040141310550465
@@ -229,6 +234,11 @@ BoxCollider:
   m_Size: {x: 0.06302744, y: 0.030638244, z: 0.025392458}
   m_Center: {x: -0.0031927587, y: 0.0004234687, z: 0.002916448}
 --- !u!114 &8419040141310550467
+=======
+  m_Size: {x: 0.071571864, y: 0.030638244, z: 0.025392458}
+  m_Center: {x: 0.0010794267, y: 0.0004234687, z: 0.002916448}
+--- !u!114 &2766210062368849209
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,6 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7008cd9def09244bf43602bb2e3930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
   _head: {fileID: 8419040141675905956}
   _inputInterval: 0.2
   _moveState: 1
@@ -248,3 +259,9 @@ MonoBehaviour:
   _infoCanvas: {fileID: 0}
   _infoText: {fileID: 0}
   _needsInfo: 0
+=======
+  _inputInterval: 0.2
+  _moveState: 1
+  _potentialDirection: {x: 1, y: 1}
+  _elapsedTime: 40
+>>>>>>> Stashed changes
