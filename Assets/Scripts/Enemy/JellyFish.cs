@@ -26,7 +26,7 @@ public class JellyFish : Enemy
     private void Start()
     {
         _basePoint = transform.position - _diffBasePoint;
-        moveFuncSet();
+        MoveFuncSet();
     }
 
     private void Update()
@@ -35,7 +35,7 @@ public class JellyFish : Enemy
     }
 
 
-    private void moveFuncSet()
+    private void MoveFuncSet()
     {
         switch (_moveMode)
         {
@@ -80,11 +80,11 @@ public class JellyFish : Enemy
         }
     }
 
-    private void switchMoveMode()
+    private void SwitchMoveMode()
     {
         if (_moveMode == MoveMode.XAxis) _moveMode = MoveMode.YAxis;
         else if (_moveMode == MoveMode.YAxis) _moveMode = MoveMode.XAxis;
-        moveFuncSet();
+        MoveFuncSet();
     }
 
     public override void Move()

@@ -1,102 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8419040141675905956
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8419040141675905960}
-  - component: {fileID: 8419040141675905959}
-  - component: {fileID: 8419040141675905958}
-  - component: {fileID: 8419040141675905957}
-  m_Layer: 0
-  m_Name: Head
-  m_TagString: PlayerHead
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8419040141675905960
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8419040141675905956}
-  m_LocalRotation: {x: 0.49999994, y: 0.50000006, z: 0.50000006, w: 0.49999994}
-  m_LocalPosition: {x: 0.033333335, y: 0, z: 0.003}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.01}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8312740127108230316}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8419040141675905959
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8419040141675905956}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &8419040141675905958
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8419040141675905956}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8419040141675905957
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8419040141675905956}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9999996, y: 0.5638421, z: 1}
-  m_Center: {x: 0.000000009867369, y: -0.0827735, z: 7.0576924e-15}
 --- !u!1 &8653413481860281878
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +14,7 @@ GameObject:
   - component: {fileID: 8419040141310550466}
   - component: {fileID: 8419040141310550464}
   - component: {fileID: 8419040141310550465}
-  - component: {fileID: 8419040141310550467}
+  - component: {fileID: 2766210062368849209}
   m_Layer: 0
   m_Name: PlayerFish
   m_TagString: Player
@@ -130,8 +33,7 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 40, y: 40, z: 40}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8419040141675905960}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -213,8 +115,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.06302744, y: 0.030638244, z: 0.025392458}
-  m_Center: {x: -0.0031927587, y: 0.0004234687, z: 0.002916448}
+  m_Size: {x: 0.071571864, y: 0.030638244, z: 0.025392458}
+  m_Center: {x: 0.0010794267, y: 0.0004234687, z: 0.002916448}
 --- !u!65 &8419040141310550465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -226,9 +128,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.06302744, y: 0.030638244, z: 0.025392458}
-  m_Center: {x: -0.0031927587, y: 0.0004234687, z: 0.002916448}
---- !u!114 &8419040141310550467
+  m_Size: {x: 0.071571864, y: 0.030638244, z: 0.025392458}
+  m_Center: {x: 0.0010794267, y: 0.0004234687, z: 0.002916448}
+--- !u!114 &2766210062368849209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,11 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7008cd9def09244bf43602bb2e3930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _head: {fileID: 8419040141675905956}
-  _inputInterval: 0.2
+  _inputInterval: 0
   _moveState: 1
   _potentialDirection: {x: 1, y: 1}
   _elapsedTime: 0
-  _infoCanvas: {fileID: 0}
-  _infoText: {fileID: 0}
-  _needsInfo: 0

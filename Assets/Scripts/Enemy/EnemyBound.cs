@@ -11,21 +11,23 @@ public class EnemyBound : MonoBehaviour
     private bool _isBound = false;    //バウンド中かのフラグ
     private Rigidbody _rb = null;
 
+    public float BoundPower { get { return _boundPower; } }
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
     }
 
     // バウンド後のクール時間を待機
-    private void waitBoundInterval()
+    private void WaitBoundInterval()
     {
         _isBound = true;
         _rb.isKinematic = false;
-        Invoke("exitBoundState", _boundInterval);
+        Invoke("ExitBoundState", _boundInterval);
     }
 
     //バウンドのクール時間を終了
-    private void exitBoundState()
+    private void ExitBoundState()
     {
         _rb.velocity = Vector3.zero;
         _isBound = false;
@@ -34,17 +36,9 @@ public class EnemyBound : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        waitBoundInterval();
+        WaitBoundInterval();
 
         var dir = (collision.contacts[0].point - transform.position).normalized;
-
-        //バウンド処理
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            var player = collision.gameObject.GetComponent<Player>();
-            player.addForce(dir * _boundPower, _boundPower);
-        }
-
         _rb.AddForce(-dir * _boundPower, ForceMode.Impulse);
     }
 }

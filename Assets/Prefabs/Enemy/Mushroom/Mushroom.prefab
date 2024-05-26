@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boundInterval: 1
-  _boundPower: 10
+  _boundPower: 30
 --- !u!54 &8585425190919889631
 Rigidbody:
   m_ObjectHideFlags: 0

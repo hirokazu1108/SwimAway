@@ -42,7 +42,7 @@ public class AccelerationRing : MonoBehaviour
         //Œp‘±“I‚É—Í‚ð‰Á‚¦‚é
         while (time < 5)
         {
-            player.addForce(dir, _power);
+            //player.addForce(dir, _power);
             time += 1;
             yield return null;
         }
