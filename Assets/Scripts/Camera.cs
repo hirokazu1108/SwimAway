@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
-    [SerializeField] private Transform _playerTransform;  //プレイヤーの位置
+    private Transform _playerTransform;  //プレイヤーの位置
 
     private Vector3 _positionVector;   //位置ベクトル（カメラ→プレイヤー）
 
     void Start()
     {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         _positionVector = _playerTransform.position - transform.position;
     }
 

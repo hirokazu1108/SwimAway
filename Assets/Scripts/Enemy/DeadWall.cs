@@ -11,12 +11,13 @@ public class DeadWall : Enemy
 
     // コンポーネント
     private Rigidbody _rb = null;
-    [SerializeField, Tooltip("PlayerオブジェクトのTransform")] private Transform _playerTransform;
+    private Transform _playerTransform = null;
 
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
