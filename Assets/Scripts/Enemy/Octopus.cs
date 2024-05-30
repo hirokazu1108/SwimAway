@@ -5,9 +5,9 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Octopus : MonoBehaviour
 {
-    [SerializeField, Header("墨のエフェクト")] private ParticleSystem _octopusInkParticle;
-    [SerializeField, Header("発見から発射までのインターバル")] private float _shootIntervalFromFind;
-    [SerializeField] private float _rotateSpeed;
+    [SerializeField, Tooltip("墨のエフェクト")] private ParticleSystem _octopusInkParticle;
+    [SerializeField, Tooltip("発見から発射までのインターバル")] private float _shootIntervalFromFind;
+    [SerializeField, Tooltip("プレイヤーヘ向く速度")] private float _rotateSpeed;
 
     private GameObject _tagetObject = null;
     private Quaternion _originalRotation = Quaternion.identity;

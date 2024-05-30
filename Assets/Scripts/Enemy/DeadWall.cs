@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class DeadWall : Enemy
 {
-    [SerializeField] private float _elapsedTime = 0f;    //経過時間
-    [SerializeField] private Transform _playerTransform;
 
-    // 目標値に到達するまでのおおよその時間[s]
-    [SerializeField] private float _smoothTime = 0.3f;
-
+    // 移動に利用
+    private float _targetSpeed;
+    [SerializeField, Tooltip("目標値に到達するまでのおおよその時間[s]")] private float _smoothTime = 0.3f;
     private float _maxSpeed = float.PositiveInfinity;
     private float _currentVelocity = 0;
 
+    // コンポーネント
     private Rigidbody _rb = null;
-    private float _targetSpeed;  //目標の速さ（adjustSpeed()で管理）
+    [SerializeField, Tooltip("PlayerオブジェクトのTransform")] private Transform _playerTransform;
+
 
     void Start()
     {
@@ -31,6 +31,11 @@ public class DeadWall : Enemy
     {
         Move();
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) Hit();
+    }
+
 
     public override void Move()
     {
@@ -44,18 +49,19 @@ public class DeadWall : Enemy
     {
         GameManager.GameOver();
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player")) Hit();
-    }
 
-    //時間経過による速度変化
+
+    /// <summary>
+    /// 時間経過による速度変化
+    /// </summary>
     private void adjustSpeed()
     {
-        _elapsedTime += Time.deltaTime;
-        _targetSpeed = Mathf.Sqrt(_elapsedTime);
+        _targetSpeed = Mathf.Sqrt(GameManager.GameTime);
     }
 
+    /// <summary>
+    /// プレイヤー位置に伴った高さの調整
+    /// </summary>
     private void adjustHeight()
     {
         // 現在位置取得

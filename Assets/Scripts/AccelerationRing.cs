@@ -13,48 +13,38 @@ public class AccelerationRing : MonoBehaviour
         PositiveY,
         NegativeY,
     }
-
-    [Space(10), Header("[Parameter]")]
-
-    [SerializeField, Header("加速力")] private float _power;
-    [SerializeField, Header("加速方向")] private AccelerateDirection _direction;
-    [SerializeField, Header("横から入れるか")] private bool _canEnterSide;
-    [SerializeField, Range(0, 90) ,Header("CanEnterSideがOFFのときの許容角度（弧度）")] private float _allowableAngleDeg;
-
-
     private GameObject _playerObj = null;
+
+    [SerializeField, Tooltip("加速率")] private float _acceleRate;
+    [SerializeField, Tooltip("加速時間")] private float _acceleTime;
+
+
+    //現在未使用
+    [Tooltip("加速方向")] private AccelerateDirection _direction;
+    [Tooltip("横から入れるか")] private bool _canEnterSide;
+    [Range(0, 90) ,Tooltip("CanEnterSideがOFFのときの許容角度（弧度）")] private float _allowableAngleDeg;
     private float _allowableAngleDot = 1f;
+    
 
     private void Start()
     {
         _allowableAngleDot = Mathf.Cos(_allowableAngleDeg);
     }
 
-    private IEnumerator acceleratePlayer()
+    private void OnTriggerEnter(Collider other)
     {
-        if (_playerObj == null) yield break;
-        if (!checkAccelerateByEnterSide()) yield break;
+        if (!other.CompareTag("Player")) return;
 
-        var dir = getAccelerateDirection();
-        var player = _playerObj.GetComponent<Player>();
-        var time = 0f;
+        _playerObj = other.gameObject;
+        StartCoroutine(AddAcceleEffect());
 
-        //継続的に力を加える
-        while (time < 5)
-        {
-            //player.addForce(dir, _power);
-            time += 1;
-            yield return null;
-        }
 
-        _playerObj = null;
-
-        yield break;
     }
 
     private Vector3 getAccelerateDirection()
     {
         if (_playerObj == null) return Vector3.zero;
+
         var player = _playerObj.GetComponent<Player>();
 
         switch (_direction)
@@ -95,12 +85,22 @@ public class AccelerationRing : MonoBehaviour
         return false;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("Player")) return;
 
-        _playerObj = other.gameObject;
-        StartCoroutine(acceleratePlayer());
+    /// <summary>
+    /// 加速効果を付与
+    /// </summary>
+    /// <returns>IEnumerator</returns>
+    private IEnumerator AddAcceleEffect()
+    {
+        if(_playerObj == null) yield break;
+
+        var player = _playerObj.GetComponent<Player>();
+
+        player.setSpeedRate(player.SpeedRate * _acceleRate);
+        yield return new WaitForSeconds(_acceleTime);
+        player.setSpeedRate(player.SpeedRate / _acceleRate); // 元の速度率へ
+
+        yield break;
     }
     
 }

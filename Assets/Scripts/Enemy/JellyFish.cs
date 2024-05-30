@@ -11,12 +11,11 @@ public class JellyFish : Enemy
         YAxis,
     }
 
-    [Space(10), Header("[Parameter]")]
-    [SerializeField, Header("移動軸")] private MoveMode _moveMode;
-    [SerializeField, Header("初期位置の反復移動の基準位置とのずれ")] private Vector3 _diffBasePoint = Vector3.zero;
-    [SerializeField, Header("X軸方向の往復幅")] private float _roundTripWidthX;
-    [SerializeField, Header("Y軸方向の往復幅")] private float _roundTripWidthY;
-    [SerializeField, Header("衝突のあと進行方向が変化するかどうか[不安定]")] private bool isSwitchingDirection;
+    [SerializeField, Tooltip("移動軸")] private MoveMode _moveMode;
+    [SerializeField, Tooltip("初期位置の反復移動の基準位置とのずれ")] private Vector3 _diffBasePoint = Vector3.zero;
+    [SerializeField, Tooltip("X軸方向の往復幅")] private float _roundTripWidthX;
+    [SerializeField, Tooltip("Y軸方向の往復幅")] private float _roundTripWidthY;
+    [SerializeField, Tooltip("衝突のあと進行方向が変化するかどうか[不安定]")] private bool isSwitchingDirection;
 
     private bool _dirTogle = false; //進行方向のトグル
     private Action moveFunc = null;
