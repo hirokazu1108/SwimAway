@@ -1,38 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     private static float _gameTime = 0;
-    private bool isPauseGame = false;
+    private static bool _isPauseGame = false;
 
     // getter
     public static float GameTime => _gameTime;
+    public static bool IsPauseGame => _isPauseGame;
 
     private void Start()
     {
-        GameTimerReset();
+        GameReset();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            isPauseGame = !isPauseGame;
-            if (isPauseGame) PauseGame(); else ResumeGame();
+            _isPauseGame = !_isPauseGame;
+            if (_isPauseGame) PauseGame(); else ResumeGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Retry();
         }
 
         GameTimerCount();
     }
 
     /// <summary>
-    /// ゲーム経過時間のリセット
+    /// ゲーム状態のリセット
     /// </summary>
-    private void GameTimerReset()
+    private void GameReset()
     {
         _gameTime = 0;
+        _isPauseGame = false;
+        ResumeGame();
     }
 
     /// <summary>
