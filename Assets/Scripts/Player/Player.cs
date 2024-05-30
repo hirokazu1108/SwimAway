@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
     // 移動に利用
     private float _targetSpeed = 0.0f;
+    [SerializeField, Tooltip("最大加速率")] private float _maxSpeedRate;
     private float _speedRate = 1.0f;
     private bool _isTurning = false;
     private float _cosIdentityDirAngle = 0.0f;
@@ -32,7 +33,7 @@ public class Player : MonoBehaviour
 
     // setter
     public void setSpeedRate(float rate){
-        _speedRate = Mathf.Abs(rate); 
+        _speedRate = Mathf.Abs(Mathf.Min(rate,_maxSpeedRate));  // 最大値より大きい場合と負値の場合を対策
     }
 
 
@@ -106,7 +107,9 @@ public class Player : MonoBehaviour
     private void AdjustSpeed()
     {
         _targetSpeed = Mathf.Sqrt(GameManager.GameTime) + 1;    // 時間による速度変化
+        
         _targetSpeed *= _speedRate; // 速度調整を行う
+
     }
 
     private void Move()

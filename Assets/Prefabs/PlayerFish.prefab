@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7008cd9def09244bf43602bb2e3930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputInterval: 0.2
   _moveState: 1
   _potentialDirection: {x: 1, y: 1}
-  _elapsedTime: 40
+  _maxSpeedRate: 10
+  _inputInterval: 0.2
