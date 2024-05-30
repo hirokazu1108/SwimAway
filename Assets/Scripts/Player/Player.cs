@@ -10,27 +10,36 @@ public class Player : MonoBehaviour
         MoveVertical,
     }
 
-    [Space(10), Header("[Parameter]")]
-    [SerializeField, Header("キー入力の受付間隔")] private float _inputInterval;
+    // 状態変数
+    [SerializeField, Tooltip("現在の状態")] private MoveState _moveState = MoveState.MoveHorizontal;
+    [SerializeField, Tooltip("潜在的な方向")] private Vector2 _potentialDirection = new Vector2(1, 1);
 
-    [Space(10), Header("[State]")]
-    [SerializeField] private MoveState _moveState = MoveState.MoveHorizontal;    //現在の状態
-    [SerializeField] private Vector2 _potentialDirection = new Vector2(1, 1);     //潜在的な方向
-    [SerializeField] private float _elapsedTime = 0f;    //経過時間
-
-
-    private Rigidbody _rb = null;
-    private float _targetSpeed;  //目標の速さ（adjustSpeed()で管理）
+    // 移動に利用
+    private float _targetSpeed = 0.0f;
+    private float _speedRate = 1.0f;
     private bool _isTurning = false;
+    private float _cosIdentityDirAngle = 0.0f;
+
+    // 入力
+    [SerializeField, Tooltip("キー入力の受付間隔")] private float _inputInterval;
     private float _inputTimer = 99f;
-    private float _cosIdentityDirAngle = 0.0f;   // 衝突の際、水平方向か垂直方向化を決める際に使用する閾値
+
+    // コンポーネント
+    private Rigidbody _rb = null;
+
+    // getter
+    public float SpeedRate => _speedRate;
+
+    // setter
+    public void setSpeedRate(float rate){
+        _speedRate = Mathf.Abs(rate); 
+    }
 
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         SetBoundSetting();
-
     }
 
     private void Update()
@@ -42,6 +51,15 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_isTurning) return;
+
+        var enemyBound = collision.gameObject.GetComponent<EnemyBound>();
+        var power = enemyBound ? enemyBound.BoundPower : 1.0f;
+        Bound(collision.contacts[0].point, power);
     }
 
     /// <summary>
@@ -85,8 +103,8 @@ public class Player : MonoBehaviour
     /// </summary>
     private void AdjustSpeed()
     {
-        _elapsedTime += Time.deltaTime;
-        _targetSpeed = Mathf.Sqrt(_elapsedTime) + 1;
+        _targetSpeed = Mathf.Sqrt(GameManager.GameTime) + 1;    // 時間による速度変化
+        _targetSpeed *= _speedRate; // 速度調整を行う
     }
 
     private void Move()
@@ -200,19 +218,7 @@ public class Player : MonoBehaviour
             forceDir = new Vector2(0, _potentialDirection.y);
         }
 
-
-
         StartCoroutine(TurnTo(_potentialDirection));
         _rb.AddForce(forceDir * power, ForceMode.Impulse);
-    }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (_isTurning) return;
-
-        var enemyBound = collision.gameObject.GetComponent<EnemyBound>();
-        var power = enemyBound ? enemyBound.BoundPower : 1.0f;
-        Bound(collision.contacts[0].point, power);
     }
 }
