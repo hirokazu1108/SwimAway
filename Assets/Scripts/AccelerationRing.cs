@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AccelerationRing : MonoBehaviour
@@ -37,7 +36,6 @@ public class AccelerationRing : MonoBehaviour
 
         _playerObj = other.gameObject;
         StartCoroutine(AddAcceleEffect());
-
 
     }
 
@@ -99,6 +97,7 @@ public class AccelerationRing : MonoBehaviour
         player.setSpeedRate(player.SpeedRate * _acceleRate);
         yield return new WaitForSeconds(_acceleTime);
         player.setSpeedRate(player.SpeedRate / _acceleRate); // Œ³‚Ì‘¬“x—¦‚Ö
+        _playerObj = null;
 
         yield break;
     }

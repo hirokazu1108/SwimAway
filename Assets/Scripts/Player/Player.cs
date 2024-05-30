@@ -77,6 +77,8 @@ public class Player : MonoBehaviour
     /// </summary>
     private void UserInput()
     {
+        if (GameManager.IsPauseGame) return;
+
         //ƒL[“ü—ÍŠÔŠu‚ğ“K‰
         _inputTimer += Time.deltaTime;
         if (_inputTimer < _inputInterval) return;
