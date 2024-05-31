@@ -5,38 +5,48 @@ using UnityEngine.UI;
 
 public class Warning : MonoBehaviour
 {
-    [SerializeField] Image warningImg;
-    [SerializeField] GameObject Iwashi;
-    [SerializeField] GameObject Kajiki;
-    float distanceOfDeath;
-    float[] dis = { 1, 3, 5 };    // åxçêÇ™î≠ê∂Ç∑ÇÈãóó£
-    float[] alph = { 0.8f, 0.5f, 0.3f };    // âÊñ ÇÃîZÇ≥
+    [SerializeField] GameObject iwashi;
+    [SerializeField] GameObject kajiki;
+    private Image img;
+    private float speed = 1.0f; // ì_ñ≈ë¨ìx
+    private float time;
+    private float distanceOfDeath;
+    private float[] dis = { 1, 3, 5 };  // åxçêîÕàÕ
     void Start()
     {
-        warningImg.color = Color.clear;
+        img = GetComponent<Image>();
+        img.color = Color.clear;
     }
 
     void Update()
     {
-        warningImg.color = Color.Lerp(warningImg.color, Color.clear, Time.deltaTime);
-        distanceOfDeath = Vector3.Distance(Iwashi.transform.position, Kajiki.transform.position);
-        Approach();
+        distanceOfDeath = iwashi.transform.position.x - kajiki.transform.position.x;
+        img.color = GetImgColor(img.color);
     }
 
-    void Approach()
+    Color GetImgColor(Color color)
     {
+        // ìßñæìx
+        time += Time.deltaTime * speed * 5.0f;
+        if (distanceOfDeath <= dis[0])
+        {
+            color.a = (Mathf.Sin(time) + 0.6f) / 2.0f;
+        }
+        else if(distanceOfDeath <= dis[1] && distanceOfDeath > dis[0])
+        {
+            color.a = Mathf.Sin(time) / 2.0f;
+        }
+        else if(distanceOfDeath <= dis[2] && distanceOfDeath > dis[1])
+        {
+            color.a = Mathf.Sin(time) / 4.0f;
+        }
+        else if(distanceOfDeath > dis[2])
+        {
+            color.a = 0;
+        }
 
-        if (distanceOfDeath < dis[0])
-        {
-            warningImg.color = new Color(0.7f, 0, 0, alph[0]);
-        }
-        else if (distanceOfDeath < dis[1] && distanceOfDeath >= dis[0])
-        {
-            warningImg.color = new Color(0.7f, 0, 0, alph[1]);
-        }
-        else if (distanceOfDeath < dis[2] && distanceOfDeath >= dis[1])
-        {
-            warningImg.color = new Color(0.7f, 0, 0, alph[2]);
-        }
+        color.r = 0.7f; // ê‘êF
+        
+        return color;
     }
 }

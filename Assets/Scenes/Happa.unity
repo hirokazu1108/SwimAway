@@ -123,53 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &300383254
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 300383256}
-  - component: {fileID: 300383255}
-  m_Layer: 0
-  m_Name: WarningManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &300383255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300383254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 099d19427fdb3cf43be71e6f1609b908, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warningImg: {fileID: 405101487}
-  Iwashi: {fileID: 1117833902}
-  Kajiki: {fileID: 1443621965}
---- !u!4 &300383256
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300383254}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 366.33533, y: 194.56937, z: 15.575736}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &405101485
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +134,7 @@ GameObject:
   - component: {fileID: 405101486}
   - component: {fileID: 405101488}
   - component: {fileID: 405101487}
+  - component: {fileID: 405101489}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -246,6 +200,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 405101485}
   m_CullTransparentMesh: 1
+--- !u!114 &405101489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405101485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099d19427fdb3cf43be71e6f1609b908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iwashi: {fileID: 1117833902}
+  kajiki: {fileID: 1443621965}
 --- !u!1 &1117833902
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +226,7 @@ GameObject:
   - component: {fileID: 1117833905}
   - component: {fileID: 1117833904}
   - component: {fileID: 1117833903}
+  - component: {fileID: 1117833907}
   m_Layer: 0
   m_Name: Iwashi
   m_TagString: Untagged
@@ -336,13 +305,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117833902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1117833907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117833902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4f4f9acba3cc614a95c68c406f3bf54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1186550336
 GameObject:
   m_ObjectHideFlags: 0
