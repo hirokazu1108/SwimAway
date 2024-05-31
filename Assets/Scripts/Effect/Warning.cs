@@ -11,7 +11,7 @@ public class Warning : MonoBehaviour
     private float speed = 1.0f; // 点滅速度
     private float time;
     private float distanceOfDeath;
-    private float[] dis = { 1, 3, 5 };  // 警告範囲
+    private float[] dis = { 5, 10, 20 };  // 警告範囲
     void Start()
     {
         img = GetComponent<Image>();
@@ -30,11 +30,11 @@ public class Warning : MonoBehaviour
         time += Time.deltaTime * speed * 5.0f;
         if (distanceOfDeath <= dis[0])
         {
-            color.a = (Mathf.Sin(time) + 0.6f) / 2.0f;
+            color.a = (Mathf.Sin(time) + 0.2f) / 2.0f;
         }
         else if(distanceOfDeath <= dis[1] && distanceOfDeath > dis[0])
         {
-            color.a = Mathf.Sin(time) / 2.0f;
+            color.a = Mathf.Sin(time) / 3.0f;
         }
         else if(distanceOfDeath <= dis[2] && distanceOfDeath > dis[1])
         {
@@ -45,7 +45,7 @@ public class Warning : MonoBehaviour
             color.a = 0;
         }
 
-        color.r = 0.7f; // 赤色
+        color.r = 0.3f; // 赤色
         
         return color;
     }
