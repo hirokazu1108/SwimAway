@@ -3,12 +3,21 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private static Canvas gameOverCanvas;
+    private static Canvas pauseCanvas;
+
     private static float _gameTime = 0;
     private static bool _isPauseGame = false;
 
     // getter
     public static float GameTime => _gameTime;
     public static bool IsPauseGame => _isPauseGame;
+
+    private void Awake()
+    {
+        gameOverCanvas = transform.Find("GameOverCanvas").GetComponent<Canvas>();
+        pauseCanvas = transform.Find("PauseCanvas").GetComponent<Canvas>();
+    }
 
     private void Start()
     {
@@ -23,7 +32,7 @@ public class GameManager : MonoBehaviour
             if (_isPauseGame) PauseGame(); else ResumeGame();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && pauseCanvas.enabled)
         {
             Retry();
         }
@@ -54,9 +63,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void GameOver()
     {
-        Debug.Log("GameOver");
-
-        Retry();
+        PauseGame(false);
+        gameOverCanvas.enabled = true;
     }
 
 
@@ -72,9 +80,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ÉQÅ[ÉÄÇàÍéûí‚é~
     /// </summary>
-    public static void PauseGame()
+    public static void PauseGame(bool enabelCanvas = true)
     {
         Time.timeScale = 0;
+        pauseCanvas.enabled = enabelCanvas;
     }
 
     /// <summary>
@@ -83,5 +92,6 @@ public class GameManager : MonoBehaviour
     public static void ResumeGame()
     {
         Time.timeScale = 1;
+        pauseCanvas.enabled = false;
     }
 }
