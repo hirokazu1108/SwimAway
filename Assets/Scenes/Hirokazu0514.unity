@@ -3148,7 +3148,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Retry
+  m_Text: Retry(R)
 --- !u!222 &1516105454
 CanvasRenderer:
   m_ObjectHideFlags: 0
