@@ -28,7 +28,7 @@ public class AccelerationRing : MonoBehaviour
         _allowableAngleDot = Mathf.Cos(_allowableEnterAngle);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Player")) return;
         _playerObj = other.gameObject;

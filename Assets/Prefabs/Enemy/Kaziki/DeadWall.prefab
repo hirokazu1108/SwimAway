@@ -64,8 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  _elapsedTime: 40
-  _playerTransform: {fileID: 0}
+  _heightOffset: 0
   _smoothTime: 0.3
 --- !u!1 &6112160086173078073
 GameObject:
@@ -162,8 +161,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000002, y: 0.99999994, z: 1.0000002}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0000002, y: 0.9999999, z: 1.4294008}
+  m_Center: {x: -3.3939458e-15, y: 0, z: -0.21470024}
 --- !u!1001 &5710355590168897404
 PrefabInstance:
   m_ObjectHideFlags: 0
