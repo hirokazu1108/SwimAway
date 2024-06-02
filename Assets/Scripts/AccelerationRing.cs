@@ -16,25 +16,25 @@ public class AccelerationRing : MonoBehaviour
 
     [SerializeField, Tooltip("加速率")] private float _acceleRate;
     [SerializeField, Tooltip("加速時間")] private float _acceleTime;
+    [SerializeField, Range(0, 90), Tooltip("侵入許容角度(度数）")] private float _allowableEnterAngle;
+    private float _allowableAngleDot = 1f;
 
 
     //現在未使用
     [Tooltip("加速方向")] private AccelerateDirection _direction;
-    [Tooltip("横から入れるか")] private bool _canEnterSide;
-    [Range(0, 90) ,Tooltip("CanEnterSideがOFFのときの許容角度（弧度）")] private float _allowableAngleDeg;
-    private float _allowableAngleDot = 1f;
-    
 
     private void Start()
     {
-        _allowableAngleDot = Mathf.Cos(_allowableAngleDeg);
+        _allowableAngleDot = Mathf.Cos(_allowableEnterAngle);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-
         _playerObj = other.gameObject;
+
+
+        if (!checkAccelerateByEnterSide()) return;
         StartCoroutine(AddAcceleEffect());
 
     }
@@ -64,21 +64,19 @@ public class AccelerationRing : MonoBehaviour
         return Vector3.zero;
     }
 
-    /*
-     * サイドからの侵入による加速の実行有無
-     * 返却値
-     *       true : 加速
-     *      false : 加速しない
-     */
+    /// <summary>
+    /// サイドからの侵入による加速の実行有無
+    /// </summary>
+    /// <returns> 加速するかどうか</returns>
     private bool checkAccelerateByEnterSide()
     {
-        if (_canEnterSide) return true; //サイドからも入れる
+        if (_playerObj == null) return false;
 
         var ringAdvanceDirection = transform.right;
         var playerAdvanceDirection = _playerObj.transform.right;
         var dot = Vector3.Dot(ringAdvanceDirection, playerAdvanceDirection);
 
-        if (Mathf.Abs(dot) >= _allowableAngleDot) return true;
+        if (_allowableAngleDot <= Mathf.Abs(dot)) return true;
 
         return false;
     }

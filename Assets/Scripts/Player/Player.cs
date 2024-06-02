@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     // 移動に利用
     private float _targetSpeed = 0.0f;
-    [SerializeField, Tooltip("最大加速率")] private float _maxSpeedRate;
+    [SerializeField, Tooltip("最大速度")] private float _maxSpeed;
     private float _speedRate = 1.0f;
     private bool _isTurning = false;
     private float _cosIdentityDirAngle = 0.0f;
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
     // setter
     public void setSpeedRate(float rate){
-        _speedRate = Mathf.Abs(Mathf.Min(rate,_maxSpeedRate));  // 最大値より大きい場合と負値の場合を対策
+        _speedRate = Mathf.Abs(rate);
     }
 
 
@@ -110,6 +110,7 @@ public class Player : MonoBehaviour
         
         _targetSpeed *= _speedRate; // 速度調整を行う
 
+        _targetSpeed = Mathf.Min(_targetSpeed, _maxSpeed);  // 最大速度を超えないように
     }
 
     private void Move()
@@ -118,8 +119,15 @@ public class Player : MonoBehaviour
         var power = 0f;
         if (_moveState != MoveState.Stop) power = _rb.velocity.magnitude + 1;  // 加える力目標速度に到達するまでの時間を変化させられる
 
-        var vectorAddForce = transform.right * (_targetSpeed - _rb.velocity.magnitude) * 10;
-        _rb.AddForce(vectorAddForce, ForceMode.Acceleration);
+        if (_maxSpeed < _rb.velocity.magnitude)
+        {
+            _rb.velocity = _rb.velocity.normalized * _maxSpeed;
+        }
+        else
+        {
+            var vectorAddForce = transform.right * (_targetSpeed - _rb.velocity.magnitude) * 10;
+            _rb.AddForce(vectorAddForce, ForceMode.Acceleration);
+        }
     }
 
     /// <summary>

@@ -110,10 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810bf648a32e0654192e6801c0ee456f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _power: 5
-  _direction: 0
-  _canEnterSide: 1
-  _allowableAngleDeg: 0
+  _acceleRate: 3
+  _acceleTime: 1
 --- !u!1 &7401000810674932726
 GameObject:
   m_ObjectHideFlags: 0
