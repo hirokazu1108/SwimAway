@@ -26,13 +26,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && !gameOverCanvas.enabled)
         {
             _isPauseGame = !_isPauseGame;
             if (_isPauseGame) PauseGame(); else ResumeGame();
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && pauseCanvas.enabled)
+        if (Input.GetKeyDown(KeyCode.R) && (pauseCanvas.enabled || gameOverCanvas.enabled))
         {
             Retry();
         }
