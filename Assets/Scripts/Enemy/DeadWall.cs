@@ -3,9 +3,12 @@ using UnityEngine;
 public class DeadWall : Enemy
 {
 
+    // 位置
+    [SerializeField, Tooltip("高さのオフセット")] private float _heightOffset;
+
     // 移動に利用
     private float _targetSpeed;
-    [SerializeField, Tooltip("目標値に到達するまでのおおよその時間[s]")] private float _smoothTime = 0.3f;
+    [SerializeField, Tooltip("目標値に到達するまでのおおよその時間[s]")] private float _smoothTime;
     private float _maxSpeed = float.PositiveInfinity;
     private float _currentVelocity = 0;
 
@@ -69,7 +72,7 @@ public class DeadWall : Enemy
         // 次フレームの位置を計算
         currentPos.y = Mathf.SmoothDamp(
             currentPos.y,
-            _playerTransform.position.y,
+            _playerTransform.position.y + _heightOffset,
             ref _currentVelocity,
             _smoothTime,
             _maxSpeed

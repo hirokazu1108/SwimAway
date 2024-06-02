@@ -7,11 +7,12 @@ public class Warning : MonoBehaviour
 {
     [SerializeField] GameObject iwashi;
     [SerializeField] GameObject kajiki;
+    [SerializeField, Tooltip("Œx”ÍˆÍ")] private float[] dis = { 5, 10, 20 };  // Œx”ÍˆÍ
     private Image img;
     private float speed = 1.0f; // “_–Å‘¬“x
     private float time;
     private float distanceOfDeath;
-    private float[] dis = { 5, 10, 20 };  // Œx”ÍˆÍ
+    
     void Start()
     {
         img = GetComponent<Image>();
