@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
         Stop,
         MoveHorizontal,
         MoveVertical,
+        Invincible, // 無敵モード
     }
 
     // 状態変数
@@ -21,12 +22,21 @@ public class Player : MonoBehaviour
     private bool _isTurning = false;
     private float _cosIdentityDirAngle = 0.0f;
 
+    // 無敵
+    private float _invincibledElapsedTime = 0.0f;   // 無敵を使ってからの時間
+    [SerializeField, Tooltip("無敵を使えるまでの時間")] private float _invincibleCanUseTime;
+    [SerializeField, Tooltip("無敵時間")] private float _invincibleTime;
+    [SerializeField, Tooltip("無敵中の速度倍率")] private float _invincibleSpeedRate;
+
     // 入力
     [SerializeField, Tooltip("キー入力の受付間隔")] private float _inputInterval;
     private float _inputTimer = 99f;
 
     // コンポーネント
     private Rigidbody _rb = null;
+    private BoxCollider _collider = null;
+    [SerializeField, Tooltip("通常モデルのオブジェクト")] private GameObject _normalModel;
+    [SerializeField, Tooltip("無敵モデルのオブジェクト")] private GameObject _invincibleModel;
 
     // getter
     public float SpeedRate => _speedRate;
@@ -40,6 +50,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _collider = GetComponent<BoxCollider>();
         SetBoundSetting();
     }
 
@@ -47,6 +58,7 @@ public class Player : MonoBehaviour
     {
         AdjustSpeed();
         UserInput();
+        InvincibleTimer();
     }
 
     private void FixedUpdate()
@@ -69,7 +81,7 @@ public class Player : MonoBehaviour
     private void SetBoundSetting()
     {
         const float adjustingAngle = 3f * Mathf.Deg2Rad;    // 調整用のパラメータ（一定角度の許容）
-        var colliderSize = GetComponent<BoxCollider>().size;
+        var colliderSize = _collider.size;
         _cosIdentityDirAngle = Mathf.Cos(Mathf.Atan(colliderSize.y / colliderSize.x) + adjustingAngle);   //縦か横かを判断する角度の閾値
     }
 
@@ -98,6 +110,11 @@ public class Player : MonoBehaviour
                 StartCoroutine(TurnTo(_potentialDirection));
                 _inputTimer = 0;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        {        
+            EnterInvincible();
         }
     }
 
@@ -142,7 +159,7 @@ public class Player : MonoBehaviour
         //指定方向に向くための変数のセット
         Quaternion targetRot = transform.rotation;
 
-        if (_moveState == MoveState.MoveHorizontal)
+        if (_moveState == MoveState.MoveHorizontal || _moveState == MoveState.Invincible)
         {
             if (direction.x > 0)
             {
@@ -154,7 +171,7 @@ public class Player : MonoBehaviour
             }
             _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;    //x軸方向にしか移動できないようにする
         }
-        else if (_moveState == MoveState.MoveVertical)
+        else if (_moveState == MoveState.MoveVertical || _moveState == MoveState.Invincible)
         {
             if (direction.y > 0)
             {
@@ -233,5 +250,41 @@ public class Player : MonoBehaviour
 
         StartCoroutine(TurnTo(_potentialDirection));
         _rb.AddForce(forceDir * power, ForceMode.Impulse);
+    }
+
+
+    /// <summary>
+    /// 無敵モードになる
+    /// </summary>
+    private void EnterInvincible()
+    {
+        if (_moveState == MoveState.Invincible) return;
+        if (_invincibledElapsedTime < _invincibleCanUseTime) return;
+
+        _moveState = MoveState.Invincible;
+        _collider.isTrigger = true;
+        _normalModel.SetActive(false);
+        _invincibleModel.SetActive(true);
+        setSpeedRate(_speedRate * _invincibleSpeedRate);
+        StartCoroutine(TurnTo(Vector2.right));
+        Invoke("ExitInvincible", _invincibleTime);  // 終了処理を登録
+    }
+
+    /// <summary>
+    /// 無敵モード終了
+    /// </summary>
+    private void ExitInvincible()
+    {
+        _moveState = MoveState.MoveHorizontal;
+        _collider.isTrigger = false;
+        _normalModel.SetActive(true);
+        _invincibleModel.SetActive(false);
+        setSpeedRate(_speedRate / _invincibleSpeedRate);
+        _invincibledElapsedTime = 0;
+    }
+
+    private void InvincibleTimer()
+    {
+        _invincibledElapsedTime += Time.deltaTime;
     }
 }
