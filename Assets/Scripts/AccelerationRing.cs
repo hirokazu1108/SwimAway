@@ -15,13 +15,12 @@ public class AccelerationRing : MonoBehaviour
         _allowableAngleDot = Mathf.Cos(_allowableEnterAngle);
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
         if (other.gameObject.GetComponent<Player>().IsInvincible) return;
 
         _playerObj = other.gameObject;
-
 
         if (!checkAccelerateByEnterSide()) return;
         StartCoroutine(AddAcceleEffect());
@@ -44,7 +43,6 @@ public class AccelerationRing : MonoBehaviour
 
         return false;
     }
-
 
     /// <summary>
     /// ‰Á‘¬Œø‰Ê‚ð•t—^

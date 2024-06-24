@@ -133,7 +133,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void AdjustSpeed()
     {
-        _targetSpeed = Mathf.Sqrt(GameManager.GameTime+100) + 1;    // 時間による速度変化
+        _targetSpeed = Mathf.Sqrt(GameManager.GameTime) + 1;    // 時間による速度変化
         
         _targetSpeed *= _speedRate; // 速度調整を行う
 
