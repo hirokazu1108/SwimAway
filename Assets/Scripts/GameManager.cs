@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -93,5 +94,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseCanvas.enabled = false;
+    }
+
+    public static void ToTitle()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("TitleScene");
     }
 }
