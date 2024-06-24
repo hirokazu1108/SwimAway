@@ -1424,6 +1424,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &583357686 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+    type: 3}
+  m_PrefabInstance: {fileID: 1242035103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &593857644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1572,6 +1578,7 @@ Transform:
   - {fileID: 2039028099}
   - {fileID: 573561797}
   - {fileID: 1084799051}
+  - {fileID: 583357686}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2526,6 +2533,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e721c330408983b40a9f3a2b53f381fa, type: 3}
+--- !u!1001 &1242035103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 666277361}
+    m_Modifications:
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -85
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588450, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307553537704588463, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579,
+        type: 3}
+      propertyPath: m_Name
+      value: Coin
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69cd77c7fea5e8145b6fe8e6ab2ff579, type: 3}
 --- !u!1001 &1300769503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3484,6 +3560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b4a793f81c12347924276f122921b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sharedData: {fileID: 11400000, guid: f3aeec8511da7d74889e777d1cae6681, type: 2}
 --- !u!4 &1545661354
 Transform:
   m_ObjectHideFlags: 0
@@ -4739,7 +4816,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1888739120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5246,6 +5323,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2766210062368849209, guid: aed9438de8870bc4aa7fa53e3112e457,
+        type: 3}
+      propertyPath: _sharedData
+      value: 
+      objectReference: {fileID: 11400000, guid: f3aeec8511da7d74889e777d1cae6681,
+        type: 2}
     - target: {fileID: 2766210062368849209, guid: aed9438de8870bc4aa7fa53e3112e457,
         type: 3}
       propertyPath: _invincibleSmoothTime

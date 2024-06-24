@@ -10,8 +10,7 @@ public class Coin : MonoBehaviour
         if (_isAvailable && other.CompareTag("Player"))
         {
             _isAvailable = false;
-
-            Debug.Log("TODO:ƒRƒCƒ“‚Ìæ“¾ˆ—");
+            other.gameObject.GetComponent<Player>()?.GetCoin();
             Destroy(this.gameObject);
         }
     }

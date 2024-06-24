@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     private BoxCollider _collider = null;
     [SerializeField, Tooltip("通常モデルのオブジェクト")] private GameObject _normalModel;
     [SerializeField, Tooltip("無敵モデルのオブジェクト")] private GameObject _invincibleModel;
+    [SerializeField, Tooltip("プレイヤーのシーン共有データ")] private PlayerSharedData _sharedData;
 
     // getter
     public float SpeedRate => _speedRate;
@@ -321,5 +322,14 @@ public class Player : MonoBehaviour
             // 現在位置のx座標を更新
             transform.position = currentPos;
         }
+    #endregion
+
+
+    #region --- コインの取得処理 ---
+        public void GetCoin()
+        {
+            _sharedData.GetCoin();
+        }
+
     #endregion
 }
