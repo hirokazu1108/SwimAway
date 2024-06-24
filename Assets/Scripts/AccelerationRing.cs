@@ -3,15 +3,6 @@ using UnityEngine;
 
 public class AccelerationRing : MonoBehaviour
 {
-    private enum AccelerateDirection
-    {
-        Foward,
-        Reverse,
-        PositiveX,
-        NegativeX,
-        PositiveY,
-        NegativeY,
-    }
     private GameObject _playerObj = null;
 
     [SerializeField, Tooltip("加速率")] private float _acceleRate;
@@ -19,49 +10,21 @@ public class AccelerationRing : MonoBehaviour
     [SerializeField, Range(0, 90), Tooltip("侵入許容角度(度数）")] private float _allowableEnterAngle;
     private float _allowableAngleDot = 1f;
 
-
-    //現在未使用
-    [Tooltip("加速方向")] private AccelerateDirection _direction;
-
     private void Start()
     {
         _allowableAngleDot = Mathf.Cos(_allowableEnterAngle);
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        _playerObj = other.gameObject;
+        if (other.gameObject.GetComponent<Player>().IsInvincible) return;
 
+        _playerObj = other.gameObject;
 
         if (!checkAccelerateByEnterSide()) return;
         StartCoroutine(AddAcceleEffect());
 
-    }
-
-    private Vector3 getAccelerateDirection()
-    {
-        if (_playerObj == null) return Vector3.zero;
-
-        var player = _playerObj.GetComponent<Player>();
-
-        switch (_direction)
-        {
-            case AccelerateDirection.Foward:
-                return _playerObj.transform.right;
-            case AccelerateDirection.Reverse:
-                return -_playerObj.transform.right;
-            case AccelerateDirection.PositiveX:
-                return transform.right;
-            case AccelerateDirection.NegativeX:
-                return -transform.right;
-            case AccelerateDirection.PositiveY:
-                return transform.up;
-            case AccelerateDirection.NegativeY:
-                return -transform.up;
-        }
-
-        return Vector3.zero;
     }
 
     /// <summary>
@@ -80,7 +43,6 @@ public class AccelerationRing : MonoBehaviour
 
         return false;
     }
-
 
     /// <summary>
     /// 加速効果を付与

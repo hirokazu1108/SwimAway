@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("無敵を使えるまでの時間")] private float _invincibleCanUseTime;
     [SerializeField, Tooltip("無敵時間")] private float _invincibleTime;
     [SerializeField, Tooltip("無敵中の速度倍率")] private float _invincibleSpeedRate;
+    [SerializeField, Tooltip("目標値に到達するまでのおおよその時間[s]")] private float _invincibleSmoothTime;
+    private float _currentInvincibleVelocity = 0;
 
     // 入力
     [SerializeField, Tooltip("キー入力の受付間隔")] private float _inputInterval;
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
     private BoxCollider _collider = null;
     [SerializeField, Tooltip("通常モデルのオブジェクト")] private GameObject _normalModel;
     [SerializeField, Tooltip("無敵モデルのオブジェクト")] private GameObject _invincibleModel;
+    [SerializeField, Tooltip("プレイヤーのシーン共有データ")] private PlayerSharedData _sharedData;
 
     // getter
     public float SpeedRate => _speedRate;
@@ -46,34 +49,42 @@ public class Player : MonoBehaviour
         _speedRate = Mathf.Abs(rate);
     }
 
+    // 状態を返す処理
+    public bool IsInvincible => (_moveState == MoveState.Invincible);
 
-    private void Start()
-    {
-        _rb = GetComponent<Rigidbody>();
-        _collider = GetComponent<BoxCollider>();
-        SetBoundSetting();
-    }
 
-    private void Update()
-    {
-        AdjustSpeed();
-        UserInput();
-        InvincibleTimer();
-    }
+    #region --- Unityライフサイクル ---
 
-    private void FixedUpdate()
-    {
-        Move();
-    }
+        private void Start()
+        {
+            _rb = GetComponent<Rigidbody>();
+            _collider = GetComponent<BoxCollider>();
+            SetBoundSetting();
+        }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (_isTurning) return;
+        private void Update()
+        {
+            if (this.IsInvincible) adjustHeight();
 
-        var enemyBound = collision.gameObject.GetComponent<EnemyBound>();
-        var power = enemyBound ? enemyBound.BoundPower : 1.0f;
-        Bound(collision.contacts[0].point, power);
-    }
+            AdjustSpeed();
+            UserInput();
+            InvincibleTimer();
+        }
+
+        private void FixedUpdate()
+        {
+            Move();
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (_isTurning) return;
+
+            var enemyBound = collision.gameObject.GetComponent<EnemyBound>();
+            var power = enemyBound ? enemyBound.BoundPower : 1.0f;
+            Bound(collision.contacts[0].point, power);
+        }
+    #endregion
 
     /// <summary>
     /// バウンド処理の設定
@@ -253,38 +264,72 @@ public class Player : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// 無敵モードになる
-    /// </summary>
-    private void EnterInvincible()
-    {
-        if (_moveState == MoveState.Invincible) return;
-        if (_invincibledElapsedTime < _invincibleCanUseTime) return;
+    #region --- 無敵に関する処理 ---
 
-        _moveState = MoveState.Invincible;
-        _collider.isTrigger = true;
-        _normalModel.SetActive(false);
-        _invincibleModel.SetActive(true);
-        setSpeedRate(_speedRate * _invincibleSpeedRate);
-        StartCoroutine(TurnTo(Vector2.right));
-        Invoke("ExitInvincible", _invincibleTime);  // 終了処理を登録
-    }
+        /// <summary>
+        /// 無敵モードになる
+        /// </summary>
+        private void EnterInvincible()
+        {
+            if (this.IsInvincible) return;
+            if (_invincibledElapsedTime < _invincibleCanUseTime) return;
 
-    /// <summary>
-    /// 無敵モード終了
-    /// </summary>
-    private void ExitInvincible()
-    {
-        _moveState = MoveState.MoveHorizontal;
-        _collider.isTrigger = false;
-        _normalModel.SetActive(true);
-        _invincibleModel.SetActive(false);
-        setSpeedRate(_speedRate / _invincibleSpeedRate);
-        _invincibledElapsedTime = 0;
-    }
+            _moveState = MoveState.Invincible;
+            _collider.isTrigger = true;
+            _normalModel.SetActive(false);
+            _invincibleModel.SetActive(true);
+            setSpeedRate(_speedRate * _invincibleSpeedRate);
+            StartCoroutine(TurnTo(Vector2.right));
+            Invoke("ExitInvincible", _invincibleTime);  // 終了処理を登録
+        }
 
-    private void InvincibleTimer()
-    {
-        _invincibledElapsedTime += Time.deltaTime;
-    }
+        /// <summary>
+        /// 無敵モード終了
+        /// </summary>
+        private void ExitInvincible()
+        {
+            _moveState = MoveState.MoveHorizontal;
+            _collider.isTrigger = false;
+            _normalModel.SetActive(true);
+            _invincibleModel.SetActive(false);
+            setSpeedRate(_speedRate / _invincibleSpeedRate);
+            _invincibledElapsedTime = 0;
+        }
+
+        private void InvincibleTimer()
+        {
+            _invincibledElapsedTime += Time.deltaTime;
+        }
+
+        /// <summary>
+        /// 無敵時の高さの調整
+        /// </summary>
+        private void adjustHeight()
+        {
+            // 現在位置取得
+            var currentPos = transform.position;
+            var targetHeight = 0f;
+
+            // 次フレームの位置を計算
+            currentPos.y = Mathf.SmoothDamp(
+                currentPos.y,
+                targetHeight,
+                ref _currentInvincibleVelocity,
+                _invincibleSmoothTime,
+                _maxSpeed
+            );
+
+            // 現在位置のx座標を更新
+            transform.position = currentPos;
+        }
+    #endregion
+
+
+    #region --- コインの取得処理 ---
+        public void GetCoin()
+        {
+            _sharedData.GetCoin();
+        }
+
+    #endregion
 }
