@@ -46,6 +46,9 @@ public class Player : MonoBehaviour
         _speedRate = Mathf.Abs(rate);
     }
 
+    // ó‘Ô‚ð•Ô‚·ˆ—
+    public bool IsInvincible => (_moveState == MoveState.Invincible);
+
 
     private void Start()
     {
