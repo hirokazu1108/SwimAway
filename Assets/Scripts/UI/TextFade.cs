@@ -14,7 +14,7 @@ public class TextFade : MonoBehaviour
     private void Start()
     {
         var text = GetComponent<Text>();
-       tweener = text.DOFade(_minAlpha, _maxAlpha).SetEase(_easeType).SetLoops(-1, LoopType.Yoyo);// s‚«—ˆ‚ğ–³ŒÀ‚ÉŒJ‚è•Ô‚·
+        tweener = text.DOFade(_minAlpha, _maxAlpha).SetEase(_easeType).SetLoops(-1, LoopType.Yoyo);// s‚«—ˆ‚ğ–³ŒÀ‚ÉŒJ‚è•Ô‚·
     }
 
     private void OnDestroy()

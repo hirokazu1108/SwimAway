@@ -5256,6 +5256,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2766210062368849209, guid: aed9438de8870bc4aa7fa53e3112e457,
+        type: 3}
+      propertyPath: _invincibleSmoothTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8312740127108230316, guid: aed9438de8870bc4aa7fa53e3112e457,
         type: 3}
       propertyPath: m_RootOrder
