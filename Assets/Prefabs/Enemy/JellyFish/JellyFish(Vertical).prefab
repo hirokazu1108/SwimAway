@@ -234,6 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2920885530740923104}
   - component: {fileID: 1121565592646630198}
+  - component: {fileID: 2426524318663795984}
   m_Layer: 0
   m_Name: Bone
   m_TagString: Untagged
@@ -289,6 +290,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.020226907, y: 0.028561234, z: 0.01908196}
   m_Center: {x: -0.000019155741, y: -0.01675885, z: -0.00008918883}
+--- !u!114 &2426524318663795984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749856476901879232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe9c54c13d3d344a9ab6f43c803af06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _boundInterval: 0.5
+  _boundPower: 1.5
+  _rb: {fileID: 1121565591865621565}
 --- !u!1 &787643206020461120
 GameObject:
   m_ObjectHideFlags: 0
@@ -4009,7 +4025,6 @@ GameObject:
   - component: {fileID: 8593787766445262409}
   - component: {fileID: 1121565591865621565}
   - component: {fileID: 6575495899320574143}
-  - component: {fileID: 8737555050712828690}
   m_Layer: 0
   m_Name: JellyFish(Vertical)
   m_TagString: Untagged
@@ -4088,26 +4103,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a2ed9ee06694cf49a4ca07f18bba8e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
   _moveMode: 1
   _diffBasePoint: {x: 0, y: 0, z: 0}
-  _roundTripWidthX: 5
-  _roundTripWidthY: 3
+  _roundTripWidthX: 0
+  _roundTripWidthY: 7
   isSwitchingDirection: 0
---- !u!114 &8737555050712828690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8899725981512357520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe9c54c13d3d344a9ab6f43c803af06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _boundInterval: 1
-  _boundPower: 2
 --- !u!1 &8913779150287786687
 GameObject:
   m_ObjectHideFlags: 0

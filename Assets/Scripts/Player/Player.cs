@@ -41,6 +41,11 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("無敵モデルのオブジェクト")] private GameObject _invincibleModel;
     [SerializeField, Tooltip("プレイヤーのシーン共有データ")] private PlayerSharedData _sharedData;
 
+    // 壁際で埋もれることによる硬直バグ対策
+    private const double _stiffnessVelocity = 1e-2; 
+    private const float _stiffnessJudgeTime = .5f; 
+    private float _stiffnessTime = 0.0f;
+
     // getter
     public float SpeedRate => _speedRate;
 
@@ -69,16 +74,19 @@ public class Player : MonoBehaviour
             AdjustSpeed();
             UserInput();
             InvincibleTimer();
+            TurnByRaycast();
         }
 
         private void FixedUpdate()
         {
             Move();
+            RepairStiffness();  
         }
 
         private void OnCollisionEnter(Collision collision)
         {
             if (_isTurning) return;
+            if (collision.gameObject.CompareTag("Wall")) return;
 
             var enemyBound = collision.gameObject.GetComponent<EnemyBound>();
             var power = enemyBound ? enemyBound.BoundPower : 1.0f;
@@ -91,7 +99,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void SetBoundSetting()
     {
-        const float adjustingAngle = 0f * Mathf.Deg2Rad;    // 調整用のパラメータ（一定角度の許容）
+        const float adjustingAngle = -3f * Mathf.Deg2Rad;    // 調整用のパラメータ（一定角度の許容）
         var colliderSize = _collider.size;
         _cosIdentityDirAngle = Mathf.Cos(Mathf.Atan(colliderSize.y / colliderSize.x) + adjustingAngle);   //縦か横かを判断する角度の閾値
         Debug.Log(Mathf.Acos(_cosIdentityDirAngle)*Mathf.Rad2Deg);
@@ -264,6 +272,64 @@ public class Player : MonoBehaviour
 
         StartCoroutine(TurnTo(_potentialDirection));
         _rb.AddForce(forceDir * power, ForceMode.Impulse);
+    }
+    
+    /// <summary>
+    /// 前方にRayを飛ばして、衝突を回避
+    /// </summary>
+    private void TurnByRaycast()
+    {
+        Vector3 origin = transform.position;
+
+        Vector3 direction = GetCurrentDirectionVector2();
+        float distance = 2.5f + _rb.velocity.magnitude/12f; // 速度に応じてRayを伸ばす
+        
+        RaycastHit hit;
+        if (Physics.Raycast(origin, direction, out hit, distance)) 
+        {
+            var enemyBound = hit.collider.gameObject.GetComponent<EnemyBound>();
+
+            Debug.Log($"Rayにヒット：{hit.collider.gameObject}");
+            if(hit.collider.CompareTag("Wall") || enemyBound != null)
+            {
+                _isTurning = true;
+                var power = enemyBound ? enemyBound.BoundPower : 1.0f;
+
+                // player の跳ね返り
+                if(_moveState == MoveState.MoveHorizontal)  _potentialDirection.x = -_potentialDirection.x;
+                else if(_moveState == MoveState.MoveVertical)  _potentialDirection.y = -_potentialDirection.y;
+                StartCoroutine(TurnTo(-direction));
+                _rb.AddForce(-direction * power, ForceMode.Impulse);
+
+                enemyBound?.Bound(hit.point);
+            }
+           
+        }
+        Debug.DrawRay(origin, direction * distance, Color.red);
+    }
+
+    /// <summary>
+    /// 壁際に埋もれることによる硬直の修正処理
+    /// </summary
+    private void RepairStiffness()
+    {
+        if (_rb.velocity.magnitude < _stiffnessVelocity)
+        {
+            _stiffnessTime += Time.fixedDeltaTime;
+            Debug.Log(_stiffnessTime);
+            if(_stiffnessJudgeTime < _stiffnessTime)
+            {
+                Debug.Log("硬直を改善します");
+                Vector3 direction = GetCurrentDirectionVector2();
+                if (_moveState == MoveState.MoveHorizontal) _potentialDirection.x = -_potentialDirection.x;
+                else if (_moveState == MoveState.MoveVertical) _potentialDirection.y = -_potentialDirection.y;
+                StartCoroutine(TurnTo(-direction));
+            }
+        }
+        else
+        {
+            _stiffnessTime = 0;
+        }
     }
 
 

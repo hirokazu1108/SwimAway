@@ -8,22 +8,15 @@ public class EnemyBound : MonoBehaviour
     private bool _isBound = false;    //バウンド中かのフラグ
 
     // コンポーネント
-    private Rigidbody _rb = null;
+    [SerializeField] private Rigidbody _rb = null;
 
     // getter
     public float BoundPower => _boundPower;
 
-    private void Start()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         WaitBoundInterval();
-
-        var dir = (collision.contacts[0].point - transform.position).normalized;
-        _rb.AddForce(-dir * _boundPower, ForceMode.Impulse);
+        Bound(collision.contacts[0].point);
     }
 
     /// <summary>
@@ -44,5 +37,15 @@ public class EnemyBound : MonoBehaviour
         _rb.velocity = Vector3.zero;
         _isBound = false;
         _rb.isKinematic = true;
+    }
+
+    /// <summary>
+    /// 衝突時の跳ね返り処理
+    /// </summary>
+    /// <param name="collidePoint">衝突した座標</param>
+    public void Bound(Vector3 collidePoint)
+    {
+        var dir = (collidePoint - transform.position).normalized;
+        _rb.AddForce(-dir * _boundPower, ForceMode.Impulse);
     }
 }
