@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private static float _gameTime = 0;
     private static bool _isPauseGame = false;
 
+    [SerializeField, Tooltip("開始時間")] private float initTime = 0f;
     [SerializeField, Tooltip("プレイヤーのシーン共有データ")] private PlayerSharedData _sharedData;
 
     // getter
@@ -32,8 +33,7 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.P) && !gameOverCanvas.enabled)
             {
-                _isPauseGame = !_isPauseGame;
-                if (_isPauseGame) PauseGame(); else ResumeGame();
+                if (!_isPauseGame) PauseGame(); else ResumeGame();
             }
 
             if (Input.GetKeyDown(KeyCode.R) && (pauseCanvas.enabled || gameOverCanvas.enabled))
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void GameReset()
     {
-        _gameTime = 0;
+        _gameTime = initTime;
         _sharedData.Reset();
         _isPauseGame = false;
         ResumeGame();
@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void PauseGame(bool enabelCanvas = true)
     {
+        _isPauseGame = true;
         Time.timeScale = 0;
         pauseCanvas.enabled = enabelCanvas;
     }
@@ -108,6 +109,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void ResumeGame()
     {
+        _isPauseGame = false;
         Time.timeScale = 1;
         pauseCanvas.enabled = false;
     }
