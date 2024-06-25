@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2349389557431454600}
   - component: {fileID: 541343751722920542}
+  - component: {fileID: 3565492039008220351}
   m_Layer: 0
   m_Name: Bone
   m_TagString: Untagged
@@ -97,6 +98,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.020226907, y: 0.028561234, z: 0.01908196}
   m_Center: {x: -0.000019155741, y: -0.01675885, z: -0.00008918883}
+--- !u!114 &3565492039008220351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178915619525229736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe9c54c13d3d344a9ab6f43c803af06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _boundInterval: 0.5
+  _boundPower: 1.5
+  _rb: {fileID: 541343752541810005}
 --- !u!1 &215576719309644584
 GameObject:
   m_ObjectHideFlags: 0
@@ -3722,7 +3738,6 @@ GameObject:
   - component: {fileID: 8708371497560399170}
   - component: {fileID: 9174079564358588193}
   - component: {fileID: 541343752541810005}
-  - component: {fileID: -1736149810671523992}
   - component: {fileID: -4608488155082153020}
   m_Layer: 0
   m_Name: JellyFish(Pinned)
@@ -3790,20 +3805,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 1
---- !u!114 &-1736149810671523992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8327587889651714040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe9c54c13d3d344a9ab6f43c803af06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _boundInterval: 1
-  _boundPower: 2
 --- !u!114 &-4608488155082153020
 MonoBehaviour:
   m_ObjectHideFlags: 0

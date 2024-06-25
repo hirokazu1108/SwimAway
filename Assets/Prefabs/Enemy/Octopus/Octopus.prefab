@@ -328,7 +328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boundInterval: 1
-  _boundPower: 2
+  _boundPower: 1.5
+  _rb: {fileID: 7814092577001903867}
 --- !u!114 &-8859726584837837177
 MonoBehaviour:
   m_ObjectHideFlags: 0
