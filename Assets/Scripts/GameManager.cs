@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,32 +15,37 @@ public class GameManager : MonoBehaviour
     public static float GameTime => _gameTime;
     public static bool IsPauseGame => _isPauseGame;
 
-    private void Awake()
-    {
-        gameOverCanvas = transform.Find("GameOverCanvas").GetComponent<Canvas>();
-        pauseCanvas = transform.Find("PauseCanvas").GetComponent<Canvas>();
-    }
+    #region --- Unityライフサイクル ---
 
-    private void Start()
-    {
-        GameReset();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P) && !gameOverCanvas.enabled)
+        private void Awake()
         {
-            _isPauseGame = !_isPauseGame;
-            if (_isPauseGame) PauseGame(); else ResumeGame();
+            gameOverCanvas = transform.Find("GameOverCanvas").GetComponent<Canvas>();
+            pauseCanvas = transform.Find("PauseCanvas").GetComponent<Canvas>();
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && (pauseCanvas.enabled || gameOverCanvas.enabled))
+        private void Start()
         {
-            Retry();
+            GameReset();
         }
 
-        GameTimerCount();
-    }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.P) && !gameOverCanvas.enabled)
+            {
+                _isPauseGame = !_isPauseGame;
+                if (_isPauseGame) PauseGame(); else ResumeGame();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R) && (pauseCanvas.enabled || gameOverCanvas.enabled))
+            {
+                Retry();
+            }
+
+            GameTimerCount();
+        }
+
+    #endregion
+
 
     /// <summary>
     /// ゲーム状態のリセット
@@ -69,6 +73,15 @@ public class GameManager : MonoBehaviour
     {
         PauseGame(false);
         gameOverCanvas.enabled = true;
+    }
+    
+    /// <summary>
+    /// ゲームクリア処理
+    /// </summary>
+    public static void GameClear()
+    {
+        Debug.Log("クリア");
+        ToTitle();
     }
 
 
@@ -104,4 +117,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("TitleScene");
     }
+
 }
