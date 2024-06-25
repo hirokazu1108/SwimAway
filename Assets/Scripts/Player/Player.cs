@@ -91,9 +91,10 @@ public class Player : MonoBehaviour
     /// </summary>
     private void SetBoundSetting()
     {
-        const float adjustingAngle = 3f * Mathf.Deg2Rad;    // 調整用のパラメータ（一定角度の許容）
+        const float adjustingAngle = 0f * Mathf.Deg2Rad;    // 調整用のパラメータ（一定角度の許容）
         var colliderSize = _collider.size;
         _cosIdentityDirAngle = Mathf.Cos(Mathf.Atan(colliderSize.y / colliderSize.x) + adjustingAngle);   //縦か横かを判断する角度の閾値
+        Debug.Log(Mathf.Acos(_cosIdentityDirAngle)*Mathf.Rad2Deg);
     }
 
     /// <summary>
@@ -241,19 +242,21 @@ public class Player : MonoBehaviour
     {
 
         Vector2 dir = (transform.position - collidePoint).normalized;        
-        var cosVec = Vector2.Dot(Vector2.right, dir) / dir.magnitude;   // (1,0)とdirのなす角のcos値を求める  =（内積）/ (各ベクトルの大きさの積)
+        var cosVec = Vector2.Dot(GetCurrentDirectionVector2(), dir) / dir.magnitude;   // (1,0)とdirのなす角のcos値を求める  =（内積）/ (各ベクトルの大きさの積)
 
 
         var currentDir = GetCurrentDirectionVector2();
         var forceDir = Vector2.zero;
         if (_cosIdentityDirAngle < Mathf.Abs(cosVec))
         {
+            Debug.Log($"横:{Mathf.Acos(Mathf.Abs(cosVec))*Mathf.Rad2Deg}");
             _moveState = MoveState.MoveHorizontal;
             _potentialDirection.x = dir.x / Mathf.Abs(dir.x);
             forceDir = new Vector2(_potentialDirection.x, 0);
         }
         else
         {
+            Debug.Log($"縦:{Mathf.Acos(Mathf.Abs(cosVec)) * Mathf.Rad2Deg}");
             _moveState = MoveState.MoveVertical;
             _potentialDirection.y = dir.y / Mathf.Abs(dir.y);
             forceDir = new Vector2(0, _potentialDirection.y);
