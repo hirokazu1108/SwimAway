@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSharedData : ScriptableObject
 {
     [SerializeField, Tooltip("ƒRƒCƒ“–‡”")] private int _coinNum = 0;
+    [SerializeField, Tooltip("i‚ñ‚¾‹——£")] private float _maxAdvancedDistance = 0f;
 
     // getter
     public int GetCoinNum => _coinNum;
@@ -15,6 +16,7 @@ public class PlayerSharedData : ScriptableObject
     public void Reset()
     {
         _coinNum = 0;
+        _maxAdvancedDistance = 0;
     }
 
     /// <summary>
