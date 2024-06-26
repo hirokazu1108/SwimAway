@@ -26,7 +26,7 @@ public class RoundMoveEnemy : MonoBehaviour
             _rb = GetComponent<Rigidbody>();
             _currentReachPower = _reachPower;
             GenerateRoundPointList();
-            //Destroy(_roundPoints.gameObject);
+            Destroy(_roundPoints.gameObject);
             DefineNextTargetPoint();
         }
 
@@ -112,7 +112,7 @@ public class RoundMoveEnemy : MonoBehaviour
     private IEnumerator EvaluateReachPower()
     {
         var target = _reachPower;
-        _currentReachPower = _reachPower / 2;
+        _currentReachPower = _reachPower / 10;
 
         while (true)
         {
