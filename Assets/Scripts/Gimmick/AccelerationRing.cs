@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AccelerationRing : MonoBehaviour
 {
-    private GameObject _playerObj = null;
+    private GameObject _iwashiObject = null;
 
     [SerializeField, Tooltip("‰Á‘¬—¦")] private float _acceleRate;
     [SerializeField, Tooltip("‰Á‘¬ŽžŠÔ")] private float _acceleTime;
@@ -18,9 +18,9 @@ public class AccelerationRing : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        if (other.gameObject.GetComponent<Player>().IsInvincible) return;
+        if (other.gameObject.GetComponent<Iwashi>().IsInvincible) return;
 
-        _playerObj = other.gameObject;
+        _iwashiObject = other.gameObject;
 
         if (!checkAccelerateByEnterSide()) return;
         StartCoroutine(AddAcceleEffect());
@@ -33,11 +33,11 @@ public class AccelerationRing : MonoBehaviour
     /// <returns> ‰Á‘¬‚·‚é‚©‚Ç‚¤‚©</returns>
     private bool checkAccelerateByEnterSide()
     {
-        if (_playerObj == null) return false;
+        if (_iwashiObject == null) return false;
 
         var ringAdvanceDirection = transform.right;
-        var playerAdvanceDirection = _playerObj.transform.right;
-        var dot = Vector3.Dot(ringAdvanceDirection, playerAdvanceDirection);
+        var iwashiAdvanceDirection = _iwashiObject.transform.right;
+        var dot = Vector3.Dot(ringAdvanceDirection, iwashiAdvanceDirection);
 
         if (_allowableAngleDot <= Mathf.Abs(dot)) return true;
 
@@ -50,14 +50,14 @@ public class AccelerationRing : MonoBehaviour
     /// <returns>IEnumerator</returns>
     private IEnumerator AddAcceleEffect()
     {
-        if(_playerObj == null) yield break;
+        if(_iwashiObject == null) yield break;
 
-        var player = _playerObj.GetComponent<Player>();
+        var iwashi = _iwashiObject.GetComponent<Iwashi>();
 
-        player.setSpeedRate(player.SpeedRate * _acceleRate);
+        iwashi.setSpeedRate(iwashi.SpeedRate * _acceleRate);
         yield return new WaitForSeconds(_acceleTime);
-        player.setSpeedRate(player.SpeedRate / _acceleRate); // Œ³‚Ì‘¬“x—¦‚Ö
-        _playerObj = null;
+        iwashi.setSpeedRate(iwashi.SpeedRate / _acceleRate); // Œ³‚Ì‘¬“x—¦‚Ö
+        _iwashiObject = null;
 
         yield break;
     }
