@@ -3740,7 +3740,7 @@ GameObject:
   - component: {fileID: 541343752541810005}
   - component: {fileID: -4608488155082153020}
   m_Layer: 0
-  m_Name: JellyFish(Pinned)
+  m_Name: JellyFish(Pinned)_Legacy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
