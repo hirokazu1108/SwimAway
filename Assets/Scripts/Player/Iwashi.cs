@@ -180,11 +180,11 @@ public class Iwashi : MonoBehaviour
     /// —Í‚ğ‰Á‚¦‚Äis•ûŒü‚ğ•ÏX
     /// </summary>
     /// <param name="force"></param>
-    private void AddForceAndChangeDirection(Vector3 force)
+    public void AddForceAndChangeDirection(Vector3 dir, float power = 1)
     {
         _rb.velocity = Vector3.zero;
-        ChangeAdvanceDirection(force.normalized);
-        _rb.AddForce(GetCurrentDir()*2, ForceMode.Impulse);
+        ChangeAdvanceDirection(dir.normalized);
+        _rb.AddForce(GetCurrentDir()*power, ForceMode.Impulse);
     }
 
 
