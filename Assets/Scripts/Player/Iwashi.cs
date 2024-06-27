@@ -184,7 +184,7 @@ public class Iwashi : MonoBehaviour
     {
         _rb.velocity = Vector3.zero;
         ChangeAdvanceDirection(force.normalized);
-        _rb.AddForce(GetCurrentDir(), ForceMode.Impulse);
+        _rb.AddForce(GetCurrentDir()*2, ForceMode.Impulse);
     }
 
 
