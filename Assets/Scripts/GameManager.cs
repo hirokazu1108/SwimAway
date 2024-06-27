@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private static float _gameTime = 0;
     private static bool _isPauseGame = false;
 
-    [SerializeField, Tooltip("開始時間")] private float initTime = 0f;
+    [SerializeField, Tooltip("開始時間")] private float _initTime = 0f;
     [SerializeField, Tooltip("プレイヤーのシーン共有データ")] private PlayerSharedData _sharedData;
 
     // getter
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void GameReset()
     {
-        _gameTime = initTime;
+        _gameTime = _initTime;
         _sharedData.Reset();
         _isPauseGame = false;
         ResumeGame();
