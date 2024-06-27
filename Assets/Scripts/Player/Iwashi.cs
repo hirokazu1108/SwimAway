@@ -184,7 +184,7 @@ public class Iwashi : MonoBehaviour
     {
         _rb.velocity = Vector3.zero;
         ChangeAdvanceDirection(force.normalized);
-        _rb.AddForce(GetCurrentDir(), ForceMode.Impulse);
+        _rb.AddForce(GetCurrentDir()*2, ForceMode.Impulse);
     }
 
 
@@ -195,8 +195,10 @@ public class Iwashi : MonoBehaviour
     private void ChangeAdvanceDirection(Vector3 dir)
     {
         dir = dir.normalized;
+        var cos = Vector3.Dot(dir, Vector3.right);
+        var cosBase = Mathf.Cos(16 * Mathf.Deg2Rad);    // 基準値　いわしのコライダーの縦横比から角度を抽出  theta = arctan(collider.scale.y / collider.scale.y) = 16
 
-        if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y))
+        if (Mathf.Abs(cos) < Mathf.Abs(cosBase))
         {
             // 縦方向
             _potentialDirection.y = dir.y < 0 ? -1 : 1;
@@ -208,6 +210,20 @@ public class Iwashi : MonoBehaviour
             _potentialDirection.x = dir.x < 0 ? -1 : 1;
             _moveState = MoveState.Horizontal;
         }
+
+        /*
+        if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y))
+        {
+            // 縦方向
+            _potentialDirection.y = dir.y < 0 ? -1 : 1;
+            _moveState = MoveState.Vertical;
+        }
+        else
+        {
+            // 横方向
+            _potentialDirection.x = dir.x < 0 ? -1 : 1;
+            _moveState = MoveState.Horizontal;
+        }*/
 
         transform.rotation = Quaternion.Euler(ConvertDirectionToEuler(GetCurrentDir()));
     }
