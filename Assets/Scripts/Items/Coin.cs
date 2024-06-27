@@ -15,7 +15,7 @@ public class Coin : MonoBehaviour
         if (_isAvailable && other.CompareTag("Player"))
         {
             _isAvailable = false;
-            other.gameObject.GetComponent<Player>()?.GetCoin();
+            other.gameObject.GetComponent<Iwashi>()?.GetCoin();
             Destroy(this.gameObject);
         }
     }
