@@ -23,6 +23,8 @@ public class Iwashi : MonoBehaviour
     [SerializeField, Tooltip("目標速度に達するための力の大きさ"),Range(0, 10)] private float _reachPower = 5f;
     private float _currentReachPower = 0;
 
+    //衝突判定
+    private const float _COLLIDER_ASPECT_RATIO = 1 / 2.75f; // いわしのコライダーの縦横比  collider.scale.y / collider.scale.x
 
     // 無敵
     private bool _isInvincible = false;
@@ -196,7 +198,7 @@ public class Iwashi : MonoBehaviour
     {
         dir = dir.normalized;
         var cos = Vector3.Dot(dir, Vector3.right);
-        var cosBase = Mathf.Cos(16 * Mathf.Deg2Rad);    // 基準値　いわしのコライダーの縦横比から角度を抽出  theta = arctan(collider.scale.y / collider.scale.y) = 16
+        var cosBase = Mathf.Cos(Mathf.Atan(_COLLIDER_ASPECT_RATIO));    // 基準値　いわしのコライダーの縦横比から角度を抽出  theta = arctan(collider.scale.y / collider.scale.x) 
 
         if (Mathf.Abs(cos) < Mathf.Abs(cosBase))
         {
