@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 public class Iwashi : MonoBehaviour
 {
@@ -20,8 +19,8 @@ public class Iwashi : MonoBehaviour
     private float _targetSpeed = 0.0f;
     [SerializeField, Tooltip("最大速度")] private float _maxSpeed = 10;
     private float _speedRate = 1.0f;
-    [SerializeField, Tooltip("目標速度に達するための力の大きさ"),Range(0, 10)] private float _reachPower = 5f;
-    private float _currentReachPower = 0;
+    [SerializeField, Tooltip("目標速度に達するための力の大きさ（推進力？）"),Range(0, 10)] private float _drivePower = 5f;  // 推進力
+    [SerializeField]private float _currentDrivePower = 0;
 
     //衝突判定
     private const float _COLLIDER_ASPECT_RATIO = 1 / 2.75f; // いわしのコライダーの縦横比  collider.scale.y / collider.scale.x
@@ -78,7 +77,7 @@ public class Iwashi : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
-        _currentReachPower = _reachPower;
+        _currentDrivePower = _drivePower;
     }
 
     private void Update()
@@ -102,7 +101,7 @@ public class Iwashi : MonoBehaviour
         var closePoint = collision.collider.ClosestPoint(transform.position);
         var boundVec = transform.position - closePoint;
 
-        StartCoroutine(EvaluateReachPower());        
+        StartCoroutine(EvaluateDrivePower());        
         AddForceAndChangeDirection(boundVec.normalized);
     }
     #endregion
@@ -173,7 +172,7 @@ public class Iwashi : MonoBehaviour
         }
         else
         {
-            var vectorAddForce = GetCurrentDir() * (_targetSpeed - _rb.velocity.magnitude) * _currentReachPower;
+            var vectorAddForce = GetCurrentDir() * (_targetSpeed - _rb.velocity.magnitude) * _currentDrivePower;
             _rb.AddForce(vectorAddForce, ForceMode.Acceleration);
         }
     }
@@ -205,12 +204,14 @@ public class Iwashi : MonoBehaviour
             // 縦方向
             _potentialDirection.y = dir.y < 0 ? -1 : 1;
             _moveState = MoveState.Vertical;
+            _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;    //y軸方向にしか移動できないようにする
         }
         else
         {
             // 横方向
             _potentialDirection.x = dir.x < 0 ? -1 : 1;
             _moveState = MoveState.Horizontal;
+            _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;    //x軸方向にしか移動できないようにする
         }
 
         /*
@@ -258,24 +259,38 @@ public class Iwashi : MonoBehaviour
         return Vector3.zero;
     }
 
-    private IEnumerator EvaluateReachPower()
+    /// <summary>
+    /// 推進力の計算
+    /// </summary>
+    /// <param name="decreseRatio">どれだけ推し進める力を減少させるか</param>
+    /// <returns></returns>
+    public IEnumerator EvaluateDrivePower()
     {
-        var target = _reachPower;
-        _currentReachPower = _reachPower / 2;
+        var target = _drivePower;
+        _currentDrivePower = _drivePower / 2;
 
         while (true)
         {
-            if (Mathf.Abs(_currentReachPower - _reachPower) < 1e-2)
+            if (Mathf.Abs(_currentDrivePower - _drivePower) < 1e-2)
             {
                 break;
             }
 
-            _currentReachPower += 0.01f;
+            _currentDrivePower += 0.01f;
 
             yield return null;
         }
 
         yield break;
+    }
+
+    /// <summary>
+    /// 外から進行方向に力を加える
+    /// </summary>
+    /// <param name="power"></param>
+    public void setBound(float power) 
+    {
+        _rb.AddForce(GetCurrentDir()*power, ForceMode.Impulse);
     }
 
     #region --- 無敵に関する処理 ---
