@@ -11,6 +11,9 @@ public class Iwashi : MonoBehaviour
         Vertical,
     }
 
+
+    #region --- フィールド変数、getter、setter ---
+
     // 状態変数
     [SerializeField, Tooltip("現在の状態")] private MoveState _moveState = MoveState.Horizontal;
     [SerializeField, Tooltip("潜在的な方向")] private Vector3 _potentialDirection = new Vector3(1, 1, 0);
@@ -45,6 +48,10 @@ public class Iwashi : MonoBehaviour
     [SerializeField, Tooltip("無敵モデルのオブジェクト")] private GameObject _invincibleModel;
     [SerializeField, Tooltip("プレイヤーのシーン共有データ")] private PlayerSharedData _sharedData;
 
+    // UI
+    [SerializeField, Tooltip("無敵ゲージのUI")] private InvGage _invGage;
+
+    // デバッグ
     private List<Vector3> _debugDrawList = new List<Vector3>();
 
     // getter
@@ -56,6 +63,8 @@ public class Iwashi : MonoBehaviour
     {
         _speedRate = Mathf.Abs(rate);
     }
+
+    #endregion
 
     private Vector3 GetCurrentDir()
     {
@@ -214,20 +223,6 @@ public class Iwashi : MonoBehaviour
             _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;    //x軸方向にしか移動できないようにする
         }
 
-        /*
-        if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y))
-        {
-            // 縦方向
-            _potentialDirection.y = dir.y < 0 ? -1 : 1;
-            _moveState = MoveState.Vertical;
-        }
-        else
-        {
-            // 横方向
-            _potentialDirection.x = dir.x < 0 ? -1 : 1;
-            _moveState = MoveState.Horizontal;
-        }*/
-
         transform.rotation = Quaternion.Euler(ConvertDirectionToEuler(GetCurrentDir()));
     }
 
@@ -303,6 +298,7 @@ public class Iwashi : MonoBehaviour
         if (this.IsInvincible) return;
         if (_invincibledElapsedTime < _invincibleCanUseTime) return;
 
+        _invGage?.SetInvincibleVisible(true);
         _isInvincible = true;
         _collider.isTrigger = true;
         _normalModel.SetActive(false);
@@ -317,6 +313,7 @@ public class Iwashi : MonoBehaviour
     /// </summary>
     private void ExitInvincible()
     {
+        _invGage?.SetInvincibleVisible(false);
         _isInvincible = false;
         _collider.isTrigger = false;
         _normalModel.SetActive(true);
@@ -328,6 +325,11 @@ public class Iwashi : MonoBehaviour
     private void InvincibleTimer()
     {
         _invincibledElapsedTime += Time.deltaTime;
+
+        // 無敵使用可能　かつ 無敵じゃない
+        if (_invincibleCanUseTime < _invincibledElapsedTime && !_isInvincible){
+            _invGage.StartFlash();
+        }
     }
 
     /// <summary>
