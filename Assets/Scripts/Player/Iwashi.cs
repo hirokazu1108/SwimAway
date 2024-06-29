@@ -136,6 +136,7 @@ public class Iwashi : MonoBehaviour
         //ƒL[“ü—ÍŠÔŠu‚ğ“K‰
         _inputTimer += Time.deltaTime;
         if (_inputTimer < _inputInterval) return;
+        if (IsInvincible) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

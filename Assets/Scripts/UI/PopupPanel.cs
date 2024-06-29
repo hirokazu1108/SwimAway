@@ -22,6 +22,7 @@ public class PopupPanel : MonoBehaviour
         if (_isOpen) return;
 
         _openTweener = transform.DOScale(_maxSize, _duration)
+                                .SetUpdate(true)
                                 .OnComplete(() => {
                                     _isOpen = true;
                                     callback();
@@ -34,6 +35,7 @@ public class PopupPanel : MonoBehaviour
 
         _openTweener.Complete();
         transform.DOScale(Vector3.zero, _duration)
+                 .SetUpdate(true)
                  .OnComplete(() => {
                      _isOpen = false;
                      callback();
