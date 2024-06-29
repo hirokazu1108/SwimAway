@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Warning : MonoBehaviour
 {
-    [SerializeField] GameObject iwashi;
-    [SerializeField] GameObject kajiki;
+    private GameObject iwashi;
+    private GameObject kajiki;
     [SerializeField, Tooltip("åxçêîÕàÕ")] private float[] dis = { 5, 10, 20 };  // åxçêîÕàÕ
     private Image img;
     private float speed = 1.0f; // ì_ñ≈ë¨ìx
@@ -17,6 +17,10 @@ public class Warning : MonoBehaviour
     {
         img = GetComponent<Image>();
         img.color = Color.clear;
+
+        iwashi = GameObject.FindGameObjectWithTag("Player");
+        kajiki = GameObject.FindGameObjectWithTag("LimitWall");
+        
     }
 
     void Update()
