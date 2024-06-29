@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static PopupPanel gameOverPanel;
+    private static PopupPanel gameClearPanel;
     private static PopupPanel pausePanel;
 
     private static float _gameTime = 0;
@@ -23,8 +24,13 @@ public class GameManager : MonoBehaviour
         private void Awake()
         {
             var canvas = transform.GetChild(0);
+            if (canvas.Find("GameClearPanel") == null) Debug.LogError("gameClearPanelをアタッチ or 小林まで連絡");
+
             gameOverPanel = canvas.Find("GameOverPanel").GetComponent<PopupPanel>();
+            gameClearPanel = canvas.Find("GameClearPanel").GetComponent<PopupPanel>();
             pausePanel = canvas.Find("PausePanel").GetComponent<PopupPanel>();
+
+        
         }
 
         private void Start()
@@ -89,8 +95,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void GameClear()
     {
-        Debug.Log("クリア");
-        ToTitle();
+        pausePanel.SetActive(false);
+        gameClearPanel.Open(() =>
+        {
+            Time.timeScale = 0;
+            _isPauseGame = true;
+        });
     }
 
 
