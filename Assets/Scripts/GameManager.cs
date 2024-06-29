@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static PopupPanel gameOverPanel;
+    private static PopupPanel gameClearPanel;
     private static PopupPanel pausePanel;
 
     private static float _gameTime = 0;
-    private static bool _isGameOver = false;
     private static bool _isPauseGame = false;
 
     [SerializeField, Tooltip("開始時間")] private float _initTime = 0f;
@@ -24,8 +24,13 @@ public class GameManager : MonoBehaviour
         private void Awake()
         {
             var canvas = transform.GetChild(0);
+            if (canvas.Find("GameClearPanel") == null) Debug.LogError("gameClearPanelをアタッチ or 小林まで連絡");
+
             gameOverPanel = canvas.Find("GameOverPanel").GetComponent<PopupPanel>();
+            gameClearPanel = canvas.Find("GameClearPanel").GetComponent<PopupPanel>();
             pausePanel = canvas.Find("PausePanel").GetComponent<PopupPanel>();
+
+        
         }
 
         private void Start()
@@ -36,7 +41,7 @@ public class GameManager : MonoBehaviour
         private void Update()
         {
 
-            if (Input.GetKeyDown(KeyCode.P) && !_isGameOver)
+            if (Input.GetKeyDown(KeyCode.P) && !gameOverPanel.IsOpen)
             {
                 if (!_isPauseGame) PauseGame(); else ResumeGame();
             }
@@ -57,9 +62,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void GameReset()
     {
+        Time.timeScale = 1;
         _gameTime = _initTime;
         _sharedData.Reset();
-        _isGameOver = false;
         _isPauseGame = false;
         ResumeGame();
     }
@@ -77,12 +82,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void GameOver()
     {
-        _isGameOver = true;
         pausePanel.SetActive(false);
-        Time.timeScale = 1;
         gameOverPanel.Open(() =>
         {
             Time.timeScale = 0;
+            _isPauseGame = true;
         });
     }
     
@@ -91,8 +95,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void GameClear()
     {
-        Debug.Log("クリア");
-        ToTitle();
+        pausePanel.SetActive(false);
+        gameClearPanel.Open(() =>
+        {
+            Time.timeScale = 0;
+            _isPauseGame = true;
+        });
     }
 
 
@@ -111,10 +119,9 @@ public class GameManager : MonoBehaviour
     public static void PauseGame()
     {
         _isPauseGame = true;
-
         pausePanel.Open(() => {
                 
-            if(!_isGameOver) Time.timeScale = 0; 
+            Time.timeScale = 0; 
         });
     }
 
@@ -123,9 +130,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void ResumeGame()
     {
-        Time.timeScale = 1;
         pausePanel.Close(() =>
         {
+            Time.timeScale = 1;
             _isPauseGame = false;
         });
     }
