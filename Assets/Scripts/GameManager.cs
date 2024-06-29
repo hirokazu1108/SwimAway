@@ -1,12 +1,15 @@
+using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private static Canvas gameOverCanvas;
-    private static Canvas pauseCanvas;
+    private static PopupPanel gameOverPanel;
+    private static PopupPanel pausePanel;
 
     private static float _gameTime = 0;
+    private static bool _isGameOver = false;
     private static bool _isPauseGame = false;
 
     [SerializeField, Tooltip("äJénéûä‘")] private float _initTime = 0f;
@@ -20,8 +23,9 @@ public class GameManager : MonoBehaviour
 
         private void Awake()
         {
-            gameOverCanvas = transform.Find("GameOverCanvas").GetComponent<Canvas>();
-            pauseCanvas = transform.Find("PauseCanvas").GetComponent<Canvas>();
+            var canvas = transform.GetChild(0);
+            gameOverPanel = canvas.Find("GameOverPanel").GetComponent<PopupPanel>();
+            pausePanel = canvas.Find("PausePanel").GetComponent<PopupPanel>();
         }
 
         private void Start()
@@ -31,12 +35,13 @@ public class GameManager : MonoBehaviour
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P) && !gameOverCanvas.enabled)
+
+            if (Input.GetKeyDown(KeyCode.P) && !_isGameOver)
             {
                 if (!_isPauseGame) PauseGame(); else ResumeGame();
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && (pauseCanvas.enabled || gameOverCanvas.enabled))
+            if (Input.GetKeyDown(KeyCode.R) && (pausePanel.IsOpen || gameOverPanel.IsOpen))
             {
                 Retry();
             }
@@ -54,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         _gameTime = _initTime;
         _sharedData.Reset();
+        _isGameOver = false;
         _isPauseGame = false;
         ResumeGame();
     }
@@ -71,8 +77,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void GameOver()
     {
-        PauseGame(false);
-        gameOverCanvas.enabled = true;
+        _isGameOver = true;
+        pausePanel.SetActive(false);
+        Time.timeScale = 1;
+        gameOverPanel.Open(() =>
+        {
+            Time.timeScale = 0;
+        });
     }
     
     /// <summary>
@@ -97,11 +108,14 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ÉQÅ[ÉÄÇàÍéûí‚é~
     /// </summary>
-    public static void PauseGame(bool enabelCanvas = true)
+    public static void PauseGame()
     {
         _isPauseGame = true;
-        Time.timeScale = 0;
-        pauseCanvas.enabled = enabelCanvas;
+
+        pausePanel.Open(() => {
+                
+            if(!_isGameOver) Time.timeScale = 0; 
+        });
     }
 
     /// <summary>
@@ -109,9 +123,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void ResumeGame()
     {
-        _isPauseGame = false;
         Time.timeScale = 1;
-        pauseCanvas.enabled = false;
+        pausePanel.Close(() =>
+        {
+            _isPauseGame = false;
+        });
     }
 
     public static void ToTitle()
