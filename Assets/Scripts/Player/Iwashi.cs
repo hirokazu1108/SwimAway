@@ -138,13 +138,13 @@ public class Iwashi : MonoBehaviour
         if (_inputTimer < _inputInterval) return;
         if (IsInvincible) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             SwitchMoveState();
             AddForceAndChangeDirection(GetCurrentDir());
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetMouseButtonDown(1))
         {
             EnterInvincible();
         }
