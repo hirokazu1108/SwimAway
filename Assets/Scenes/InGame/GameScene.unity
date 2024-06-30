@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b4a793f81c12347924276f122921b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initTime: 200
+  _initTime: 0
   _sharedData: {fileID: 11400000, guid: f3aeec8511da7d74889e777d1cae6681, type: 2}
 --- !u!4 &104063633
 Transform:
@@ -6391,7 +6391,7 @@ PrefabInstance:
     - target: {fileID: 7043588304622813835, guid: a3beea3c63384d249a72e4e0b3125f3e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 66
+      value: 340
       objectReference: {fileID: 0}
     - target: {fileID: 7043588304622813835, guid: a3beea3c63384d249a72e4e0b3125f3e,
         type: 3}
