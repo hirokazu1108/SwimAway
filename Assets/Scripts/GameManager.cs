@@ -29,8 +29,6 @@ public class GameManager : MonoBehaviour
             gameOverPanel = canvas.Find("GameOverPanel").GetComponent<PopupPanel>();
             gameClearPanel = canvas.Find("GameClearPanel").GetComponent<PopupPanel>();
             pausePanel = canvas.Find("PausePanel").GetComponent<PopupPanel>();
-
-        
         }
 
         private void Start()

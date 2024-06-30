@@ -2868,6 +2868,16 @@ PrefabInstance:
       objectReference: {fileID: 1545661353}
     - target: {fileID: 8150527871947927124, guid: f7e8fe70c6171e54e91e5c77bcc53026,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150527871947927124, guid: f7e8fe70c6171e54e91e5c77bcc53026,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150527871947927124, guid: f7e8fe70c6171e54e91e5c77bcc53026,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1545661353}
