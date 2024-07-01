@@ -9,7 +9,7 @@ public class Octopus : MonoBehaviour
 
     [SerializeField, Tooltip("墨のエフェクト")] private ParticleSystem _octopusInkParticle;
 
-    private GameObject _tagetObject = null;
+    private GameObject _targetObject = null;
     private Quaternion _originalRotation;
     private bool _enableShootCortine = false; // インク発射のコルーチンが発行されているか
 
@@ -25,27 +25,31 @@ public class Octopus : MonoBehaviour
 
         if (CheckMissingPlayer())
         {
-            _tagetObject = null;
+            _targetObject = null;
         }
+
+        ManageInkShoot();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            _tagetObject = other.gameObject;
+            _targetObject = other.gameObject;
             StartCoroutine(ShootInk(_shootInterval));
         }
     }
 
-
+    /// <summary>
+    /// プレイヤの方向を向く
+    /// </summary>
     private void Look()
     {
         Quaternion rot = Quaternion.identity;
 
-        if (_tagetObject != null)   // プレイヤー発見中
+        if (_targetObject != null)   // プレイヤー発見中
         {
-            Vector3 vector3 = (_tagetObject.transform.position - this.transform.position).normalized;    // 対象物と自分自身の座標からベクトルを算出
+            Vector3 vector3 = (_targetObject.transform.position - this.transform.position).normalized;    // 対象物と自分自身の座標からベクトルを算出
             //vector3.z = 0;  // z軸で回転
             rot = Quaternion.LookRotation(vector3);    // Quaternion(回転値)を取得
         }
@@ -59,10 +63,34 @@ public class Octopus : MonoBehaviour
         this.transform.rotation = rot;
     }
 
+    /// <summary>
+    /// インク発射タイミングの管理
+    /// </summary>
+    private void ManageInkShoot()
+    {
+        if (_targetObject == null) return;
+
+        StartCoroutine(ShootInk(_shootInterval));
+    }
+
+    /// <summary>
+    /// インクの発射処理
+    /// </summary>
+    /// <param name="interval">発射間隔</param>
+    /// <returns></returns>
     private IEnumerator ShootInk(float interval = 1f)
     {
+        if (_enableShootCortine) yield break ;
+
+        _enableShootCortine = true;
         yield return new WaitForSeconds(interval);
-        if(_tagetObject != null)    _octopusInkParticle.Play();
+
+        if (_targetObject != null)
+        {
+            _octopusInkParticle.Play();
+            _enableShootCortine = false;
+        }
+        
         yield break;
     }
 
@@ -72,9 +100,9 @@ public class Octopus : MonoBehaviour
     /// <returns>trueなら見失った</returns>
     private bool CheckMissingPlayer()
     {
-        if (_tagetObject == null) return true;
+        if (_targetObject == null) return true;
 
-        var dist = Vector3.Distance(transform.position, _tagetObject.transform.position);
+        var dist = Vector3.Distance(transform.position, _targetObject.transform.position);
 
         return _missDistance < dist ? true : false;
     }
