@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Iwashi : MonoBehaviour
@@ -17,6 +18,10 @@ public class Iwashi : MonoBehaviour
     // 状態変数
     [SerializeField, Tooltip("現在の状態")] private MoveState _moveState = MoveState.Horizontal;
     [SerializeField, Tooltip("潜在的な方向")] private Vector3 _potentialDirection = new Vector3(1, 1, 0);
+
+    // 座標・位置
+    private Vector3 _spawnPos = Vector3.zero;
+    private float _maxDistance = 0f;
 
     // 移動に利用
     private float _targetSpeed = 0.0f;
@@ -46,14 +51,14 @@ public class Iwashi : MonoBehaviour
     private BoxCollider _collider = null;
     [SerializeField, Tooltip("通常モデルのオブジェクト")] private GameObject _normalModel;
     [SerializeField, Tooltip("無敵モデルのオブジェクト")] private GameObject _invincibleModel;
-    [SerializeField, Tooltip("プレイヤーのシーン共有データ")] private PlayerSharedData _sharedData;
 
     // UI
     [SerializeField, Tooltip("無敵ゲージのUI")] private InvGage _invGage;
     [SerializeField, Tooltip("墨パネルのオブジェクト")] private InkPanel _inkPanel;
 
-    // デバッグ
-    private List<Vector3> _debugDrawList = new List<Vector3>();
+    // リザルトデータ
+    [SerializeField, Tooltip("プレイヤーのシーン共有データ")] private PlayerSharedData _sharedData;
+
 
     // getter
     public float SpeedRate => _speedRate;
@@ -88,6 +93,7 @@ public class Iwashi : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
         _currentDrivePower = _drivePower;
+        _spawnPos = transform.position;
     }
 
     private void Update()
@@ -97,12 +103,17 @@ public class Iwashi : MonoBehaviour
         AdjustSpeed();
         UserInput();
         InvincibleTimer();
-        
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ShowDebugLog();
+        }
     }
 
     private void FixedUpdate()
     {
         Move();
+        MeasureDistance();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -116,16 +127,6 @@ public class Iwashi : MonoBehaviour
     }
     #endregion
 
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        foreach (var d in _debugDrawList)
-        {
-            
-            Gizmos.DrawSphere(d, 0.1f);
-        }
-        
-    }
 
     /// <summary>
     /// ユーザの入力受付メソッド
@@ -373,4 +374,46 @@ public class Iwashi : MonoBehaviour
     }
 
     #endregion
+
+    #region --- 距離の計測処理 ---
+    public void MeasureDistance()
+    {
+        var dist = Vector3.Distance(_spawnPos, transform.position);
+        if(_maxDistance < dist)
+        {
+            _maxDistance = dist;
+        }
+        
+    }
+
+    #endregion
+
+
+    #region --- デバッグ用の処理 ---
+
+    private List<Vector3> _debugDrawList = new List<Vector3>();
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        foreach (var d in _debugDrawList)
+        {
+
+            Gizmos.DrawSphere(d, 0.1f);
+        }
+
+    }
+
+    public void ShowDebugLog()
+    {
+        Debug.Log("----- Debug Show -----");
+
+        Debug.Log($"コイン枚数：{_sharedData.GetCoinNum}");
+        Debug.Log($"最高到達距離：{_maxDistance}");
+
+        Debug.Log("----- End -----");
+    }
+
+    #endregion
+
 }
