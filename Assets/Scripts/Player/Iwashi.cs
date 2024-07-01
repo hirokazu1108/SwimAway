@@ -50,6 +50,7 @@ public class Iwashi : MonoBehaviour
 
     // UI
     [SerializeField, Tooltip("無敵ゲージのUI")] private InvGage _invGage;
+    [SerializeField, Tooltip("墨パネルのオブジェクト")] private InkPanel _inkPanel;
 
     // デバッグ
     private List<Vector3> _debugDrawList = new List<Vector3>();
@@ -361,6 +362,14 @@ public class Iwashi : MonoBehaviour
     public void GetCoin()
     {
         _sharedData.GetCoin();
+    }
+
+    #endregion
+
+    #region --- インクの処理 ---
+    public void ShowerInk()
+    {
+        _inkPanel.StartAnim();
     }
 
     #endregion
