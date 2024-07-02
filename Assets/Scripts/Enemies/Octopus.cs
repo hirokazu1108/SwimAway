@@ -27,17 +27,16 @@ public class Octopus : MonoBehaviour
         {
             _targetObject = null;
         }
-
-        ManageInkShoot();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            _targetObject = other.gameObject;
-            StartCoroutine(ShootInk(_shootInterval));
-        }
+        if (!other.CompareTag("Player")) return;
+        if (_targetObject != null) return;
+        
+        _targetObject = other.gameObject;
+        StartCoroutine(ShootInk(_shootInterval));
+        
     }
 
     /// <summary>
@@ -64,33 +63,23 @@ public class Octopus : MonoBehaviour
     }
 
     /// <summary>
-    /// インク発射タイミングの管理
-    /// </summary>
-    private void ManageInkShoot()
-    {
-        if (_targetObject == null) return;
-
-        StartCoroutine(ShootInk(_shootInterval));
-    }
-
-    /// <summary>
     /// インクの発射処理
     /// </summary>
     /// <param name="interval">発射間隔</param>
     /// <returns></returns>
-    private IEnumerator ShootInk(float interval = 1f)
+    public IEnumerator ShootInk(float interval = 1f)
     {
         if (_enableShootCortine) yield break ;
-
+        Debug.Log("発射待機");
         _enableShootCortine = true;
         yield return new WaitForSeconds(interval);
 
         if (_targetObject != null)
         {
+            Debug.Log("発射");
             _octopusInkParticle.Play();
-            _enableShootCortine = false;
         }
-        
+        _enableShootCortine = false;
         yield break;
     }
 
