@@ -13,7 +13,6 @@ public class InkParticle : MonoBehaviour
 
     private void OnParticleSystemStopped()
     {
-        Debug.Log("END");
         StartCoroutine(_octopus.ShootInk());
     }
 }
