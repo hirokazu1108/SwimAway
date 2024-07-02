@@ -7,7 +7,10 @@ public class TitleUIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("GameScene");
+            if (StageManager.ExistsNextStage())
+            {
+                StageManager.GoNextStage();
+            }
         }
     }
 }
