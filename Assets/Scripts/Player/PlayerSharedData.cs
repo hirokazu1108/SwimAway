@@ -17,8 +17,14 @@ public class PlayerSharedData : ScriptableObject
     /// </summary>
     public void Reset()
     {
+        
         _coinNum = 0;
-        _maxAdvancedDistanceList = new List<float>(StageManager.StageNum());
+        _maxAdvancedDistanceList = new List<float>();
+        for (int i=0; i< StageManager.StageNum(); i++)
+        {
+            _maxAdvancedDistanceList.Add(0);
+        }
+        Debug.Log(_maxAdvancedDistanceList.Count);
     }
 
     /// <summary>
@@ -37,6 +43,7 @@ public class PlayerSharedData : ScriptableObject
     {
         var stage = StageManager.CurrentStageIndex();
         if (_maxAdvancedDistanceList.Count <= stage) return;
+        if (stage < 0) return;
 
         _maxAdvancedDistanceList[stage] = dist;
     }

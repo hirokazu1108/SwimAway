@@ -10,6 +10,7 @@ public class StageManager : MonoBehaviour
         "GameScene",
         "GameScene2",
     };
+
     private static int _nextStageIndex = 0;
 
     public static int StageNum()
@@ -36,14 +37,20 @@ public class StageManager : MonoBehaviour
     public static void GoNextStage()
     {
         if (!ExistsNextStage()) return;
-
-        var nextStage = _stageNameList[_nextStageIndex++];
-        SceneManager.LoadScene(nextStage);
+        GoStageAt(_nextStageIndex);
     }
 
     public static bool IsFirstStage()
     {
         return _nextStageIndex == 1;
+    }
+
+    public static void GoStageAt(int index)
+    {
+        if (StageNum() < index || index < 0) return;
+
+        _nextStageIndex = index + 1;
+        SceneManager.LoadScene(_stageNameList[index]);
     }
 
 }
