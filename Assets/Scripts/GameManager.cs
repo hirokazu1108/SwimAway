@@ -60,9 +60,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void GameReset()
     {
+        //第一ステージのみ
+        if (StageManager.IsFirstStage())
+        {
+            _gameTime = _initTime;
+            _sharedData.Reset();
+        }
+
         Time.timeScale = 1;
-        _gameTime = _initTime;
-        _sharedData.Reset();
         _isPauseGame = false;
         ResumeGame();
     }
@@ -94,11 +99,20 @@ public class GameManager : MonoBehaviour
     public static void GameClear()
     {
         pausePanel.SetActive(false);
-        gameClearPanel.Open(() =>
+
+        if (StageManager.ExistsNextStage())
         {
-            Time.timeScale = 0;
-            _isPauseGame = true;
-        });
+            StageManager.GoNextStage();
+        }
+        else
+        {
+            gameClearPanel.Open(() =>
+            {
+                Time.timeScale = 0;
+                _isPauseGame = true;
+            });
+        }
+        
     }
 
 
@@ -138,7 +152,7 @@ public class GameManager : MonoBehaviour
     public static void ToTitle()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("TitleScene");
+        StageManager.GoTitle();
     }
 
 }

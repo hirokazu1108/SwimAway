@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Iwashi : MonoBehaviour
 {
@@ -382,8 +383,8 @@ public class Iwashi : MonoBehaviour
         if(_maxDistance < dist)
         {
             _maxDistance = dist;
+            _sharedData.UpdateMaxDistance(_maxDistance);
         }
-        
     }
 
     #endregion
