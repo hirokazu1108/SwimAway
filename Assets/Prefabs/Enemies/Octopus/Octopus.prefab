@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d79b47dc94f09a4190034299e729303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootInterval: 2.5
+  _shootInterval: 3
   _rotateSpeed: 10
   _missDistance: 15
   _octopusInkParticle: {fileID: 6222467920749898317}
@@ -177,8 +177,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.552819, y: 2.8148108, z: 3.306248}
-  m_Center: {x: -0.02982527, y: 0.9925947, z: -0.90187097}
+  m_Size: {x: 2.552819, y: 2.8148108, z: 2.991821}
+  m_Center: {x: -0.02982521, y: 0.9925947, z: -1.0590844}
 --- !u!1001 &5672847767214254951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -898,10 +898,55 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7814092577001903866}
     m_Modifications:
+    - target: {fileID: 256660157543332402, guid: d130e2bb7d8b66940b2a5cab647e648a,
+        type: 3}
+      propertyPath: _octopus
+      value: 
+      objectReference: {fileID: 669220441266129914}
     - target: {fileID: 526560008543329024, guid: d130e2bb7d8b66940b2a5cab647e648a,
         type: 3}
       propertyPath: m_Name
       value: InkParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 526560008543329026, guid: d130e2bb7d8b66940b2a5cab647e648a,
+        type: 3}
+      propertyPath: stopAction
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 526560008543329026, guid: d130e2bb7d8b66940b2a5cab647e648a,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 526560008543329026, guid: d130e2bb7d8b66940b2a5cab647e648a,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 526560008543329026, guid: d130e2bb7d8b66940b2a5cab647e648a,
+        type: 3}
+      propertyPath: CollisionModule.collidesWith.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 526560008543329026, guid: d130e2bb7d8b66940b2a5cab647e648a,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minMaxState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 526560008543329026, guid: d130e2bb7d8b66940b2a5cab647e648a,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526560008543329026, guid: d130e2bb7d8b66940b2a5cab647e648a,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 526560008543329026, guid: d130e2bb7d8b66940b2a5cab647e648a,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[1].value
+      value: 0.51933074
       objectReference: {fileID: 0}
     - target: {fileID: 526560008543329027, guid: d130e2bb7d8b66940b2a5cab647e648a,
         type: 3}
@@ -911,7 +956,7 @@ PrefabInstance:
     - target: {fileID: 526560008543329027, guid: d130e2bb7d8b66940b2a5cab647e648a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00000023841858
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 526560008543329027, guid: d130e2bb7d8b66940b2a5cab647e648a,
         type: 3}
@@ -921,7 +966,7 @@ PrefabInstance:
     - target: {fileID: 526560008543329027, guid: d130e2bb7d8b66940b2a5cab647e648a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5000002
+      value: 2.38
       objectReference: {fileID: 0}
     - target: {fileID: 526560008543329027, guid: d130e2bb7d8b66940b2a5cab647e648a,
         type: 3}
