@@ -122,7 +122,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void Retry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        StageManager.GoStageAt(0);
     }
 
     /// <summary>
