@@ -70,13 +70,11 @@ public class Octopus : MonoBehaviour
     public IEnumerator ShootInk(float interval = 1f)
     {
         if (_enableShootCortine) yield break ;
-        Debug.Log("”­ŽË‘Ò‹@");
         _enableShootCortine = true;
         yield return new WaitForSeconds(interval);
 
         if (_targetObject != null)
         {
-            Debug.Log("”­ŽË");
             _octopusInkParticle.Play();
         }
         _enableShootCortine = false;
