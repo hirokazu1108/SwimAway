@@ -20,7 +20,7 @@ public class PopupPanel : MonoBehaviour
     public void Open(UnityAction callback = default)
     {
         if (_isOpen) return;
-
+        SetActive(true);
         _openTweener = transform.DOScale(_maxSize, _duration)
                                 .SetUpdate(true)
                                 .OnComplete(() => {
@@ -38,6 +38,8 @@ public class PopupPanel : MonoBehaviour
                  .SetUpdate(true)
                  .OnComplete(() => {
                      _isOpen = false;
+                     SetActive(false);
+
                      callback();
                  });
     }

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private PopupPanel gameOverPanel;
-    [SerializeField] private PopupPanel gameClearPanel;
+    [SerializeField] private PopupPanel gameResultPanel;
     [SerializeField] private PopupPanel pausePanel;
 
     private float _gameTime = 0;
@@ -57,6 +57,11 @@ public class GameManager : MonoBehaviour
             _sharedData.Reset();
         }
 
+        //UI
+        gameResultPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        pausePanel.SetActive(false);
+
         Time.timeScale = 1;
         _isPauseGame = false;
         ResumeGame();
@@ -89,14 +94,13 @@ public class GameManager : MonoBehaviour
     public void GameClear()
     {
         pausePanel.SetActive(false);
-
         if (StageManager.ExistsNextStage())
         {
             StageManager.GoNextStage();
         }
         else
         {
-            gameClearPanel.Open(() =>
+            gameResultPanel.Open(() =>
             {
                 Time.timeScale = 0;
                 _isPauseGame = true;
