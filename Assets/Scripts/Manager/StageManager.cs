@@ -9,6 +9,7 @@ public class StageManager : MonoBehaviour
     {
         "GameScene",
         "GameScene2",
+        "GameScene3",
     };
 
     private static int _nextStageIndex = 0;

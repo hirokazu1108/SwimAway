@@ -15,12 +15,14 @@ public class DeadWall : Enemy
     // コンポーネント
     private Rigidbody _rb = null;
     private Transform _playerTransform = null;
+    private GameManager _gameManager;
 
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void Update()
@@ -49,7 +51,7 @@ public class DeadWall : Enemy
 
     public override void Hit()
     {
-        GameManager.GameOver();
+        _gameManager.GameOver();
     }
 
 
@@ -58,7 +60,7 @@ public class DeadWall : Enemy
     /// </summary>
     private void adjustSpeed()
     {
-        _targetSpeed = Mathf.Sqrt(GameManager.GameTime);
+        _targetSpeed = Mathf.Sqrt(_gameManager.GameTime);
     }
 
     /// <summary>

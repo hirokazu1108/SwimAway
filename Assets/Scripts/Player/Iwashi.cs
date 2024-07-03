@@ -50,6 +50,7 @@ public class Iwashi : MonoBehaviour
     // コンポーネント
     private Rigidbody _rb = null;
     private BoxCollider _collider = null;
+    [SerializeField] private GameManager _gameManager = null;
     [SerializeField, Tooltip("通常モデルのオブジェクト")] private GameObject _normalModel;
     [SerializeField, Tooltip("無敵モデルのオブジェクト")] private GameObject _invincibleModel;
 
@@ -134,7 +135,7 @@ public class Iwashi : MonoBehaviour
     /// </summary>
     private void UserInput()
     {
-        if (GameManager.IsPauseGame) return;
+        if (_gameManager.IsPauseGame) return;
 
         //キー入力間隔を適応
         _inputTimer += Time.deltaTime;
@@ -170,7 +171,7 @@ public class Iwashi : MonoBehaviour
     /// </summary>
     private void AdjustSpeed()
     {
-        _targetSpeed = Mathf.Sqrt(GameManager.GameTime) + 1;    // 時間による速度変化
+        _targetSpeed = Mathf.Sqrt(_gameManager.GameTime) + 1;    // 時間による速度変化
 
         _targetSpeed *= _speedRate; // 速度調整を行う
 
