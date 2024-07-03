@@ -1,4 +1,3 @@
-using System.Buffers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +10,7 @@ public class GameClearPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        var score = Mathf.Round(_sharedData.GetDistanceSum() * (1 + (0.1f * _sharedData.GetDistanceSum())));
+        var score = 100 * Mathf.Round(_sharedData.GetDistanceSum() + 100 * _sharedData.GetCoinNum);
         _scoreText.text = score.ToString("#,0");
     }
     
