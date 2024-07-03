@@ -48,4 +48,9 @@ public class PopupPanel : MonoBehaviour
     {
         gameObject.SetActive(isOn);
     }
+
+    private void OnDestroy()
+    {
+        DOTween.KillAll();
+    }
 }

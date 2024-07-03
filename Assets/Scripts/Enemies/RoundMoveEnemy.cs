@@ -13,7 +13,7 @@ public class RoundMoveEnemy : MonoBehaviour
     private const float _REACHED_DISTANNCE = 1f;
     private float _currentReachPower = 0;
     [SerializeField] private List<Vector3> _roundPointList = new List<Vector3>();
-    [SerializeField] private Vector3 _targetPoint = Vector3.zero;
+    private Vector3 _targetPoint = Vector3.zero;
     private int _targetIndex = 0;
 
     // コンポーネント
