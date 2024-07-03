@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviour
         //第一ステージのみ
         if (StageManager.IsFirstStage())
         {
-            _gameTime = _initTime;
             _sharedData.Reset();
         }
 
@@ -62,6 +61,7 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(false);
         pausePanel.SetActive(false);
 
+        _gameTime = _initTime + _sharedData.GetElapsedTime;
         Time.timeScale = 1;
         _isPauseGame = false;
         ResumeGame();
@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
         pausePanel.SetActive(false);
         if (StageManager.ExistsNextStage())
         {
+            _sharedData.AddElapsedTime(_gameTime);
             StageManager.GoNextStage();
         }
         else
