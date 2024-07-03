@@ -206,7 +206,7 @@ public class Iwashi : MonoBehaviour
     /// <param name="force"></param>
     public void AddForceAndChangeDirection(Vector3 dir, float power = 1)
     {
-        _rb.velocity = Vector3.zero;
+        _rb.velocity /= 100;
         ChangeAdvanceDirection(dir.normalized);
         _rb.AddForce(GetCurrentDir()*power, ForceMode.Impulse);
     }
@@ -299,7 +299,7 @@ public class Iwashi : MonoBehaviour
     /// <param name="power"></param>
     public void setBound(float power) 
     {
-        _rb.AddForce(GetCurrentDir()*power, ForceMode.Impulse);
+        _rb.AddForce(GetCurrentDir()*power*_rb.velocity.magnitude, ForceMode.Impulse);
     }
 
     #region --- ñ≥ìGÇ…ä÷Ç∑ÇÈèàóù ---
