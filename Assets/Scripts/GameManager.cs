@@ -5,31 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private static PopupPanel gameOverPanel;
-    private static PopupPanel gameClearPanel;
-    private static PopupPanel pausePanel;
+    [SerializeField] private PopupPanel gameOverPanel;
+    [SerializeField] private PopupPanel gameClearPanel;
+    [SerializeField] private PopupPanel pausePanel;
 
-    private static float _gameTime = 0;
-    private static bool _isPauseGame = false;
+    private float _gameTime = 0;
+    private bool _isPauseGame = false;
 
     [SerializeField, Tooltip("開始時間")] private float _initTime = 0f;
     [SerializeField, Tooltip("プレイヤーのシーン共有データ")] private PlayerSharedData _sharedData;
 
     // getter
-    public static float GameTime => _gameTime;
-    public static bool IsPauseGame => _isPauseGame;
+    public float GameTime => _gameTime;
+    public bool IsPauseGame => _isPauseGame;
 
     #region --- Unityライフサイクル ---
-
-        private void Awake()
-        {
-            var canvas = transform.GetChild(0);
-            if (canvas.Find("GameClearPanel") == null) Debug.LogError("gameClearPanelをアタッチ or 小林まで連絡");
-
-            gameOverPanel = canvas.Find("GameOverPanel").GetComponent<PopupPanel>();
-            gameClearPanel = canvas.Find("GameClearPanel").GetComponent<PopupPanel>();
-            pausePanel = canvas.Find("PausePanel").GetComponent<PopupPanel>();
-        }
 
         private void Start()
         {
@@ -83,7 +73,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ゲームオーバー処理
     /// </summary>
-    public static void GameOver()
+    public void GameOver()
     {
         pausePanel.SetActive(false);
         gameOverPanel.Open(() =>
@@ -96,7 +86,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ゲームクリア処理
     /// </summary>
-    public static void GameClear()
+    public void GameClear()
     {
         pausePanel.SetActive(false);
 
@@ -120,7 +110,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ゲームをはじめから読み込む
     /// </summary>
-    public static void Retry()
+    public void Retry()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         StageManager.GoStageAt(0);
@@ -129,7 +119,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ゲームを一時停止
     /// </summary>
-    public static void PauseGame()
+    public void PauseGame()
     {
         _isPauseGame = true;
         pausePanel.Open(() => {
@@ -141,7 +131,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ゲームを再開
     /// </summary>
-    public static void ResumeGame()
+    public void ResumeGame()
     {
         pausePanel.Close(() =>
         {
@@ -150,7 +140,7 @@ public class GameManager : MonoBehaviour
         });
     }
 
-    public static void ToTitle()
+    public void ToTitle()
     {
         Time.timeScale = 1;
         StageManager.GoTitle();

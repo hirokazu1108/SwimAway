@@ -5,6 +5,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject _gameOverPanel;
 
+    
+
     public void openGameOverPanel()
     {
         _gameOverPanel.SetActive(true);
@@ -13,6 +15,6 @@ public class UIManager : MonoBehaviour
     public void OnClickRetry()
     {
         _gameOverPanel.SetActive(false);
-        GameManager.Retry();
+        //GameManager.Retry();
     }
 }
