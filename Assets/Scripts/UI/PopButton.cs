@@ -32,4 +32,11 @@ public class PopButton : MonoBehaviour
         });
 
     }
+
+
+
+    private void OnDestroy()
+    {
+        DOTween.KillAll();
+    }
 }

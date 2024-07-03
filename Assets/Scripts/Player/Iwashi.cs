@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Iwashi : MonoBehaviour
 {
@@ -140,10 +141,20 @@ public class Iwashi : MonoBehaviour
         if (_inputTimer < _inputInterval) return;
         if (IsInvincible) return;
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SwitchMoveState();
             AddForceAndChangeDirection(GetCurrentDir());
+        }
+
+        if (Input.GetMouseButtonDown(0)){
+            var clickObj = EventSystem.current.currentSelectedGameObject;
+
+            if (!clickObj)
+            {
+                SwitchMoveState();
+                AddForceAndChangeDirection(GetCurrentDir());
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetMouseButtonDown(1))

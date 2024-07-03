@@ -1539,7 +1539,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57872260301da5b4d8cc040ba221f22e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visibleSeconds: 1.5
+  _visibleSeconds: 2
+  _selfPopupPanel: {fileID: 8921760564585108378}
   _resultPopupPanel: {fileID: 8921760563847877823}
 --- !u!1 &8921760564699308770
 GameObject:
