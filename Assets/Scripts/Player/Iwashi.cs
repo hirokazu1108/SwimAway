@@ -319,21 +319,27 @@ public class Iwashi : MonoBehaviour
         _invincibleModel.SetActive(true);
         setSpeedRate(_speedRate * _invincibleSpeedRate);
         AddForceAndChangeDirection(Vector3.right);
-        Invoke("ExitInvincible", _invincibleTime);  // èIóπèàóùÇìoò^
+        StartCoroutine(ExitInvincible());
     }
 
     /// <summary>
     /// ñ≥ìGÉÇÅ[ÉhèIóπ
     /// </summary>
-    private void ExitInvincible()
+    private IEnumerator ExitInvincible()
     {
+        yield return new WaitForSeconds(_invincibleTime);
+
         _invGage?.SetInvincibleVisible(false);
-        _isInvincible = false;
         _collider.isTrigger = false;
         _normalModel.SetActive(true);
         _invincibleModel.SetActive(false);
         setSpeedRate(_speedRate / _invincibleSpeedRate);
+        
+        yield return new WaitForSeconds(1f);
+        _isInvincible = false;
         _invincibledElapsedTime = 0;
+
+        yield break;
     }
 
     private void InvincibleTimer()
