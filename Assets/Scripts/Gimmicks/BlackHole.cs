@@ -8,9 +8,12 @@ public class BlackHole: MonoBehaviour
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (!collision.gameObject.CompareTag("Player")) return;
+        if (!other.CompareTag("Player")) return;
+
+        var player = other.gameObject.GetComponent<Iwashi>();
+        if (player.IsInvincible) return;
 
         _gameManager.GameOver();
     }
