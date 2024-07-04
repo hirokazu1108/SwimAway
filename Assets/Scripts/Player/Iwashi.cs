@@ -328,15 +328,16 @@ public class Iwashi : MonoBehaviour
     private IEnumerator ExitInvincible()
     {
         yield return new WaitForSeconds(_invincibleTime);
-
+        // ŒQ‚ê‰ğœ
         _invGage?.SetInvincibleVisible(false);
-        _collider.isTrigger = false;
+        _isInvincible = false;
         _normalModel.SetActive(true);
         _invincibleModel.SetActive(false);
         setSpeedRate(_speedRate / _invincibleSpeedRate);
         
+        // –³“Gó‘Ô‰ğœ
         yield return new WaitForSeconds(1f);
-        _isInvincible = false;
+        _collider.isTrigger = false;
         _invincibledElapsedTime = 0;
 
         yield break;
