@@ -4548,10 +4548,10 @@ Transform:
   - {fileID: 24615406}
   - {fileID: 2127065540}
   - {fileID: 622544387}
-  - {fileID: 54087671}
-  - {fileID: 553335348}
   - {fileID: 1575967255}
+  - {fileID: 54087671}
   - {fileID: 1164737823}
+  - {fileID: 553335348}
   m_Father: {fileID: 868235470}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6874,7 +6874,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1946536420
 Transform:
   m_ObjectHideFlags: 0
@@ -6883,7 +6883,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946536419}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 71, y: 0, z: 0}
+  m_LocalPosition: {x: 344.32, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 21, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7991,7 +7991,7 @@ PrefabInstance:
     - target: {fileID: 778005753491713676, guid: 623cafaa9427eae45ad9f2b4b6def997,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 778005753491713682, guid: 623cafaa9427eae45ad9f2b4b6def997,
         type: 3}
