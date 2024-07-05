@@ -6423,7 +6423,7 @@ PrefabInstance:
     - target: {fileID: 669220441266129914, guid: 5d139196015482f45b8cd6ff76e1ba07,
         type: 3}
       propertyPath: _shootInterval
-      value: 1.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5672847766394667773, guid: 5d139196015482f45b8cd6ff76e1ba07,
         type: 3}
