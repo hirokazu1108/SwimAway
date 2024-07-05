@@ -6278,6 +6278,11 @@ PrefabInstance:
       propertyPath: _gameManager
       value: 
       objectReference: {fileID: 1763036465}
+    - target: {fileID: 7075522587934143739, guid: 851f1c3b480f4c1448115e5cfde162a6,
+        type: 3}
+      propertyPath: _invincibleExitDistance
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7075522587934143740, guid: 851f1c3b480f4c1448115e5cfde162a6,
         type: 3}
       propertyPath: m_RootOrder

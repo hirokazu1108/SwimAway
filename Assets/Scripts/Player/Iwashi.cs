@@ -41,6 +41,8 @@ public class Iwashi : MonoBehaviour
     [SerializeField, Tooltip("–³“G’†‚Ì‘¬“x”{—¦")] private float _invincibleSpeedRate;
     [SerializeField, Tooltip("–Ú•W’l‚É“’B‚·‚é‚Ü‚Å‚Ì‚¨‚¨‚æ‚»‚ÌŠÔ[s]")] private float _invincibleSmoothTime;
     private float _currentInvincibleVelocity = 0;
+    private Vector3 _invincibleStartPoint = Vector3.zero;
+    [SerializeField, Tooltip("–³“GÁ–Å‹——£")] private float _invincibleExitDistance = 0f;
 
     // “ü—Í
     [SerializeField, Tooltip("ƒL[“ü—Í‚Ìó•tŠÔŠu")] private float _inputInterval;
@@ -109,6 +111,8 @@ public class Iwashi : MonoBehaviour
         {
             ShowDebugLog();
         }
+
+        InvisibleDistance();
     }
 
     private void FixedUpdate()
@@ -319,7 +323,10 @@ public class Iwashi : MonoBehaviour
         _invincibleModel.SetActive(true);
         setSpeedRate(_speedRate * _invincibleSpeedRate);
         AddForceAndChangeDirection(Vector3.right);
-        Invoke("ExitInvincible", _invincibleTime);  // I—¹ˆ—‚ğ“o˜^
+
+        _invincibleStartPoint = transform.position;
+
+        //Invoke("ExitInvincible", _invincibleTime);  // I—¹ˆ—‚ğ“o˜^
     }
 
     /// <summary>
@@ -334,6 +341,7 @@ public class Iwashi : MonoBehaviour
         _invincibleModel.SetActive(false);
         setSpeedRate(_speedRate / _invincibleSpeedRate);
         _invincibledElapsedTime = 0;
+        
     }
 
     private void InvincibleTimer()
@@ -343,6 +351,17 @@ public class Iwashi : MonoBehaviour
         // –³“Gg—p‰Â”\@‚©‚Â –³“G‚¶‚á‚È‚¢
         if (_invincibleCanUseTime < _invincibledElapsedTime && !_isInvincible){
             _invGage.StartFlash();
+        }
+    }
+
+    private void InvisibleDistance()
+    {
+        if(!IsInvincible) return;
+
+        if(Vector3.Distance(_invincibleStartPoint, transform.position) > _invincibleExitDistance)
+        {
+            Debug.Log("log");
+            ExitInvincible();
         }
     }
 
