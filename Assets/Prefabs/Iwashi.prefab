@@ -227,6 +227,7 @@ MonoBehaviour:
   _invincibleTime: 5
   _invincibleSpeedRate: 2
   _invincibleSmoothTime: 0.5
+  _invincibleExitDistance: 50
   _inputInterval: 0.2
   _gameManager: {fileID: 0}
   _normalModel: {fileID: 7993932905899981364}
