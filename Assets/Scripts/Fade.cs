@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Fade : MonoBehaviour
 {
-    [SerializeField] Image fadeImage;
-    [SerializeField] Text stageText;
+    [SerializeField] 
+    private Image fadeImage;
     
     private float Speed = 0.001f;
     private float red, green, blue, alfa;
