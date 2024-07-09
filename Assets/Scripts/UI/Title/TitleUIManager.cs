@@ -6,6 +6,14 @@ public class TitleUIManager : MonoBehaviour
     [SerializeField] private PopupPanel _creditPanel;
     [SerializeField] private Scrollbar _creditScrollbar;
 
+    [SerializeField] private AudioClip _clickAudioClip;
+    private AudioSource _audioSource;
+
+    private void Start()
+    {
+        _audioSource = GameObject.Find("Music").GetComponent<AudioSource>();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -21,6 +29,7 @@ public class TitleUIManager : MonoBehaviour
     {
         if (StageManager.ExistsNextStage())
         {
+            _audioSource.PlayOneShot(_clickAudioClip);
             StageManager.GoNextStage();
         }
     }
