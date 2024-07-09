@@ -1703,6 +1703,8 @@ MonoBehaviour:
   _visibleSeconds: 2
   _selfPopupPanel: {fileID: 8921760564585108378}
   _resultPopupPanel: {fileID: 8921760563847877823}
+  audioSource: {fileID: 6168684629557255667, guid: 7c31feadf35ac0b4b9408a97d87d6c18,
+    type: 3}
 --- !u!1 &8921760564699308770
 GameObject:
   m_ObjectHideFlags: 0

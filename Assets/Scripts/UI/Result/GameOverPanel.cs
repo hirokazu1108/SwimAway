@@ -7,6 +7,7 @@ public class GameOverPanel : MonoBehaviour
 
     [SerializeField, Tooltip("ゲームオーバーPopupPanelコンポーネント")] private PopupPanel _selfPopupPanel;
     [SerializeField, Tooltip("リザルトPopupPanelコンポーネント")] private PopupPanel _resultPopupPanel;
+    public MusicManeger m;
 
     private void OnEnable()
     {
