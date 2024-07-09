@@ -8,9 +8,12 @@ public class Fade : MonoBehaviour
 {
     [SerializeField] 
     private Image fadeImage;
+    [SerializeField]
+    private TextMeshProUGUI stageText;
     
     private float Speed = 0.001f;
-    private float red, green, blue, alfa;
+    private float Speed2 = 0.005f;
+    private float red, green, blue, alfa, alfaText;
 
     public bool fadeOut = false;
     public bool fadeIn = false;
@@ -22,6 +25,8 @@ public class Fade : MonoBehaviour
         green = fadeImage.color.g;
         blue = fadeImage.color.b;
         alfa = fadeImage.color.a;
+
+        alfaText = stageText.color.a;
 
         fadeIn = true;
     }
@@ -43,6 +48,7 @@ public class Fade : MonoBehaviour
     void FadeIn()
     {
         alfa -= Speed;
+        alfaText -= Speed2;
         Alpha();
         if(alfa <= 0)
         {
@@ -55,6 +61,7 @@ public class Fade : MonoBehaviour
     {
         fadeImage.enabled = true;
         alfa += Speed;
+        alfaText += Speed2;
         Alpha();
         if(alfa >= 1)
         {
@@ -65,5 +72,6 @@ public class Fade : MonoBehaviour
     void Alpha()
     {
         fadeImage.color = new Color(red, green, blue, alfa);
+        stageText.color = new Color(255, 255, 255, alfaText);
     }
 }
