@@ -360,7 +360,6 @@ public class Iwashi : MonoBehaviour
 
         if(Vector3.Distance(_invincibleStartPoint, transform.position) > _invincibleExitDistance)
         {
-            Debug.Log("log");
             ExitInvincible();
         }
     }

@@ -796,7 +796,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1498,6 +1498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _creditPanel: {fileID: 27792148}
   _creditScrollbar: {fileID: 1833813040}
+  _clickAudioClip: {fileID: 8300000, guid: 2ef42902c7adfb54fa55854bf3649617, type: 3}
 --- !u!1 &1441167850
 GameObject:
   m_ObjectHideFlags: 0
