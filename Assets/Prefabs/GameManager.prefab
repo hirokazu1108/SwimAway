@@ -531,6 +531,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _clickAudioClip: {fileID: 8300000, guid: 2ef42902c7adfb54fa55854bf3649617, type: 3}
 --- !u!1 &3491681972698158227
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,6 +695,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _clickAudioClip: {fileID: 8300000, guid: 2ef42902c7adfb54fa55854bf3649617, type: 3}
 --- !u!1 &3491681972947620286
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,6 +859,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _clickAudioClip: {fileID: 8300000, guid: 2ef42902c7adfb54fa55854bf3649617, type: 3}
 --- !u!1 &3491681974232817773
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,6 +1522,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _clickAudioClip: {fileID: 8300000, guid: 2ef42902c7adfb54fa55854bf3649617, type: 3}
 --- !u!1 &8921760564493094446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,7 +1973,6 @@ MonoBehaviour:
   - 25
   - 30
   - 35
-  audioSource: {fileID: 0}
 --- !u!82 &4660800680227725940
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2321,6 +2324,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _clickAudioClip: {fileID: 8300000, guid: 2ef42902c7adfb54fa55854bf3649617, type: 3}
 --- !u!1 &8921760565423128875
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,3 +2488,4 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _clickAudioClip: {fileID: 8300000, guid: 2ef42902c7adfb54fa55854bf3649617, type: 3}

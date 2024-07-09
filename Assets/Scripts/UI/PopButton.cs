@@ -11,6 +11,15 @@ public class PopButton : MonoBehaviour
 
     private Tweener _tweener = null;
 
+    [SerializeField] private AudioClip _clickAudioClip;
+    private AudioSource _audioSource;
+
+    private void Start()
+    {
+        _audioSource = GameObject.Find("Music").GetComponent<AudioSource>();
+    }
+
+
     public void OnClick()
     {
         if (_tweener != null)
@@ -19,6 +28,8 @@ public class PopButton : MonoBehaviour
             _tweener = null;
             transform.localScale = Vector3.one;
         }
+
+        _audioSource.PlayOneShot(_clickAudioClip);
 
         _tweener = transform.DOPunchScale(
             punch: Vector3.one * _popScale,
