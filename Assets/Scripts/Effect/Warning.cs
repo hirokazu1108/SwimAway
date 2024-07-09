@@ -11,6 +11,8 @@ public class Warning : MonoBehaviour
     private float time;
     private float distanceOfDeath;
 
+    private int warningFlag = 0;
+    private bool musicflag = false;
     //music
     private WarningMusic music;
 
@@ -23,7 +25,7 @@ public class Warning : MonoBehaviour
         kajiki = GameObject.FindGameObjectWithTag("LimitWall");
         music = GameObject.Find("Warning").GetComponent<WarningMusic>();
         
-        music.startMusic();
+       
     }
 
     void Update()
@@ -31,7 +33,13 @@ public class Warning : MonoBehaviour
         distanceOfDeath = iwashi.transform.position.x - kajiki.transform.position.x;
         img.color = GetImgColor(img.color);
         
-         
+        if (warningFlag == 1){
+             music.startMusic();
+        }
+        else if(warningFlag == 0){
+              music.stopMusic();
+        }
+        else{}
     }
 
     Color GetImgColor(Color color)
@@ -41,7 +49,17 @@ public class Warning : MonoBehaviour
         if (distanceOfDeath <= dis[0])
         {
             color.a = (Mathf.Sin(time) + 0.2f) / 2.0f;
-            
+            if(musicflag == false && warningFlag != 1){
+                warningFlag = 1;
+                musicflag = true;
+            }
+            else if(musicflag == true && warningFlag == 1){
+                warningFlag = 3;
+            }
+            else if(musicflag == true && warningFlag == 3){
+                warningFlag = 3;
+            }
+
         }
         else if(distanceOfDeath <= dis[1] && distanceOfDeath > dis[0])
         {
@@ -54,7 +72,8 @@ public class Warning : MonoBehaviour
         else if(distanceOfDeath > dis[2])
         {
             color.a = 0;
-            //music.stopMusic();
+            warningFlag = 0;
+            musicflag = false;
         }
 
         color.r = 0.3f; // ê‘êF
