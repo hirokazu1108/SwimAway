@@ -16,11 +16,15 @@ public class GameManager : MonoBehaviour
     public float GameTime => _gameTime;
     public bool IsPauseGame => _isPauseGame;
 
+    //music
+    private MusicManeger music;
+
     #region --- Unityライフサイクル ---
 
         private void Start()
         {
             GameReset();
+            music = GameObject.Find("Music").GetComponent<MusicManeger>();
         }
 
         private void Update()
@@ -78,6 +82,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         pausePanel.SetActive(false);
+        music.stopMusic();
         gameOverPanel.Open(() =>
         {
             Time.timeScale = 0;
@@ -115,6 +120,7 @@ public class GameManager : MonoBehaviour
     public void Retry()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        music.startMusic();
         StageManager.GoStageAt(0);
     }
 
@@ -145,6 +151,7 @@ public class GameManager : MonoBehaviour
     public void ToTitle()
     {
         Time.timeScale = 1;
+        music.startMusic();
         StageManager.GoTitle();
     }
 
