@@ -5,22 +5,24 @@ using UnityEngine.UI;
 
 public class Fade : MonoBehaviour
 {
-    private float Speed = 0.02f;
+    [SerializeField] Image fadeImage;
+    [SerializeField] Text stageText;
+    
+    private float Speed = 0.001f;
     private float red, green, blue, alfa;
 
     public bool fadeOut = false;
     public bool fadeIn = false;
 
-    Image fadeImage;
-
     // Start is called before the first frame update
     void Start()
     {
-        fadeImage = GetComponent<Image>();
         red = fadeImage.color.r;
         green = fadeImage.color.g;
         blue = fadeImage.color.b;
         alfa = fadeImage.color.a;
+
+        fadeIn = true;
     }
 
     // Update is called once per frame
