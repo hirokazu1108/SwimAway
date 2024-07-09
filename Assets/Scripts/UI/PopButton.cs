@@ -29,14 +29,14 @@ public class PopButton : MonoBehaviour
 
         _tweener.OnComplete(() => {
              callbackEvent.Invoke();
+            _tweener = null;
         });
 
     }
 
-
-
     private void OnDestroy()
     {
-        DOTween.KillAll();
+        _tweener.Kill();
+        _tweener = null;
     }
 }
