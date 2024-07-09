@@ -1703,8 +1703,7 @@ MonoBehaviour:
   _visibleSeconds: 2
   _selfPopupPanel: {fileID: 8921760564585108378}
   _resultPopupPanel: {fileID: 8921760563847877823}
-  audioSource: {fileID: 6168684629557255667, guid: 7c31feadf35ac0b4b9408a97d87d6c18,
-    type: 3}
+  m: {fileID: 0}
 --- !u!1 &8921760564699308770
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,6 +2072,7 @@ GameObject:
   - component: {fileID: 8921760565336731549}
   - component: {fileID: 8921760565336731548}
   - component: {fileID: 8921760565336731523}
+  - component: {fileID: 3229035507800336333}
   m_Layer: 0
   m_Name: PauseButton
   m_TagString: Untagged
@@ -2097,8 +2097,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 715, y: 360}
-  m_SizeDelta: {x: 130, y: 130}
+  m_AnchoredPosition: {x: 705, y: 345}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8921760565336731549
 CanvasRenderer:
@@ -2182,6 +2182,35 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 3229035507800336333}
+        m_TargetAssemblyTypeName: PopButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3229035507800336333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8921760565336731521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad0c3b51090acdb43b9ffe85154b338b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _popScale: 0.1
+  _popDuration: 0.2
+  callbackEvent:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 778005753491713683}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: PauseGame
@@ -2192,7 +2221,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8921760565423128875
 GameObject:
