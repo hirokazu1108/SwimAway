@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     //music
     private MusicManeger music;
+    private WarningMusic music2;
 
     #region --- Unityライフサイクル ---
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         {
             GameReset();
             music = GameObject.Find("Music").GetComponent<MusicManeger>();
+            music2 = GameObject.Find("Warning").GetComponent<WarningMusic>();
         }
 
         private void Update()
@@ -83,6 +85,7 @@ public class GameManager : MonoBehaviour
     {
         pausePanel.SetActive(false);
         music.stopMusic();
+        music2.stopMusic();
         gameOverPanel.Open(() =>
         {
             Time.timeScale = 0;
