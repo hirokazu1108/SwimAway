@@ -20,6 +20,11 @@ public class TitleUIManager : MonoBehaviour
         {
             StartGame();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     /// <summary>
