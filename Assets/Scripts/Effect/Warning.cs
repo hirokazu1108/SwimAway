@@ -23,9 +23,12 @@ public class Warning : MonoBehaviour
 
         iwashi = GameObject.FindGameObjectWithTag("Player");
         kajiki = GameObject.FindGameObjectWithTag("LimitWall");
-        music = GameObject.Find("Warning").GetComponent<WarningMusic>();
-        
-       
+        music = GameObject.Find("Warning")?.GetComponent<WarningMusic>();
+        if (!music)
+        {
+            Debug.Log("Warning is not found.");
+        }
+
     }
 
     void Update()
@@ -34,10 +37,10 @@ public class Warning : MonoBehaviour
         img.color = GetImgColor(img.color);
         
         if (warningFlag == 1){
-             music.startMusic();
+             music?.startMusic();
         }
         else if(warningFlag == 0){
-              music.stopMusic();
+              music?.stopMusic();
         }
         else{}
     }

@@ -25,8 +25,13 @@ public class GameManager : MonoBehaviour
         private void Start()
         {
             GameReset();
-            music = GameObject.Find("Music").GetComponent<MusicManeger>();
-            music2 = GameObject.Find("Warning").GetComponent<WarningMusic>();
+
+            music = GameObject.Find("Music")?.GetComponent<MusicManeger>();
+            music2 = GameObject.Find("Warning")?.GetComponent<WarningMusic>();
+            if (!music || !music2)
+            {
+                Debug.Log("Music or Warning is not found.");
+            }
         }
 
         private void Update()
@@ -84,8 +89,8 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         pausePanel.SetActive(false);
-        music.stopMusic();
-        music2.stopMusic();
+        music?.stopMusic();
+        music2?.stopMusic();
         gameOverPanel.Open(() =>
         {
             Time.timeScale = 0;
@@ -123,7 +128,7 @@ public class GameManager : MonoBehaviour
     public void Retry()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        music.startMusic();
+        music?.startMusic();
         StageManager.GoStageAt(0);
     }
 
@@ -154,7 +159,7 @@ public class GameManager : MonoBehaviour
     public void ToTitle()
     {
         Time.timeScale = 1;
-        music.startMusic();
+        music?.startMusic();
         StageManager.GoTitle();
     }
 
