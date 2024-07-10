@@ -16,7 +16,11 @@ public class PopButton : MonoBehaviour
 
     private void Start()
     {
-        _audioSource = GameObject.Find("Music").GetComponent<AudioSource>();
+        _audioSource = GameObject.Find("Music")?.GetComponent<AudioSource>();
+        if (!_audioSource)
+        {
+            Debug.Log("Audiosoruce is not found.");
+        }
     }
 
 
@@ -29,7 +33,7 @@ public class PopButton : MonoBehaviour
             transform.localScale = Vector3.one;
         }
 
-        _audioSource.PlayOneShot(_clickAudioClip);
+        _audioSource?.PlayOneShot(_clickAudioClip);
 
         _tweener = transform.DOPunchScale(
             punch: Vector3.one * _popScale,
