@@ -1356,7 +1356,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
   m_Text: "\n\u52B9\u679C\u97F3\n\u30FBOtoLogic\u69D8 \r\n\u30FB\u30DD\u30B1\u30C3\u30C8\u30B5\u30A6\u30F3\u30C9
-    \u2013 https://pocket-se.info/"
+    \u2013 https://pocket-se.info/\n\n\u30A2\u30BB\u30C3\u30C8\n\u30FBFree Stylized
+    Smoke Effects Pack\r\n\u30FBRock and Boulders "
 --- !u!222 &1083299933
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1853,8 +1854,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 632517183}
   m_HandleRect: {fileID: 632517182}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 1.0000007
+  m_Size: 0.8869793
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
