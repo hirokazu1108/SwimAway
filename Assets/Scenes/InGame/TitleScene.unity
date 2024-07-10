@@ -794,7 +794,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 449ca277952fcee4797dbe5b8a5383c1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.733
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -990,7 +990,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 0.1
+  m_ScrollSensitivity: 4
   m_Viewport: {fileID: 2123200752}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1833813040}
@@ -1357,7 +1357,7 @@ MonoBehaviour:
     m_LineSpacing: 1.5
   m_Text: "\n\u52B9\u679C\u97F3\n\u30FBOtoLogic\u69D8 \r\n\u30FB\u30DD\u30B1\u30C3\u30C8\u30B5\u30A6\u30F3\u30C9
     \u2013 https://pocket-se.info/\n\n\u30A2\u30BB\u30C3\u30C8\n\u30FBFree Stylized
-    Smoke Effects Pack\r\n\u30FBRock and Boulders "
+    Smoke Effects Pack\r\n\u30FBRock and Boulders \n"
 --- !u!222 &1083299933
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1854,8 +1854,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 632517183}
   m_HandleRect: {fileID: 632517182}
   m_Direction: 2
-  m_Value: 1.0000007
-  m_Size: 0.8869793
+  m_Value: 1.0000004
+  m_Size: 0.79129475
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
